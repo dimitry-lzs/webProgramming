@@ -11,6 +11,7 @@ public abstract class User {
 
     public User(UserType type) {
         this.type = type;
+        System.out.println("User " + type + " created");
         count++;
     }
 
