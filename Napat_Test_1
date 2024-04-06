@@ -1,6 +1,0 @@
-//This is Java Test 2 by Napat.
-
-static void main()
-{
-    System.out.println("TEST 2 BY NAPAT");
-}
