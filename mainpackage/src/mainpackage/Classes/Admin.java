@@ -5,8 +5,8 @@ public class Admin extends User {
     private Program[] programs;
     private Seller[] sellers;
 
-    public Admin() {
-        super(UserType.ADMIN);
+    public Admin(String username, String name, String surname) {
+        super(UserType.ADMIN, username, name, surname);
         this.programs = new Program[0]; // Initialize programs as an empty array
         this.sellers = new Seller[0]; // Initialize sellers as an empty array
         System.out.println("Admin" + getSurname() + "was created");
@@ -26,7 +26,7 @@ public class Admin extends User {
     }
 
     public Seller createSeller(String username, String name, String surname, String afm, PhoneNumber phonenumber) {
-        Seller seller = new Seller();
+        Seller seller = new Seller(username, name, surname);
         Seller[] newSellers = new Seller[sellers.length + 1];
 
         for (int i = 0; i < sellers.length; i++) {
