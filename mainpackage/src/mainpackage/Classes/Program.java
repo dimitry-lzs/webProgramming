@@ -2,7 +2,7 @@ package mainpackage.Classes;
 
 //The payment program.
 public class Program {
-    
+
     private String ProgramName;
     private int CallTime;
     private int Pagio;  //Idk
@@ -13,7 +13,7 @@ public class Program {
     public void setProgramName(String programName) {
         this.ProgramName = programName;
     }
-    
+
     public int getCallTime() {
         return CallTime;
     }
@@ -37,13 +37,13 @@ public class Program {
     public void printProgram() {
         System.out.println(
             "PROGRAM INFO\n" +
-            "Name: "+ProgramName + "\n" +
-            "Call Time: "+CallTime + "\n" +
-            "Pagio: "+Pagio + "\n" +
-            "\n" 
+            "Name: " + ProgramName + "\n" +
+            "Call Time: "+ CallTime + "\n" +
+            "Invoice: "+ Pagio + "\n" +
+            "\n"
             );
-    }    
+    }
 
-    
+
 
 }
