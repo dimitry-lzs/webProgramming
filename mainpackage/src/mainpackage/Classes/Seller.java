@@ -3,22 +3,23 @@ import mainpackage.enums.UserType;
 
 public class Seller extends User {
 
-    Client clientarray[];
+    Client[] clientarray = new Client[5];
     PhoneNumber numberarray[];
 
-    public Seller() {
-        super(UserType.SELLER);
+    public Seller(String username, String name, String surname) {
+        super(UserType.SELLER, username, name, surname);
         System.out.println("Seller" + getSurname() + "was created");
     }
 
-    public void addClient(PhoneNumber phonenum){
+    public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){
         System.out.println("Adding client...");
 
-        //Creating new phone number.
-        Client newclient = new Client();
-        
-
-
+        //Creating new client.
+        Client newclient = new Client(afm, phonenum, "ClientUsername", "ClientName", "ClientSurname");
+        //Adding client to client array.
+        clientarray[0] = newclient;
+        //Return client.
+        return newclient;
     }
     public void issueUser(){
         System.out.println("Issuing user...");

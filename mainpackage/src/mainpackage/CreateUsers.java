@@ -4,9 +4,9 @@ import mainpackage.Classes.*;
 
 public class CreateUsers {
     public static void main(String[] args) {
-        Admin admin = new Admin();
+        Admin admin = new Admin("AdminUsername", "AdminName", "AdminSurname");
         System.out.println(admin.getType());
-        Seller seller = new Seller();
+        Seller seller = new Seller("SellerUsername", "SellerName", "SellerSurname");
         System.out.println(seller.getType());
 
         //Test classes
@@ -16,7 +16,8 @@ public class CreateUsers {
         PhoneNumber phonenumber = new PhoneNumber("1234567890", program);
         phonenumber.printPhoneNumber();
 
-        Client client = new Client("1234567890", phonenumber);
+        //Create Client through Seller.
+        Client client = seller.addClient("ClientAFM", phonenumber, "ClientUsername", "ClientName", "ClientSurname");
         System.out.println(client.getType());
 
         System.out.println(User.getCount()); // 3

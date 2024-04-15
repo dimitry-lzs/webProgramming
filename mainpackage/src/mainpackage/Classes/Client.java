@@ -6,8 +6,8 @@ public class Client extends User {
     private PhoneNumber phonenumber;
     private Bill[] bills;   // An array that contains bills.
 
-    public Client(String afm, PhoneNumber phonenumber) {
-        super(UserType.CLIENT);
+    public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
+        super(UserType.CLIENT, username, name, surname);
         this.afm = afm;
         this.phonenumber = phonenumber;
     }

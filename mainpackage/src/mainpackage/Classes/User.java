@@ -9,8 +9,12 @@ public abstract class User {
     private String name;
     private String surname;
 
-    public User(UserType type) {
+    public User(UserType type, String username, String name, String surname) {
         this.type = type;
+        this.username = username;
+        this.name = username;
+        this.surname = username;
+
         System.out.println("User " + type + " created");
         count++;
     }
