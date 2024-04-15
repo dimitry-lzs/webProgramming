@@ -4,7 +4,16 @@ public class Bill {
     private int month; //1-12
     private PhoneNumber phonenumber;
     private Call[] calls;   //An array that contains calls.
-    
+    private boolean paid;   //True if the bill is paid, false if it is not paid.
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
     public int getMonth() {
         return month;
     }
@@ -39,5 +48,5 @@ public class Bill {
             calls[i].printCall();
         }
     }
-    
+
 }
