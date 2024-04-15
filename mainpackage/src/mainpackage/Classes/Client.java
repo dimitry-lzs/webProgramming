@@ -9,6 +9,5 @@ public class Client extends User {
         super(UserType.CLIENT);
         this.afm = afm;
         this.phonenumber = phonenumber;
-        System.out.println("Client" + getSurname() + "was created");
     }
 }
