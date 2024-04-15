@@ -2,10 +2,10 @@ package mainpackage.Classes;
 
 //The payment program.
 public class Program {
-    
+
     private String ProgramName;
     private int CallTime;
-    private int Pagio;  //Idk
+    private int fee;  //Ik
 
     public String getProgramName() {
         return ProgramName;
@@ -13,7 +13,7 @@ public class Program {
     public void setProgramName(String programName) {
         this.ProgramName = programName;
     }
-    
+
     public int getCallTime() {
         return CallTime;
     }
@@ -22,28 +22,28 @@ public class Program {
     }
 
     public int getPagio() {
-        return Pagio;
+        return fee;
     }
-    public void setPagio(int pagio) {
-        this.Pagio = pagio;
+    public void setPagio(int fee) {
+        this.fee = fee;
     }
 
-    public Program(String programName, int callTime, int pagio) {
-        ProgramName = programName;
-        CallTime = callTime;
-        Pagio = pagio;
+    public Program(String programName, int callTime, int fee) {
+        this.ProgramName = programName;
+        this.CallTime = callTime;
+        this.fee = fee;
     }
 
     public void printProgram() {
         System.out.println(
             "PROGRAM INFO\n" +
-            "Name: "+ProgramName + "\n" +
-            "Call Time: "+CallTime + "\n" +
-            "Pagio: "+Pagio + "\n" +
-            "\n" 
+            "Name: " + ProgramName + "\n" +
+            "Call Time: " + CallTime + "\n" +
+            "Invoice: " + fee + "\n" +
+            "\n"
             );
-    }    
+    }
 
-    
+
 
 }

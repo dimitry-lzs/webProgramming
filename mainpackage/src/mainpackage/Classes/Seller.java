@@ -8,6 +8,7 @@ public class Seller extends User {
 
     public Seller() {
         super(UserType.SELLER);
+        System.out.println("Seller" + getSurname() + "was created");
     }
 
     public void addClient(PhoneNumber phonenum){
