@@ -8,10 +8,6 @@ public class CreateUsers {
         System.out.println(admin.getType());
         Seller seller = new Seller();
         System.out.println(seller.getType());
-        Client client = new Client();
-        System.out.println(client.getType());
-
-        System.out.println(User.getCount()); // 3
 
         //Test classes
         Program program = new Program("Test Program", 15, 50);
@@ -19,6 +15,11 @@ public class CreateUsers {
 
         PhoneNumber phonenumber = new PhoneNumber("1234567890", program);
         phonenumber.printPhoneNumber();
+
+        Client client = new Client("1234567890", phonenumber);
+        System.out.println(client.getType());
+
+        System.out.println(User.getCount()); // 3
 
         Call call1 = new Call(22, program);
         call1.printCall();
