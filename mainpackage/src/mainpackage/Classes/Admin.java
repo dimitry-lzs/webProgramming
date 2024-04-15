@@ -9,7 +9,7 @@ public class Admin extends User {
         super(UserType.ADMIN);
         this.programs = new Program[0]; // Initialize programs as an empty array
         this.sellers = new Seller[0]; // Initialize sellers as an empty array
-        System.out.println("Admin" + getSurname() + "was created");
+        System.out.println("Admin is " + getSurname());
     }
 
     public Program createProgram(String programName, int callTime, int fee) {
