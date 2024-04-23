@@ -9,7 +9,7 @@ public class Admin extends User {
         super(UserType.ADMIN, username, name, surname);
         this.programs = new Program[0]; // Initialize programs as an empty array
         this.sellers = new Seller[0]; // Initialize sellers as an empty array
-        System.out.println("Admin is " + getSurname());
+        System.out.println("Admin is " + getName() + " " + getSurname());
     }
 
     public Program createProgram(String programName, int callTime, int fee, int chargePerSecond) {
@@ -25,7 +25,7 @@ public class Admin extends User {
         return program;
     }
 
-    public Seller createSeller(String username, String name, String surname, String afm, PhoneNumber phonenumber) {
+    public Seller createSeller(String username, String name, String surname) {
         Seller seller = new Seller(username, name, surname);
         Seller[] newSellers = new Seller[sellers.length + 1];
 

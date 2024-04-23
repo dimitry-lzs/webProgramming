@@ -8,14 +8,13 @@ public class Seller extends User {
 
     public Seller(String username, String name, String surname) {
         super(UserType.SELLER, username, name, surname);
-        System.out.println("Seller" + getSurname() + "was created");
     }
 
     public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){
         System.out.println("Adding client...");
 
         //Creating new client.
-        Client newclient = new Client(afm, phonenum, "ClientUsername", "ClientName", "ClientSurname");
+        Client newclient = new Client(afm, phonenum, username, name, surname);
         //Adding client to client array.
         clientarray[0] = newclient;
         //Return client.

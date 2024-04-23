@@ -14,8 +14,7 @@ public abstract class User {
         this.username = username;
         this.name = name;
         this.surname = surname;
-
-        System.out.println("User " + type + " created");
+        System.out.println(type + " " + getName() + " " + getSurname() + " was created");
         count++;
     }
 
