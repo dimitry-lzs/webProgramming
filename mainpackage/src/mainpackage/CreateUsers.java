@@ -15,7 +15,7 @@ public class CreateUsers {
         seller.login();
 
         //Test classes
-        Program program = new Program("Student's", 15, 50, 12);
+        Program program = admin.createProgram("Student's", 15, 50, 12);
         program.printProgram();
 
         PhoneNumber phonenumber = new PhoneNumber("1234567890", program);
