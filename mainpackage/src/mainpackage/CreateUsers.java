@@ -10,7 +10,7 @@ public class CreateUsers {
         System.out.println(seller.getType());
 
         //Test classes
-        Program program = new Program("Test Program", 15, 50);
+        Program program = new Program("Test Program", 15, 50, 12);
         program.printProgram();
 
         PhoneNumber phonenumber = new PhoneNumber("1234567890", program);
@@ -22,10 +22,12 @@ public class CreateUsers {
 
         System.out.println(User.getCount()); // 3
 
-        Call call1 = new Call(22, program);
+        PhoneNumber phone2 = new PhoneNumber("0987654321", program);
+
+        Call call1 = new Call(phone2, phonenumber, 10, 2);
         call1.printCall();
 
-        Call call2 = new Call(77, program);
+        Call call2 = new Call(phonenumber, phone2, 5, 1);
         call2.printCall();
 
         Call[] callsthismonth = {call1, call2};
