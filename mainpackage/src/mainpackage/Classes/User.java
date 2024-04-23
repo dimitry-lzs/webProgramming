@@ -12,8 +12,8 @@ public abstract class User {
     public User(UserType type, String username, String name, String surname) {
         this.type = type;
         this.username = username;
-        this.name = username;
-        this.surname = username;
+        this.name = name;
+        this.surname = surname;
 
         System.out.println("User " + type + " created");
         count++;
