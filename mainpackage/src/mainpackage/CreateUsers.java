@@ -55,6 +55,8 @@ public class CreateUsers {
 
         client2.setBills(new Bill[]{bill2});
 
+        seller.changeClientProgram();
+
         seller.logout();
 
         admin.deleteSeller(seller.getUsername());
