@@ -31,5 +31,8 @@ public class PhoneNumber {
         Program.printProgram();
     }
 
-    
+    public void call(PhoneNumber phonenumber, int duration) {
+        Call newcall = new Call(this, phonenumber, 1, 2);
+        System.out.println("Calling...");
+    }
 }
