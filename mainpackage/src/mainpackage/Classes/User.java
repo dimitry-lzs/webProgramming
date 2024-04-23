@@ -19,6 +19,18 @@ public abstract class User {
         count++;
     }
 
+    public void register() {
+        System.out.println("User " + type + " registered");
+    }
+
+    public void login() {
+        System.out.println("User " + type + " logged in");
+    }
+
+    public void logout() {
+        System.out.println("User " + type + " logged out");
+    }
+
     public UserType getType() {
         return type;
     }
