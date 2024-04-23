@@ -58,6 +58,7 @@ public class Admin extends User {
         int j = 0;
         for (int i = 0; i < sellers.length; i++) {
             if (sellers[i].getUsername().equals(username)) {
+                System.out.println("Seller " + sellers[i].getUsername() + " deleted");
                 continue;
             }
             newSellers[j] = sellers[i];
@@ -70,6 +71,7 @@ public class Admin extends User {
         int j = 0;
         for (int i = 0; i < programs.length; i++) {
             if (programs[i].getProgramName().equals(programName)) {
+                System.out.println("Program " + programs[i].getProgramName() + " deleted");
                 continue;
             }
             newPrograms[j] = programs[i];

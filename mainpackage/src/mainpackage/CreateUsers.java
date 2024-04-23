@@ -35,10 +35,10 @@ public class CreateUsers {
 
         System.out.println("Total users: " + User.getCount()); // 3
 
-        Call call1 = new Call(phone2, phonenumber, 1, 20);
+        Call call1 = phonenumber.call(phone2, 2);
         call1.printCall();
 
-        Call call2 = new Call(phonenumber, phone2, 5, 10);
+        Call call2 = phone2.call(phonenumber, 10);
         call2.printCall();
 
         Call[] clientCalls = {call1};
@@ -55,8 +55,12 @@ public class CreateUsers {
 
         client2.setBills(new Bill[]{bill2});
 
-        admin.logout();
         seller.logout();
+
+        admin.deleteSeller(seller.getUsername());
+        admin.deleteProgram(program.getProgramName());
+
+        admin.logout();
         client.logout();
     }
 }
