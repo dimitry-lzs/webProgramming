@@ -6,10 +6,28 @@ public class Program {
     private String ProgramName;
     private int CallTime;
     private int fee;  //Ik
+    private int chargePerSecond;
+    private String[] benefits;
+
+    public Program(String programName, int callTime, int fee, int chargePerSecond) {
+        this.ProgramName = programName;
+        this.CallTime = callTime;
+        this.fee = fee;
+        this.chargePerSecond = chargePerSecond;
+    }
+
+    public void setBenefits(String[] benefits) {
+        this.benefits = benefits;
+    }
+
+    public String[] getBenefits() {
+        return benefits;
+    }
 
     public String getProgramName() {
         return ProgramName;
     }
+
     public void setProgramName(String programName) {
         this.ProgramName = programName;
     }
@@ -17,6 +35,7 @@ public class Program {
     public int getCallTime() {
         return CallTime;
     }
+
     public void setCallTime(int callTime) {
         this.CallTime = callTime;
     }
@@ -24,14 +43,17 @@ public class Program {
     public int getFee() {
         return fee;
     }
+
     public void setFee(int fee) {
         this.fee = fee;
     }
 
-    public Program(String programName, int callTime, int fee) {
-        this.ProgramName = programName;
-        this.CallTime = callTime;
-        this.fee = fee;
+    public int getChargePerSecond() {
+        return chargePerSecond;
+    }
+
+    public void setChargePerSecond(int chargePerSecond) {
+        this.chargePerSecond = chargePerSecond;
     }
 
     public void printProgram() {
