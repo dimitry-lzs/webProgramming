@@ -21,8 +21,9 @@ public class Seller extends User {
         //Return client.
         return newclient;
     }
-    public void issueUser(){
-        System.out.println("Issuing user...");
+    public void issueBill(PhoneNumber phonenumber, Call[] calls){
+        Bill newbill = new Bill(1, phonenumber, calls);
+        System.out.println("Issuing bill...");
     }
     public void changeClientProgram(){
         System.out.println("Changing client program...");
