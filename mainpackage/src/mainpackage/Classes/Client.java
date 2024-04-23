@@ -37,4 +37,8 @@ public class Client extends User {
     public void viewLastBill() {
         bills[bills.length - 1].printBill();
     }
+
+    public void payBill() {
+        bills[bills.length - 1].setPaid(true);
+    }
 }
