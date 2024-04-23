@@ -9,7 +9,7 @@ public class CreateUsers {
         admin.register();
         admin.login();
 
-        Seller seller = admin.createSeller("georhj", "Agent", "Bukovski");
+        Seller seller = admin.createSeller("giorgio", "Agent", "Bukovski");
 
         seller.register();
         seller.login();
@@ -25,8 +25,8 @@ public class CreateUsers {
         phone2.printPhoneNumber();
 
         //Create Client through Seller.
-        Client client = seller.addClient("p424", phonenumber, "crazyback", "Duden", "Dudenski");
-        Client client2 = seller.addClient("p425", phonenumber, "crazyback2", "Vlad", "Uzumaki");
+        Client client = seller.addClient("424", phonenumber, "crazyback", "Duden", "Dudenski");
+        Client client2 = seller.addClient("425", phonenumber, "crazyback2", "Vlad", "Uzumaki");
 
         client.register();
         client.login();
