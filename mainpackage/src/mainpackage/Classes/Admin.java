@@ -12,8 +12,8 @@ public class Admin extends User {
         System.out.println("Admin is " + getSurname());
     }
 
-    public Program createProgram(String programName, int callTime, int fee) {
-        Program program = new Program(programName, callTime, fee);
+    public Program createProgram(String programName, int callTime, int fee, int chargePerSecond) {
+        Program program = new Program(programName, callTime, fee, chargePerSecond);
         Program[] newPrograms = new Program[programs.length + 1];
 
         for (int i = 0; i < programs.length; i++) {
