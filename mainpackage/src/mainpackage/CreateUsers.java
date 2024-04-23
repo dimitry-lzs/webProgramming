@@ -41,10 +41,19 @@ public class CreateUsers {
         Call call2 = new Call(phonenumber, phone2, 5, 10);
         call2.printCall();
 
-        Call[] callsthismonth = {call1, call2};
+        Call[] clientCalls = {call1};
 
-        Bill bill = new Bill(12, phonenumber, callsthismonth);
+        Bill bill = seller.issueBill(phonenumber, clientCalls);
         bill.printBill();
+
+        Call[] client2Calls = {call2};
+        client.setBills(new Bill[]{bill});
+
+        client.viewBills();
+        Bill bill2 = seller.issueBill(phone2, client2Calls);
+        bill2.printBill();
+
+        client2.setBills(new Bill[]{bill2});
 
         admin.logout();
         seller.logout();

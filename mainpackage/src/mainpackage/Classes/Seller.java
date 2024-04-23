@@ -20,9 +20,10 @@ public class Seller extends User {
         //Return client.
         return newclient;
     }
-    public void issueBill(PhoneNumber phonenumber, Call[] calls){
+    public Bill issueBill(PhoneNumber phonenumber, Call[] calls){
         Bill newbill = new Bill(1, phonenumber, calls);
         System.out.println("Issuing bill...");
+        return newbill;
     }
     public void changeClientProgram(){
         System.out.println("Changing client program...");
