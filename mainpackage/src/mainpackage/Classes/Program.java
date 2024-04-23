@@ -21,10 +21,10 @@ public class Program {
         this.CallTime = callTime;
     }
 
-    public int getPagio() {
+    public int getFee() {
         return fee;
     }
-    public void setPagio(int fee) {
+    public void setFee(int fee) {
         this.fee = fee;
     }
 
