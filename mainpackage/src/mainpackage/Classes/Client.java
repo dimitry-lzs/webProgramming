@@ -2,7 +2,7 @@ package mainpackage.Classes;
 import mainpackage.enums.UserType;
 
 public class Client extends User {
-    private String afm;
+    private final String afm;
     private PhoneNumber phonenumber;
     private Bill[] bills;   // An array that contains bills.
 
