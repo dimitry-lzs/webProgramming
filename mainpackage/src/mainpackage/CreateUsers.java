@@ -21,15 +21,19 @@ public class CreateUsers {
         PhoneNumber phonenumber = new PhoneNumber("1234567890", program);
         phonenumber.printPhoneNumber();
 
+        PhoneNumber phone2 = new PhoneNumber("0987654321", program);
+        phone2.printPhoneNumber();
+
         //Create Client through Seller.
         Client client = seller.addClient("p424", phonenumber, "crazyback", "Duden", "Dudenski");
+        Client client2 = seller.addClient("p425", phonenumber, "crazyback2", "Vlad", "Uzumaki");
 
         client.register();
         client.login();
+        client2.register();
+        client2.login();
 
         System.out.println("Total users: " + User.getCount()); // 3
-
-        PhoneNumber phone2 = new PhoneNumber("0987654321", program);
 
         Call call1 = new Call(phone2, phonenumber, 1, 20);
         call1.printCall();
