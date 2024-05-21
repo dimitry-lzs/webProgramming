@@ -1,4 +1,4 @@
-package mainpackage.Classes;
+package com.webProgramming.Classes;
 
 //The payment program.
 public class Program {

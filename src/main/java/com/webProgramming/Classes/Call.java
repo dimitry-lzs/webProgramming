@@ -1,5 +1,5 @@
 
-package mainpackage.Classes;
+package com.webProgramming.Classes;
 
 //A Call that was made by a user. Has duration.
 public class Call {

@@ -1,5 +1,5 @@
-package mainpackage;
-import mainpackage.Classes.*;
+package com.webProgramming;
+import com.webProgramming.Classes.*;
 
 
 public class CreateUsers {

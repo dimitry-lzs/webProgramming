@@ -1,5 +1,5 @@
-package mainpackage.Classes;
-import mainpackage.enums.UserType;
+package com.webProgramming.Classes;
+import com.webProgramming.enums.UserType;
 
 public class Admin extends User {
     private Program[] programs;

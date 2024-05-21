@@ -1,4 +1,4 @@
-package mainpackage.Classes;
+package com.webProgramming.Classes;
 
 public class Bill {
     private int month; //1-12

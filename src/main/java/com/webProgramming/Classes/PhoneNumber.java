@@ -1,4 +1,4 @@
-package mainpackage.Classes;
+package com.webProgramming.Classes;
 
 public class PhoneNumber {
     private String Number;

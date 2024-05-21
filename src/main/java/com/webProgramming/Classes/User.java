@@ -1,5 +1,5 @@
-package mainpackage.Classes;
-import mainpackage.enums.UserType;
+package com.webProgramming.Classes;
+import com.webProgramming.enums.UserType;
 
 public abstract class User {
     private static int count = 0;
