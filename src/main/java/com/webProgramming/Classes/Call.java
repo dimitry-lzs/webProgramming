@@ -3,6 +3,9 @@ package com.webProgramming.Classes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 //A Call that was made by a user. Has duration.
 import jakarta.persistence.UniqueConstraint;
@@ -13,14 +16,26 @@ import jakarta.persistence.UniqueConstraint;
 
 public class Call {
 
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "bill")
+    private Bill bill;
+
     @Column(name = "caller")
     private final PhoneNumber caller;    
+
     @Column(name = "receiver")
     private final PhoneNumber receiver;
+    
     @Column(name = "callStartTs")
     private final int callStartTs;
+    
     @Column(name = "callEndTs")
     private final int callEndTs;
+    
     @Column(name = "duration")
     private final int duration;
 
