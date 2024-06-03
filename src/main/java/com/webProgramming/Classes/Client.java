@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 public class Client extends User {
 
+    
     @Id
     private final String afm;
     @Column(name = "phonenumber")
