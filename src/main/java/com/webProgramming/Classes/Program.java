@@ -2,13 +2,22 @@ package com.webProgramming.Classes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "programs")
-//The payment program.
 public class Program {
-    
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin2 admin;
+
     @Column(name = "Program_Name")
     private String Program_Name;
 

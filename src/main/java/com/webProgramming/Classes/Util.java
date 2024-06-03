@@ -34,6 +34,8 @@ public class Util {
 
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Admin2.class);
+                configuration.addAnnotatedClass(Program.class);
+
                 configuration.setProperties(settings);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
