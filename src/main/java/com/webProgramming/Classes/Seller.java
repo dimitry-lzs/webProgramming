@@ -14,7 +14,7 @@ public class Seller extends User {
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin2 admin;
+    private Admin admin;
 
     // @OneToMany(mappedBy = "seller")
     // private Set<Client> clients;

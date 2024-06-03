@@ -33,7 +33,7 @@ public class Util {
                 settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.addAnnotatedClass(User.class);
-                configuration.addAnnotatedClass(Admin2.class);
+                configuration.addAnnotatedClass(Admin.class);
                 configuration.addAnnotatedClass(Program.class);
                 // configuration.addAnnotatedClass(Bill.class);
                 // configuration.addAnnotatedClass(Call.class);

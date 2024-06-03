@@ -16,7 +16,7 @@ public class Program {
 
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin2 admin;
+    private Admin admin;
 
     @Column(name = "Program_Name")
     private String Program_Name;

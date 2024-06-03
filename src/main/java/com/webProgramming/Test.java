@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webProgramming.Classes.Admin2;
+import com.webProgramming.Classes.Admin;
 import com.webProgramming.Classes.UserDao;
 
 public class Test extends HttpServlet {
@@ -17,7 +17,7 @@ public class Test extends HttpServlet {
         try {
             UserDao userDao = new UserDao();
 
-            Admin2 admin = new Admin2("admin", "admin", "admin");
+            Admin admin = new Admin("admin", "admin", "admin");
 
             userDao.saveUser(admin);
 
