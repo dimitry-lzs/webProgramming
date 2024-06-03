@@ -35,14 +35,13 @@ public class Util {
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Admin2.class);
                 configuration.addAnnotatedClass(Program.class);
-                configuration.addAnnotatedClass(Bill.class);
-                configuration.addAnnotatedClass(Call.class);
+                // configuration.addAnnotatedClass(Bill.class);
+                // configuration.addAnnotatedClass(Call.class);
                 configuration.addAnnotatedClass(Seller.class);
-                configuration.addAnnotatedClass(Client.class);
+                // configuration.addAnnotatedClass(Client.class);
 
 
                 configuration.setProperties(settings);
-
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
                 System.out.println("Hibernate Java Config serviceRegistry created");

@@ -20,7 +20,6 @@ public class Admin2 extends User {
 
     public Set<Program> getPrograms() { return programs; }
 
-
     @OneToMany(mappedBy = "admin")
     private Set<Seller> sellers;
 

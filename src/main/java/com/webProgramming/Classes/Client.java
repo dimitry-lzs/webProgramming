@@ -1,26 +1,33 @@
 package com.webProgramming.Classes;
+
 import com.webProgramming.enums.UserType;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
 public class Client extends User {
-
     @Id
     @Column(name = "AFM")
     private final String AFM;
     @Column(name = "Phone_Number")
     private PhoneNumber Phone_Number;
-    @Column(name = "Bills")
-    private Bill[] bills;   // An array that contains bills.
 
+    @OneToMany(mappedBy = "client")
+    private Set<Bill> bills;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 
-
+    public Set<Bill> getBills() { return bills; }
 
     public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
         super(UserType.CLIENT, username, name, surname);
@@ -29,7 +36,7 @@ public class Client extends User {
     }
 
     public void setBills(Bill[] bills) {
-        this.bills = bills;
+        // this.bills = bills;
     }
 
     public String getAfm() {
@@ -40,21 +47,17 @@ public class Client extends User {
         return Phone_Number;
     }
 
-    public Bill[] getBills() {
-        return bills;
-    }
-
     public void viewBills() {
-        for (int i = 0; i < bills.length; i++) {
-            bills[i].printBill();
-        }
+        // for (int i = 0; i < bills.length; i++) {
+        //     bills[i].printBill();
+        // }
     }
 
     public void viewLastBill() {
-        bills[bills.length - 1].printBill();
+
     }
 
     public void payBill() {
-        bills[bills.length - 1].setPaid(true);
+        // bills[bills.length - 1].setPaid(true);
     }
 }
