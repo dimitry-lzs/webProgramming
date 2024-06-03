@@ -35,11 +35,11 @@ public class Util {
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Admin.class);
                 configuration.addAnnotatedClass(Program.class);
-                // configuration.addAnnotatedClass(Bill.class);
-                // configuration.addAnnotatedClass(Call.class);
+                configuration.addAnnotatedClass(Bill.class);
+                configuration.addAnnotatedClass(Call.class);
                 configuration.addAnnotatedClass(Seller.class);
-                // configuration.addAnnotatedClass(Client.class);
-
+                configuration.addAnnotatedClass(Client.class);
+                configuration.addAnnotatedClass(PhoneNumber.class);
 
                 configuration.setProperties(settings);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

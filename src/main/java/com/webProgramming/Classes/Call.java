@@ -24,18 +24,20 @@ public class Call {
     @JoinColumn(name = "bill")
     private Bill bill;
 
-    @Column(name = "caller")
-    private final PhoneNumber caller;    
+    @ManyToOne
+    @JoinColumn(name = "caller_number")
+    private final PhoneNumber caller;
 
-    @Column(name = "receiver")
+    @ManyToOne
+    @JoinColumn(name = "receiver_number")
     private final PhoneNumber receiver;
-    
+
     @Column(name = "callStartTs")
     private final int callStartTs;
-    
+
     @Column(name = "callEndTs")
     private final int callEndTs;
-    
+
     @Column(name = "duration")
     private final int duration;
 

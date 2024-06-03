@@ -4,7 +4,11 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -12,22 +16,23 @@ import jakarta.persistence.Table;
 @Table(name = "bills")
 public class Bill {
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "month")
     private int month; //1-12
 
-    @Column(name = "phonenumber")
-    private PhoneNumber phonenumber;
+    @ManyToOne
+    @JoinColumn(name = "number")
+    private PhoneNumber phone_number;
 
     @OneToMany(mappedBy = "calls")
     private Set<Call> calls;   //An array that contains calls.
-    
+
     @Column(name = "paid")
     private boolean paid;   //True if the bill is paid, false if it is not paid.
 
-    
+
     public boolean isPaid() {
         return paid;
     }
@@ -43,10 +48,10 @@ public class Bill {
         this.month = month;
     }
     public PhoneNumber getPhonenumber() {
-        return phonenumber;
+        return phone_number;
     }
-    public void setPhonenumber(PhoneNumber phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhonenumber(PhoneNumber phoneNumber) {
+        this.phone_number = phoneNumber;
     }
     // public Call[] getCalls() {
     //     return calls;
@@ -54,10 +59,10 @@ public class Bill {
     // public void setCalls(Call[] calls) {
     //     this.calls = calls;
     // }
-    
-    public Bill(int month, PhoneNumber phonenumber, Call[] calls) {
+
+    public Bill(int month, PhoneNumber phoneNumber, Call[] calls) {
         this.month = month;
-        this.phonenumber = phonenumber;
+        this.phone_number = phoneNumber;
         // this.calls = calls;
     }
 
@@ -66,7 +71,7 @@ public class Bill {
             "BILL INFO\n" +
             "Month: " + this.month
         );
-        this.phonenumber.printPhoneNumber();
+        this.phone_number.printPhoneNumber();
         // for (int i = 0; i < calls.length; i++) {
         //     calls[i].printCall();
         // }

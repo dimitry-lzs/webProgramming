@@ -5,18 +5,18 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "clients", uniqueConstraints = @UniqueConstraint(columnNames = {"AFM"}))
 public class Client extends User {
-    @Id
     @Column(name = "AFM")
     private final String AFM;
+
     @Column(name = "Phone_Number")
     private PhoneNumber Phone_Number;
 

@@ -1,8 +1,11 @@
 package com.webProgramming.Classes;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -17,6 +20,15 @@ public class PhoneNumber {
     @Column(name = "program")
     private Program Program;
 
+    @OneToMany(mappedBy = "receiver")
+    private Set<Call> incomingCalls;
+
+    public Set<Call> getCalls() {  return incomingCalls; }
+
+    @OneToMany(mappedBy = "caller")
+    private Set<Call> outgoingCalls;
+
+    public Set<Call> getOutgoingCalls() { return outgoingCalls; }
 
     public String getNumber() {
         return Number;
