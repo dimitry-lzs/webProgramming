@@ -1,6 +1,11 @@
 package com.webProgramming.Classes;
 import com.webProgramming.enums.UserType;
+//import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "Seller")
 public class Seller extends User {
 
     Client[] clientarray = new Client[5];
