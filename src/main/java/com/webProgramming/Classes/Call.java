@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 //A Call that was made by a user. Has duration.
 import jakarta.persistence.UniqueConstraint;
 @Entity
-@Table(name = "call"
+@Table(name = "calls"
 , uniqueConstraints = @UniqueConstraint(columnNames = {"caller", "callStartTs"}
 ))
 
