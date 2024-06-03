@@ -1,10 +1,23 @@
 package com.webProgramming.Classes;
 import com.webProgramming.enums.UserType;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+
+
 public class Client extends User {
+
+    
+    @Id
     private final String afm;
+    @Column(name = "phonenumber")
     private PhoneNumber phonenumber;
+    @Column(name = "bills")
     private Bill[] bills;   // An array that contains bills.
+
+
+
+
 
     public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
         super(UserType.CLIENT, username, name, surname);
