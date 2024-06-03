@@ -1,11 +1,11 @@
 package com.webProgramming.Classes;
-//import java.util.Set;
+import java.util.Set;
 
 import com.webProgramming.enums.UserType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-//import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,10 +16,10 @@ public class Seller extends User {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    // @OneToMany(mappedBy = "seller")
-    // private Set<Client> clients;
+    @OneToMany(mappedBy = "seller")
+    private Set<Client> clients;
 
-    // public Set<Client> getClients() { return clients; }
+    public Set<Client> getClients() { return clients; }
 
     public Seller(String username, String name, String surname) {
         super(UserType.SELLER, username, name, surname);
