@@ -1,11 +1,26 @@
 package com.webProgramming.Classes;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "bills")
 public class Bill {
+
+    @Column(name = "month")
     private int month; //1-12
+
+    @Column(name = "phonenumber")
     private PhoneNumber phonenumber;
+
+    @Column(name = "calls")
     private Call[] calls;   //An array that contains calls.
+    
+    @Column(name = "paid")
     private boolean paid;   //True if the bill is paid, false if it is not paid.
 
+    
     public boolean isPaid() {
         return paid;
     }
