@@ -19,7 +19,7 @@ public class Util {
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.JAKARTA_JDBC_DRIVER, "org.sqlite.JDBC");
-                settings.put(Environment.JAKARTA_JDBC_URL, "jdbc:sqlite:demo.db");
+                settings.put(Environment.JAKARTA_JDBC_URL, "jdbc:sqlite:vietnam.db");
                 settings.put(Environment.JAKARTA_JDBC_USER, "");
                 settings.put(Environment.JAKARTA_JDBC_PASSWORD, "");
                 settings.put(Environment.DIALECT, "org.hibernate.community.dialect.SQLiteDialect");
