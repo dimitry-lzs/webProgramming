@@ -7,13 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-//A Call that was made by a user. Has duration.
 import jakarta.persistence.UniqueConstraint;
-@Entity
-@Table(name = "calls"
-, uniqueConstraints = @UniqueConstraint(columnNames = {"caller", "callStartTs"}
-))
 
+@Entity
+@Table(name = "calls", uniqueConstraints = @UniqueConstraint(columnNames = { "caller", "callStartTs" }))
 public class Call {
 
     @Id
@@ -69,10 +66,9 @@ public class Call {
         return this.callEndTs;
     }
 
-   public void printCall() {
-    System.out.println(
-        "CALL INFO\n" +
-        "Duration: " + this.duration + "\n"
-    );
-   }
+    public void printCall() {
+        System.out.println(
+                "CALL INFO\n" +
+                        "Duration: " + this.duration + "\n");
+    }
 }
