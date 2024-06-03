@@ -2,17 +2,20 @@ package com.webProgramming.Classes;
 import com.webProgramming.enums.UserType;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-
+@Entity
+@Table(name = "Clients")
 public class Client extends User {
 
-    
     @Id
-    private final String afm;
-    @Column(name = "phonenumber")
-    private PhoneNumber phonenumber;
-    @Column(name = "bills")
+    @Column(name = "AFM")
+    private final String AFM;
+    @Column(name = "Phone_Number")
+    private PhoneNumber Phone_Number;
+    @Column(name = "Bills")
     private Bill[] bills;   // An array that contains bills.
 
 
@@ -21,8 +24,8 @@ public class Client extends User {
 
     public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
         super(UserType.CLIENT, username, name, surname);
-        this.afm = afm;
-        this.phonenumber = phonenumber;
+        this.AFM = afm;
+        this.Phone_Number = phonenumber;
     }
 
     public void setBills(Bill[] bills) {
@@ -30,11 +33,11 @@ public class Client extends User {
     }
 
     public String getAfm() {
-        return afm;
+        return AFM;
     }
 
     public PhoneNumber getPhonenumber() {
-        return phonenumber;
+        return Phone_Number;
     }
 
     public Bill[] getBills() {
