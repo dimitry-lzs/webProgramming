@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Admins")
+@Table(name = "admins")
 public class Admin2 extends User {
 
     @Column(name = "type")

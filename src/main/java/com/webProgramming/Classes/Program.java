@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Programs")
+@Table(name = "programs")
 //The payment program.
 public class Program {
     

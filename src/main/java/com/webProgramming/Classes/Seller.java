@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Seller")
+@Table(name = "sellers")
 public class Seller extends User {
 
     Client[] clientarray = new Client[5];
