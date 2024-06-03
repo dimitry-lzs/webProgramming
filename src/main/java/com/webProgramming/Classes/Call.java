@@ -1,13 +1,27 @@
 
 package com.webProgramming.Classes;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 //A Call that was made by a user. Has duration.
+import jakarta.persistence.UniqueConstraint;
+@Entity
+@Table(name = "call"
+, uniqueConstraints = @UniqueConstraint(columnNames = {"caller", "callStartTs"}
+))
+
 public class Call {
 
-    private final PhoneNumber caller;
+    @Column(name = "caller")
+    private final PhoneNumber caller;    
+    @Column(name = "receiver")
     private final PhoneNumber receiver;
+    @Column(name = "callStartTs")
     private final int callStartTs;
+    @Column(name = "callEndTs")
     private final int callEndTs;
+    @Column(name = "duration")
     private final int duration;
 
     public Call(PhoneNumber caller, PhoneNumber receiver, int callStartTs, int callEndTs) {
