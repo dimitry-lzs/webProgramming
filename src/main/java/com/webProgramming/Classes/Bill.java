@@ -57,17 +57,18 @@ public class Bill {
     public void setPhonenumber(PhoneNumber phoneNumber) {
         this.phone_number = phoneNumber;
     }
-    // public Call[] getCalls() {
-    //     return calls;
-    // }
-    // public void setCalls(Call[] calls) {
-    //     this.calls = calls;
-    // }
 
-    public Bill(int month, PhoneNumber phoneNumber, Call[] calls) {
+    public Set<Call> getCalls() {
+        return calls;
+    }
+
+    public void setCalls(Set<Call> calls) {
+        this.calls = calls;
+    }
+
+    public Bill(int month, PhoneNumber phoneNumber) {
         this.month = month;
         this.phone_number = phoneNumber;
-        // this.calls = calls;
     }
 
     public void printBill() {

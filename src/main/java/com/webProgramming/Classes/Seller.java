@@ -36,7 +36,7 @@ public class Seller extends User {
         return newclient;
     }
     public Bill issueBill(PhoneNumber phonenumber, Call[] calls){
-        Bill newbill = new Bill(1, phonenumber, calls);
+        Bill newbill = new Bill(1, phonenumber);
         System.out.println("Issuing bill...");
         return newbill;
     }
