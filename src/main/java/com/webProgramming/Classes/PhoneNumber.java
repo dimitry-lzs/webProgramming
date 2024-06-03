@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 public class PhoneNumber {
 
     @Id
+    @Column(name = "number")
     private String Number;
 
     @Column(name = "program")
