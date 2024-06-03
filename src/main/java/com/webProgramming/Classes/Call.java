@@ -21,7 +21,7 @@ public class Call {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "bill")
+    @JoinColumn(name = "bill_id")
     private Bill bill;
 
     @ManyToOne

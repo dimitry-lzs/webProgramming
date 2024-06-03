@@ -2,16 +2,22 @@ package com.webProgramming.Classes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "programs")
-public class Program {
+public class Program implements Serializable {
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @ManyToOne
@@ -32,6 +38,11 @@ public class Program {
 
     @Column(name = "Benefits")
     private String[] Benefits;
+
+    @OneToMany(mappedBy = "program")
+    private Set<PhoneNumber> phoneNumbers;
+
+    public Set<PhoneNumber> getPhoneNumbers() { return phoneNumbers; }
 
     public Program(String Program_Name, int Call_Time, int Fee, int Charge_Per_Second) {
         this.Program_Name = Program_Name;

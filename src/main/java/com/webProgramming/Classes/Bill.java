@@ -26,7 +26,11 @@ public class Bill {
     @JoinColumn(name = "number")
     private PhoneNumber phone_number;
 
-    @OneToMany(mappedBy = "calls")
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "bill")
     private Set<Call> calls;   //An array that contains calls.
 
     @Column(name = "paid")
