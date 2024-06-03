@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class UserDao {
-    public void saveUser(User2 user) {
+    public void saveUser(User user) {
         Transaction transaction = null;
         Session session = null;
         try {

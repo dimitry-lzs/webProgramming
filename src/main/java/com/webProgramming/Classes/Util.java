@@ -32,7 +32,8 @@ public class Util {
 
                 settings.put(Environment.HBM2DDL_AUTO, "update");
 
-                configuration.addAnnotatedClass(User2.class);
+                configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(Admin2.class);
                 configuration.setProperties(settings);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

@@ -1,21 +1,43 @@
 package com.webProgramming.Classes;
+import java.io.Serializable;
+
 import com.webProgramming.enums.UserType;
 
-public abstract class User {
-    private static int count = 0;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+
+    @Column(name = "type")
     private UserType type;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
 
     public User(UserType type, String username, String name, String surname) {
-        this.type = type;
-        this.username = username;
-        this.name = name;
-        this.surname = surname;
-        System.out.println(type + " " + getName() + " " + getSurname() + " was created");
-        count++;
+        this.setType(type);
+        this.setUsername(username);
+        this.setName(name);
+        this.setSurname(surname);
+        System.out.println(type + " " + getName() + " " + getSurname() + " was instantiated.");
     }
 
     public void register() {
@@ -28,6 +50,10 @@ public abstract class User {
 
     public void logout() {
         System.out.println("User " + type + " logged out");
+    }
+
+    private void setType(UserType type) {
+        this.type = type;
     }
 
     public UserType getType() {
@@ -59,6 +85,6 @@ public abstract class User {
     }
 
     public static int getCount() {
-        return count;
+        return 1;
     }
 }

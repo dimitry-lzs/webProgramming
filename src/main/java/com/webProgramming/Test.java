@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webProgramming.Classes.User2;
+import com.webProgramming.Classes.Admin2;
 import com.webProgramming.Classes.UserDao;
 
 public class Test extends HttpServlet {
@@ -17,13 +17,9 @@ public class Test extends HttpServlet {
         try {
             UserDao userDao = new UserDao();
 
-            User2 user = new User2();
-            user.setFirstName("firstName");
-            user.setLastName("lastName");
-            user.setUsername("username");
-            user.setPassword("password");
+            Admin2 admin = new Admin2("admin", "admin", "admin");
 
-            userDao.saveUser(user);
+            userDao.saveUser(admin);
 
             PrintWriter writer = response.getWriter();
             writer.println("<h1>Hello World!! PAPATZA, kai oxi mia alla polles! </h1>");
