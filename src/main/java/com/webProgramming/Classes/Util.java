@@ -37,7 +37,8 @@ public class Util {
                 configuration.addAnnotatedClass(Program.class);
                 configuration.addAnnotatedClass(Bill.class);
                 configuration.addAnnotatedClass(Call.class);
-
+                configuration.addAnnotatedClass(Seller.class);
+                configuration.addAnnotatedClass(Client.class);
 
 
                 configuration.setProperties(settings);
