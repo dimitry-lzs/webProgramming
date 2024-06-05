@@ -1,67 +1,102 @@
 package com.webProgramming.Classes;
 
-//The payment program.
-public class Program {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-    private String ProgramName;
-    private int CallTime;
-    private int fee;  //Ik
-    private int chargePerSecond;
-    private String[] benefits;
+import java.io.Serializable;
+import java.util.Set;
 
-    public Program(String programName, int callTime, int fee, int chargePerSecond) {
-        this.ProgramName = programName;
-        this.CallTime = callTime;
-        this.fee = fee;
-        this.chargePerSecond = chargePerSecond;
+@Entity
+@Table(name = "programs")
+public class Program implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
+    @Column(name = "Program_Name")
+    private String Program_Name;
+
+    @Column(name = "Call_Time")
+    private int Call_Time;
+
+    @Column(name = "Fee")
+    private int Fee;  //Ik
+
+    @Column(name = "Charge_Per_Second")
+    private int Charge_Per_Second;
+
+    @Column(name = "Benefits")
+    private String[] Benefits;
+
+    @OneToMany(mappedBy = "program")
+    private Set<PhoneNumber> phoneNumbers;
+
+    public Set<PhoneNumber> getPhoneNumbers() { return phoneNumbers; }
+
+    public Program(String Program_Name, int Call_Time, int Fee, int Charge_Per_Second) {
+        this.Program_Name = Program_Name;
+        this.Call_Time = Call_Time;
+        this.Fee = Fee;
+        this.Charge_Per_Second = Charge_Per_Second;
     }
 
-    public void setBenefits(String[] benefits) {
-        this.benefits = benefits;
+    public void setBenefits(String[] Benefits) {
+        this.Benefits = Benefits;
     }
 
     public String[] getBenefits() {
-        return benefits;
+        return Benefits;
     }
 
     public String getProgramName() {
-        return ProgramName;
+        return Program_Name;
     }
 
-    public void setProgramName(String programName) {
-        this.ProgramName = programName;
+    public void setProgram_Name(String Program_Name) {
+        this.Program_Name = Program_Name;
     }
 
-    public int getCallTime() {
-        return CallTime;
+    public int getCall_Time() {
+        return Call_Time;
     }
 
-    public void setCallTime(int callTime) {
-        this.CallTime = callTime;
+    public void setCall_Time(int Call_Time) {
+        this.Call_Time = Call_Time;
     }
 
     public int getFee() {
-        return fee;
+        return Fee;
     }
 
-    public void setFee(int fee) {
-        this.fee = fee;
+    public void setFee(int Fee) {
+        this.Fee = Fee;
     }
 
-    public int getChargePerSecond() {
-        return chargePerSecond;
+    public int getCharge_Per_Second() {
+        return Charge_Per_Second;
     }
 
-    public void setChargePerSecond(int chargePerSecond) {
-        this.chargePerSecond = chargePerSecond;
+    public void setCharge_Per_Second(int Charge_Per_Second) {
+        this.Charge_Per_Second = Charge_Per_Second;
     }
 
     public void printProgram() {
         System.out.println(
             "PROGRAM INFO\n" +
-            "Name: " + ProgramName + "\n" +
-            "Call Time: " + CallTime + "\n" +
-            "Invoice: " + fee + "\n" +
+            "Name: " + Program_Name + "\n" +
+            "Call Time: " + Call_Time + "\n" +
+            "Invoice: " + Fee + "\n" +
             "\n"
             );
     }
