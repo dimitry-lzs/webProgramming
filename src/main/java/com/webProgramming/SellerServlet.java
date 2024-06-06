@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SellerServlet extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PrintWriter writer = resp.getWriter();
-        writer.println("<p style =\"font-size: 20px;\n" + //
-                        "font-family: sans-serif;\" >Seller doesn't exist</p>");
-        writer.flush();
-        writer.close();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
+        req.setAttribute("user", "seller");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
@@ -34,7 +32,7 @@ public class SellerServlet extends HttpServlet{
 
 
             // Forward the request to the JSP
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/seller/Seller.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/seller/SellersMenu.jsp");
             dispatcher.forward(req, resp);
         } else if(testClientExist(username, password) && username != null && password != null){
             // prosthetoume ton Client
