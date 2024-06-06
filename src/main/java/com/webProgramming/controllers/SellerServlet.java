@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SellerServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
-        req.setAttribute("user", "seller");
+        req.setAttribute("type", "SELLER");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
         dispatcher.forward(req, resp);
     }

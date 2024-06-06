@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ClientServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
-        req.setAttribute("user", "client");
+        req.setAttribute("type", "CLIENT");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
         dispatcher.forward(req, resp);
     }
