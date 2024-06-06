@@ -2,13 +2,35 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>com.webProgramming.Test</servlet-class>
-    </servlet>
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>ClientServlet</servlet-name>
+        <servlet-class>com.webProgramming.ClientServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestServlet</url-pattern>
+        <servlet-name>ClientServlet</servlet-name>
+        <url-pattern>/Client</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SellerServlet</servlet-name>
+        <servlet-class>com.webProgramming.SellerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SellerServlet</servlet-name>
+        <url-pattern>/Seller</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.webProgramming.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/Admin</url-pattern>
     </servlet-mapping>
 </web-app>
