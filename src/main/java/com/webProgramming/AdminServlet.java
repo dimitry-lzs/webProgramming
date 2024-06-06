@@ -12,7 +12,7 @@ public class AdminServlet extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter writer = resp.getWriter();
         writer.println("<p style =\"font-size: 20px;\n" + //
-                        "font-family: sans-serif;\" >Admin does'n exist</p>");
+                        "font-family: sans-serif;\" >Admin doesn't exist</p>");
         writer.flush();
         writer.close();
     }
