@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webProgramming.Classes.Admin;
-import com.webProgramming.Classes.UserDao;
+import com.webProgramming.models.Admin;
+import com.webProgramming.models.UserDao;
 
 public class Test extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {

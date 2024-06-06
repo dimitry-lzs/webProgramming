@@ -1,7 +1,8 @@
-package com.webProgramming.Classes;
+package com.webProgramming.models;
 
-import com.webProgramming.enums.UserType;
 import java.util.Set;
+
+import com.webProgramming.models.enums.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

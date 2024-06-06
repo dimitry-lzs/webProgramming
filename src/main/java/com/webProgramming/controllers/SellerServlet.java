@@ -1,25 +1,27 @@
-package com.webProgramming;
+package com.webProgramming.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/seller")
 public class SellerServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
-        req.setAttribute("user", "seller");
+        req.setAttribute("type", "SELLER");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
         dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
 
         // Set an attribute that can be used in the JSP
         String password = req.getParameter("password");

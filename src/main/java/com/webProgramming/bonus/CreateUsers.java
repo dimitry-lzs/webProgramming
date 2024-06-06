@@ -1,5 +1,5 @@
 package com.webProgramming.bonus;
-import com.webProgramming.Classes.*;
+import com.webProgramming.models.*;
 
 
 public class CreateUsers {

@@ -1,4 +1,4 @@
-package com.webProgramming.Classes;
+package com.webProgramming.models;
 
 import java.io.Serializable;
 import java.util.Set;
