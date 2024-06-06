@@ -1,4 +1,4 @@
-package com.webProgramming;
+package com.webProgramming.bonus;
 
 import java.io.PrintWriter;
 
