@@ -25,6 +25,10 @@ public class Admin extends User {
 
     public Set<Seller> getSellers() { return sellers; }
 
+    public Admin() {
+        super();
+    }
+
     public Admin(String username, String name, String surname) {
         super(UserType.ADMIN, username, name, surname);
         // this.programs = new Program[0]; // Initialize programs as an empty array

@@ -10,10 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User implements Serializable {
     @Id
@@ -26,11 +24,18 @@ public abstract class User implements Serializable {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "surname")
     private String surname;
+
+    public User() {
+        System.out.println("User was instantiated.");
+    }
 
     public User(UserType type, String username, String name, String surname) {
         this.setType(type);
@@ -82,6 +87,14 @@ public abstract class User implements Serializable {
 
     public String getSurname() {
         return surname;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public static int getCount() {

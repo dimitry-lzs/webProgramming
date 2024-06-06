@@ -1,42 +1,49 @@
 <html>
 
-    <head>
-        <title>Login Page</title>
-        <style>
-            
-        </style>
-        <script>
-            function validateForm() {
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;
-            
-                if (username.trim() === "" || password.trim() === "") {
-                    alert("Username and password cannot be empty or spaces");
-                    return false;
-                }
-            
-                return true;
+<head>
+    <title>Login Page</title>
+    <style>
+
+    </style>
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === "" || password.trim() === "") {
+                alert("Username and password cannot be empty or spaces");
+                return false;
             }
-        </script>
-    </head>
 
-    <body>
-        //kanonika tha testari gia na xerei pou na paei
-        <form action="http://localhost:8080/vietnam/Seller" method="post" onsubmit="return validateForm()">
-            <p>Login (only seller)</p>
-            <input type="text" id="username" name="username" placeholder="Username">
-            <input type="password" id="password" name="password" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
+            return true;
+        }
+    </script>
+</head>
 
-        <p>Bonus</p>
-        <a href="http://localhost:8080/vietnam/Client">Client</a>
-        <a href="http://localhost:8080/vietnam/Seller">Seller</a>
-        <a href="http://localhost:8080/vietnam/Admin">Admin</a>
+<body>
+    <form action="http://localhost:8080/vietnam/login" method="post" onsubmit="return validateForm()">
 
-        
+        <input type="text" id="username" name="username" placeholder="Username">
+        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="submit" value="Login">
 
+        <p>Login as</p>
+        <input type="radio" id="admin" name="type" value="ADMIN">
+        <label for="admin">Admin</label><br>
+        <input type="radio" id="seller" name="type" value="SELLER">
+        <label for="seller">Seller</label><br>
+        <input type="radio" id="client" name="type" value="CLIENT">
+        <label for="client">Client</label><br>
+    </form>
 
-    </body>
+    <p>Register as admin</p>
+    <a href="http://localhost:8080/vietnam/register.jsp">Register</a>
+
+    <p>Bonus: Test web servlets</p>
+    <a href="http://localhost:8080/vietnam/client">Client</a>
+    <a href="http://localhost:8080/vietnam/seller">Seller</a>
+    <a href="http://localhost:8080/vietnam/admin">Admin</a>
+
+</body>
 
 </html>

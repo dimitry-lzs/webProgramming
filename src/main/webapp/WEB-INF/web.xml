@@ -7,30 +7,4 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <servlet>
-        <servlet-name>ClientServlet</servlet-name>
-        <servlet-class>com.webProgramming.controllers.ClientServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ClientServlet</servlet-name>
-        <url-pattern>/Client</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>SellerServlet</servlet-name>
-        <servlet-class>com.webProgramming.controllers.SellerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SellerServlet</servlet-name>
-        <url-pattern>/Seller</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>com.webProgramming.controllers.AdminServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/Admin</url-pattern>
-    </servlet-mapping>
 </web-app>
