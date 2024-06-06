@@ -96,6 +96,6 @@ String table = (String) request.getAttribute("table");
 
     <a href="seller/TableClients.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 70px"><p>telephony plans/packages</p></div></a>
     <a href="seller/AddClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 150px"><p>add Client</p></div></a>
-    <a href="seller/UpdateClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 230px"><p>Update Client's Data</p></div></a>
+    <a href="seller/AssignClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 230px"><p>Assign Client to a Program</p></div></a>
 </body>
 </html>
