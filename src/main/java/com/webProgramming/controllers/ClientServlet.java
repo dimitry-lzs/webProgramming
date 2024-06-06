@@ -1,4 +1,4 @@
-package com.webProgramming;
+package com.webProgramming.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;

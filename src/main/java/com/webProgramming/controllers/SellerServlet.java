@@ -1,4 +1,4 @@
-package com.webProgramming;
+package com.webProgramming.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ public class SellerServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
 
         // Set an attribute that can be used in the JSP
         String password = req.getParameter("password");

@@ -9,7 +9,7 @@
 
     <servlet>
         <servlet-name>ClientServlet</servlet-name>
-        <servlet-class>com.webProgramming.ClientServlet</servlet-class>
+        <servlet-class>com.webProgramming.controllers.ClientServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ClientServlet</servlet-name>
@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>SellerServlet</servlet-name>
-        <servlet-class>com.webProgramming.SellerServlet</servlet-class>
+        <servlet-class>com.webProgramming.controllers.SellerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SellerServlet</servlet-name>
@@ -27,7 +27,7 @@
 
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>com.webProgramming.AdminServlet</servlet-class>
+        <servlet-class>com.webProgramming.controllers.AdminServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
