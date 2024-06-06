@@ -30,7 +30,7 @@ String user = (String) request.getAttribute("user");
 
     <body>
         <form action="http://localhost:8080/vietnam/Seller" method="post" onsubmit="return validateForm()">
-            <p>Login (only seller)</p>
+            <p>Login</p>
             <input type="text" id="username" name="username" placeholder="Username">
             <input type="password" id="password" name="password" placeholder="Password">
             <input type="submit" value="Login">
