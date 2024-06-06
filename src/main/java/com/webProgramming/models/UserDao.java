@@ -1,4 +1,4 @@
-package com.webProgramming.Classes;
+package com.webProgramming.models;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
