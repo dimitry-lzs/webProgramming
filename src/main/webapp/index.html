@@ -1,43 +1,18 @@
 <html>
 
-<head>
-    <title>Login Page</title>
-    <style>
+    <head>
+        <title>Welcome!</title>
+        <style>
 
-    </style>
-    <script>
-        function validateForm() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
+        </style>
+    </head>
 
-            if (username.trim() === "" || password.trim() === "") {
-                alert("Username and password cannot be empty or spaces");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
-</head>
+    <body>
 
 <body>
     <form action="http://localhost:8080/vietnam/login" method="post" onsubmit="return validateForm()">
 
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="password" id="password" name="password" placeholder="Password">
-        <input type="submit" value="Login">
-
-        <p>Login as</p>
-        <input type="radio" id="admin" name="type" value="ADMIN">
-        <label for="admin">Admin</label><br>
-        <input type="radio" id="seller" name="type" value="SELLER">
-        <label for="seller">Seller</label><br>
-        <input type="radio" id="client" name="type" value="CLIENT">
-        <label for="client">Client</label><br>
-    </form>
-
-    <p>Register as admin</p>
-    <a href="http://localhost:8080/vietnam/register.jsp">Register</a>
+    </body>
 
     <p>Bonus: Test web servlets</p>
     <a href="http://localhost:8080/vietnam/client">Client</a>
