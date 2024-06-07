@@ -75,6 +75,8 @@ public class LoginController extends HttpServlet {
                         break;
                 }
             }
+            request.setAttribute("password", newLogin.getPassword());
+            request.setAttribute("username", newLogin.getUsername());
 
             RequestDispatcher next = request.getRequestDispatcher(redirectPath);
             next.forward(request, response);
