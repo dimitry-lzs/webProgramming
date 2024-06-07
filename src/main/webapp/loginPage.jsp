@@ -76,7 +76,7 @@ String type = (String) request.getAttribute("type");
             <div class="signin">
                 <div class="content">
                     <h2>Login</h2>
-                    <div class="form" action="http://localhost:8080/vietnam/login" method="post" onsubmit="return validateForm()">
+                    <form class="form" action="http://localhost:8080/vietnam/login" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
                         <input type="text" id="username" name="username" required>
                         <i>Username</i>
@@ -91,7 +91,7 @@ String type = (String) request.getAttribute("type");
                  
                     </div> 
                         <input type="hidden" id="type" name="type">
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
