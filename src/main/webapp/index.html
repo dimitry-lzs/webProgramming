@@ -1,43 +1,29 @@
 <html>
-
     <head>
-        <title>Login Page</title>
-        <style>
-            
-        </style>
-        <script>
-            function validateForm() {
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;
-            
-                if (username.trim() === "" || password.trim() === "") {
-                    alert("Username and password cannot be empty or spaces");
-                    return false;
-                }
-            
-                return true;
-            }
-        </script>
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="./style.css">
     </head>
 
     <body>
-        //kanonika tha testari gia na xerei pou na paei
-        <form action="http://localhost:8080/vietnam/Seller" method="post" onsubmit="return validateForm()">
-            <p>Login (only seller)</p>
-            <input type="text" id="username" name="username" placeholder="Username">
-            <input type="password" id="password" name="password" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
-
-        <p>Bonus</p>
-        <a href="http://localhost:8080/vietnam/Client">Client</a>
-        <a href="http://localhost:8080/vietnam/Seller">Seller</a>
-        <a href="http://localhost:8080/vietnam/Admin">Admin</a>
-
-        <a href="http://localhost:8080/vietnam/ViewPrograms">View Programs</a>
-
-
-
+        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <div class="signin">
+                <div class="content">
+                    <h2>Sign in as:</h2>
+                    <div>
+                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/client';">
+                        Client
+                    </button>
+                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/seller';">
+                        Seller
+                    </button>
+                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/admin';">
+                        Admin
+                    </button>
+                    </div>
+                    <div class="links"><a href="http://localhost:8080/vietnam/register.jsp">Register as Admin</a></div>
+                </div>
+            </div>
+        </section>
     </body>
 
 </html>

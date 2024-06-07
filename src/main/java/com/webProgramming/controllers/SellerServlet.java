@@ -1,27 +1,27 @@
-package com.webProgramming;
+package com.webProgramming.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/seller")
 public class SellerServlet extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PrintWriter writer = resp.getWriter();
-        writer.println("<p style =\"font-size: 20px;\n" + //
-                        "font-family: sans-serif;\" >Seller doesn't exist</p>");
-        writer.flush();
-        writer.close();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
+        req.setAttribute("type", "SELLER");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/loginPage.jsp");
+        dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
 
         // Set an attribute that can be used in the JSP
         String password = req.getParameter("password");
@@ -34,7 +34,7 @@ public class SellerServlet extends HttpServlet{
 
 
             // Forward the request to the JSP
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/seller/Seller.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/seller/SellersMenu.jsp");
             dispatcher.forward(req, resp);
         } else if(testClientExist(username, password) && username != null && password != null){
             // prosthetoume ton Client

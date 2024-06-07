@@ -1,7 +1,7 @@
-package com.webProgramming.Classes;
+package com.webProgramming.models;
 import java.util.Set;
 
-import com.webProgramming.enums.UserType;
+import com.webProgramming.models.enums.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,6 +24,10 @@ public class Admin extends User {
     private Set<Seller> sellers;
 
     public Set<Seller> getSellers() { return sellers; }
+
+    public Admin() {
+        super();
+    }
 
     public Admin(String username, String name, String surname) {
         super(UserType.ADMIN, username, name, surname);

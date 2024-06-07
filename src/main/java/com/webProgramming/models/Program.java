@@ -1,4 +1,4 @@
-package com.webProgramming.Classes;
+package com.webProgramming.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
