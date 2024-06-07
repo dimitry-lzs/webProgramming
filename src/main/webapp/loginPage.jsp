@@ -78,10 +78,12 @@ String type = (String) request.getAttribute("type");
                     <h2>Login</h2>
                     <div class="form" action="http://localhost:8080/vietnam/login" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
-                        <input type="text" id="username" name="username" placeholder="Username">
+                        <input type="text" id="username" name="username" required>
+                        <i>Username</i>
                     </div>
                     <div class="inputBox">
-                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="password" id="password" name="password" required>
+                        <i>Password</i>
                     </div>
                     <div class="inputBox"> 
 
@@ -92,6 +94,7 @@ String type = (String) request.getAttribute("type");
                     </div>
                 </div>
             </div>
+        </section>
     </body>
 
 </html>
