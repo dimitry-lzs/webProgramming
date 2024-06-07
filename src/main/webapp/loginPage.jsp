@@ -10,7 +10,7 @@ String type = (String) request.getAttribute("type");
 
     <head>
         <title>Login Page</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./style.css"/>
         <script>
             function validateForm() {
                 const username = document.getElementById('username').value;

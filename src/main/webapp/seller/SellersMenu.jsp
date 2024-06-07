@@ -16,7 +16,6 @@ String table = (String) request.getAttribute("table");
 <head>
     <title>Seller Page</title>
     <style>
-        
         a {
             text-decoration: none;
         }
