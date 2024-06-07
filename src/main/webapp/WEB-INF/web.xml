@@ -33,4 +33,15 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/Admin</url-pattern>
     </servlet-mapping>
+
+<servlet>
+        <servlet-name>ViewProgramsServlet</servlet-name>
+        <servlet-class>com.webProgramming.ViewProgramsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewProgramsServlet</servlet-name>
+        <url-pattern>/ViewPrograms</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

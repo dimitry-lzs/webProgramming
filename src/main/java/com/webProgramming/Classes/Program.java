@@ -28,13 +28,13 @@ public class Program implements Serializable {
     private String Program_Name;
 
     @Column(name = "Call_Time")
-    private int Call_Time;
+    private Integer Call_Time;
 
     @Column(name = "Fee")
-    private int Fee;  //Ik
+    private Integer Fee;  //Ik
 
     @Column(name = "Charge_Per_Second")
-    private int Charge_Per_Second;
+    private Integer Charge_Per_Second;
 
     @Column(name = "Benefits")
     private String[] Benefits;
@@ -44,7 +44,9 @@ public class Program implements Serializable {
 
     public Set<PhoneNumber> getPhoneNumbers() { return phoneNumbers; }
 
-    public Program(String Program_Name, int Call_Time, int Fee, int Charge_Per_Second) {
+    public Program() {}
+
+    public Program(String Program_Name, Integer Call_Time, Integer Fee, Integer Charge_Per_Second) {
         this.Program_Name = Program_Name;
         this.Call_Time = Call_Time;
         this.Fee = Fee;
