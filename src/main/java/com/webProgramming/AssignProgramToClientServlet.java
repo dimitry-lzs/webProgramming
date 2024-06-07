@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -14,6 +15,7 @@ import org.hibernate.SessionFactory;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Util;
 
+@WebServlet("/assignProgram")
 
 public class AssignProgramToClientServlet extends HttpServlet {
 

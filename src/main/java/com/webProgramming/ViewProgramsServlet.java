@@ -16,7 +16,7 @@ import com.webProgramming.models.Program;
 import com.webProgramming.models.Util;
 
 
-@WebServlet("/programs/*")
+@WebServlet("/viewPrograms")
 public class ViewProgramsServlet extends HttpServlet {
 
     @Override
