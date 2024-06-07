@@ -90,6 +90,7 @@ section .signin .content h2
   font-size: 2em;
   color: #0f0;
   text-transform: uppercase;
+  text-align: center;
 }
 section .signin .content .form 
 {
