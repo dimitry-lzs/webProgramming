@@ -37,14 +37,16 @@ public class Program implements Serializable {
     private Integer Charge_Per_Second;
 
     @Column(name = "Benefits")
-    private String[] Benefits;
+    private String Benefits;
 
     @OneToMany(mappedBy = "program")
     private Set<PhoneNumber> phoneNumbers;
 
     public Set<PhoneNumber> getPhoneNumbers() { return phoneNumbers; }
 
-    public Program() {}
+    public Program() {
+        super();
+    }
 
     public Program(String Program_Name, Integer Call_Time, Integer Fee, Integer Charge_Per_Second) {
         this.Program_Name = Program_Name;
@@ -53,11 +55,11 @@ public class Program implements Serializable {
         this.Charge_Per_Second = Charge_Per_Second;
     }
 
-    public void setBenefits(String[] Benefits) {
+    public void setBenefits(String Benefits) {
         this.Benefits = Benefits;
     }
 
-    public String[] getBenefits() {
+    public String getBenefits() {
         return Benefits;
     }
 

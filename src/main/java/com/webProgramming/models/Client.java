@@ -16,7 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 @Table(name = "clients", uniqueConstraints = @UniqueConstraint(columnNames = {"AFM"}))
 public class Client extends User {
     @Column(name = "AFM")
-    private final String AFM;
+    private String AFM;
 
     @Column(name = "Phone_Number")
     private PhoneNumber Phone_Number;
@@ -30,8 +30,12 @@ public class Client extends User {
 
     public Set<Bill> getBills() { return bills; }
 
+    public Client() {
+        super();
+    }
+
     public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
-        super(UserType.CLIENT, username, name, surname);
+        super(username, name, surname);
         this.AFM = afm;
         this.Phone_Number = phonenumber;
     }

@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "sellers")
 public class Seller extends User {
-
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
@@ -22,8 +21,12 @@ public class Seller extends User {
 
     public Set<Client> getClients() { return clients; }
 
+    public Seller() {
+        super();
+    }
+
     public Seller(String username, String name, String surname) {
-        super(UserType.SELLER, username, name, surname);
+        super(username, name, surname);
     }
 
     public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){

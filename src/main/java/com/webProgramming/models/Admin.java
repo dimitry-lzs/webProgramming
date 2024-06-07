@@ -30,7 +30,7 @@ public class Admin extends User {
     }
 
     public Admin(String username, String name, String surname) {
-        super(UserType.ADMIN, username, name, surname);
+        super(username, name, surname);
         // this.programs = new Program[0]; // Initialize programs as an empty array
         // this.sellers = new Seller[0]; // Initialize sellers as an empty array
         System.out.println("Admin is " + getName() + " " + getSurname());

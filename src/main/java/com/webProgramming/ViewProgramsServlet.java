@@ -3,6 +3,7 @@ package com.webProgramming;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +16,10 @@ import com.webProgramming.models.Program;
 import com.webProgramming.models.Util;
 
 
+@WebServlet("/programs/*")
 public class ViewProgramsServlet extends HttpServlet {
 
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         PrintWriter w = resp.getWriter();
@@ -50,9 +53,6 @@ public class ViewProgramsServlet extends HttpServlet {
             writer.println(e);
         }
 
-
-
-
         //Test to see if it got through here.
         writer.println("Done!");
 
@@ -61,7 +61,6 @@ public class ViewProgramsServlet extends HttpServlet {
         ses.getTransaction().commit();
         writer.flush();
         writer.close();
-
     }
 
 }

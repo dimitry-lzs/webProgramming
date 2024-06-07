@@ -85,11 +85,11 @@ String type = (String) request.getAttribute("type");
                         <input type="password" id="password" name="password" required>
                         <i>Password</i>
                     </div>
-                    <div class="inputBox"> 
+                    <div class="inputBox">
 
-                        <input type="submit" value="Login"> 
-                 
-                    </div> 
+                        <input type="submit" value="Login">
+
+                    </div>
                         <input type="hidden" id="type" name="type">
                     </form>
                 </div>

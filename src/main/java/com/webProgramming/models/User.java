@@ -1,8 +1,5 @@
 package com.webProgramming.models;
 import java.io.Serializable;
-
-import com.webProgramming.models.enums.UserType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,9 +15,6 @@ public abstract class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @Column(name = "type")
-    private UserType type;
-
     @Column(name = "username")
     private String username;
 
@@ -34,36 +28,29 @@ public abstract class User implements Serializable {
     private String surname;
 
     public User() {
-        System.out.println("User was instantiated.");
+        super();
     }
 
-    public User(UserType type, String username, String name, String surname) {
-        this.setType(type);
+    public User(String username, String name, String surname) {
+        super();
         this.setUsername(username);
         this.setName(name);
         this.setSurname(surname);
-        System.out.println(type + " " + getName() + " " + getSurname() + " was instantiated.");
+        System.out.println(getName() + " " + getSurname() + " was instantiated.");
     }
 
     public void register() {
-        System.out.println("User " + type + " registered");
+        System.out.println("User registered");
     }
 
     public void login() {
-        System.out.println("User " + type + " logged in");
+        System.out.println("User logged in");
     }
 
     public void logout() {
-        System.out.println("User " + type + " logged out");
+        //
     }
 
-    private void setType(UserType type) {
-        this.type = type;
-    }
-
-    public UserType getType() {
-        return type;
-    }
 
     public String getUsername() {
         return username;

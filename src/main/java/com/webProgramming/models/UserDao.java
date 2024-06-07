@@ -42,7 +42,7 @@ public class UserDao {
                     break;
 
                 case UserType.CLIENT:
-                    hql = "FROM Customer WHERE username = :username AND password = :password";
+                    hql = "FROM Client WHERE username = :username AND password = :password";
                     Query<Client> queryCustomer = session.createQuery(hql, Client.class);
 
                     queryCustomer.setParameter("username", username);
