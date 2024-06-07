@@ -2,8 +2,6 @@ package com.webProgramming.models;
 
 import java.util.Set;
 
-import com.webProgramming.models.enums.UserType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -16,10 +14,10 @@ import jakarta.persistence.UniqueConstraint;
 @Table(name = "clients", uniqueConstraints = @UniqueConstraint(columnNames = {"AFM"}))
 public class Client extends User {
     @Column(name = "AFM")
-    private final String AFM;
+    private String AFM;
 
     @Column(name = "Phone_Number")
-    private PhoneNumber Phone_Number;
+    private int Phone_Number;
 
     @OneToMany(mappedBy = "client")
     private Set<Bill> bills;
@@ -30,8 +28,12 @@ public class Client extends User {
 
     public Set<Bill> getBills() { return bills; }
 
-    public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
-        super(UserType.CLIENT, username, name, surname);
+    public Client() {
+        super();
+    }
+
+    public Client(String afm, int phonenumber, String username, String name, String surname) {
+        super(username, name, surname);
         this.AFM = afm;
         this.Phone_Number = phonenumber;
     }
@@ -44,7 +46,7 @@ public class Client extends User {
         return AFM;
     }
 
-    public PhoneNumber getPhonenumber() {
+    public int getPhonenumber() {
         return Phone_Number;
     }
 

@@ -1,8 +1,6 @@
 package com.webProgramming.models;
 import java.util.Set;
 
-import com.webProgramming.models.enums.UserType;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,7 +10,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "sellers")
 public class Seller extends User {
-
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
@@ -22,11 +19,23 @@ public class Seller extends User {
 
     public Set<Client> getClients() { return clients; }
 
-    public Seller(String username, String name, String surname) {
-        super(UserType.SELLER, username, name, surname);
+    public Seller() {
+        super();
     }
 
-    public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){
+    public Seller(String username, String name, String surname) {
+        super(username, name, surname);
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public Client addClient(String afm, int phonenum, String username, String name, String surname){
         System.out.println("Adding client...");
 
         // //Creating new client.

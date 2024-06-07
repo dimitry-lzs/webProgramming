@@ -8,6 +8,7 @@
 
 
 
+
 <html>
     <head>
         <title>Tables Clients</title>
@@ -17,7 +18,12 @@
             <tr><th>AFM</th><th>Phone Number</th><th>Seller ID</th></tr>
             <%for (int i = 0; i < 10; i++){
                 out.println("<tr><td>times</td><td>apo tin</td><td>vasi</td></tr>");
-            }%>
+            }
+            
+            Admin admin = new Admin("the man", "the myth", "the legend");
+            out.println(admin.getUsername());
+            
+            %>
         </table>
     </body>
 </html>
