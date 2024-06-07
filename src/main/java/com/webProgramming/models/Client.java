@@ -17,7 +17,7 @@ public class Client extends User {
     private String AFM;
 
     @Column(name = "Phone_Number")
-    private PhoneNumber Phone_Number;
+    private int Phone_Number;
 
     @OneToMany(mappedBy = "client")
     private Set<Bill> bills;
@@ -32,7 +32,7 @@ public class Client extends User {
         super();
     }
 
-    public Client(String afm, PhoneNumber phonenumber, String username, String name, String surname) {
+    public Client(String afm, int phonenumber, String username, String name, String surname) {
         super(username, name, surname);
         this.AFM = afm;
         this.Phone_Number = phonenumber;
@@ -46,7 +46,7 @@ public class Client extends User {
         return AFM;
     }
 
-    public PhoneNumber getPhonenumber() {
+    public int getPhonenumber() {
         return Phone_Number;
     }
 

@@ -35,7 +35,7 @@ public class Seller extends User {
         return admin;
     }
 
-    public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){
+    public Client addClient(String afm, int phonenum, String username, String name, String surname){
         System.out.println("Adding client...");
 
         // //Creating new client.

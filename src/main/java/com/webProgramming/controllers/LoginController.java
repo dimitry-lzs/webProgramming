@@ -68,10 +68,10 @@ public class LoginController extends HttpServlet {
                         redirectPath = "/admin/menu.jsp";
                         break;
                     case SELLER:
-                        redirectPath = "/sellerMenu.jsp";
+                        redirectPath = "/seller/sellerMenu.jsp";
                         break;
                     case CLIENT:
-                        redirectPath = "/customerMenu.jsp";
+                        redirectPath = "/client/menu.jsp";
                         break;
                 }
             }

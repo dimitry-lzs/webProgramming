@@ -25,8 +25,8 @@ public class CreateUsers {
         phone2.printPhoneNumber();
 
         //Create Client through Seller.
-        Client client = seller.addClient("424", phonenumber, "crazyback", "Duden", "Dudenski");
-        Client client2 = seller.addClient("425", phonenumber, "crazyback2", "Vlad", "Uzumaki");
+        Client client = seller.addClient("424", 2342, "crazyback", "Duden", "Dudenski");
+        Client client2 = seller.addClient("425", 234, "crazyback2", "Vlad", "Uzumaki");
 
         client.register();
         client.login();
