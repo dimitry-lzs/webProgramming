@@ -27,6 +27,14 @@ public class Seller extends User {
         super(username, name, surname);
     }
 
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
     public Client addClient(String afm, PhoneNumber phonenum, String username, String name, String surname){
         System.out.println("Adding client...");
 

@@ -1,9 +1,6 @@
 package com.webProgramming.models;
 import java.util.Set;
 
-import com.webProgramming.models.enums.UserType;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -11,10 +8,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "admins")
 public class Admin extends User {
-
-    @Column(name = "type")
-    private UserType type;
-
     @OneToMany(mappedBy = "admin")
     private Set<Program> programs;
 
@@ -24,6 +17,10 @@ public class Admin extends User {
     private Set<Seller> sellers;
 
     public Set<Seller> getSellers() { return sellers; }
+
+    public void setSellers(Set<Seller> sellers) {
+        this.sellers = sellers;
+    }
 
     public Admin() {
         super();
