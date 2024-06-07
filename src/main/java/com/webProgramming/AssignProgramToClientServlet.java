@@ -11,9 +11,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.webProgramming.Classes.Client;
-import com.webProgramming.Classes.Program;
-import com.webProgramming.Classes.Util;
+import com.webProgramming.models.Client;
+import com.webProgramming.models.Program;
+import com.webProgramming.models.Util;
 
 
 public class AssignProgramToClientServlet extends HttpServlet {
