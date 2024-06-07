@@ -2,8 +2,6 @@ package com.webProgramming.models;
 
 import java.util.Set;
 
-import com.webProgramming.models.enums.UserType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
