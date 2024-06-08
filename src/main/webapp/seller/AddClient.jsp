@@ -8,33 +8,88 @@
 <html>  
     <head>
         <title>Add Client</title>
+        <link rel="stylesheet" href="./style.css"/>
     </head>
     <body>
-        <form action="/SellerServlet.java" method="post">
-            <label for="sellerId">Seller ID:</label><br>
-            <input type="text" id="sellerId" name="sellerId"><br>
+        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+            <span></span>
 
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br>
+        <div class="signin">
+            <div class="content">
+                <h2>Add a Client</h2>
+                <form class="form" action="/SellerServlet.java" method="post">
+                    <div class="inputBox">
+                        <input type="text" id="name" name="name" required>
+                        <i>Name</i>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" id="surname" name="surname" required>
+                        <i>Surname</i>
+                    </div>
+                    <div class="inputBox">
+                    <input type="text" id="afm" name="afm" required>
+                    <i>AFM</i>
+                </div>
+                <div class="inputBox">
+                    <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    <i>Phone Number</i>
+                </div>
+                <div class="inputBox">
+                    <input type="text" id="username" name="username" required>
+                    <i>Username</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" id="password" name="password" required>
+                    <i>Password</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <i>Confirm Password</i>
+                </div>
+                <div class="inputBox"> 
 
-            <label for="surname">Surname:</label><br>
-            <input type="text" id="surname" name="surname"><br>
-
-            <label for="afm">AFM:</label><br>
-            <input type="text" id="afm" name="afm"><br>
-
-            <label for="phoneNumber">Phone Number:</label><br>
-            <input type="text" id="phoneNumber" name="phoneNumber"><br>
-
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username"><br>
-
-            <label for="pasword">Pasword:</label><br>
-            <input type="text" id="pasword" name="pasword"><br>
-
-            <-- o tipos benei user pada--><br>
-
-            <input type="submit" value="Submit">
-        </form>
+                    <input type="submit" value="Add"> 
+             
+                </div> 
+                </form>
+            </div>
+        </div>
+        </section>
     </body>
 </html>
