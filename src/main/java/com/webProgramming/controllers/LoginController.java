@@ -1,7 +1,6 @@
 package com.webProgramming.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,14 +19,14 @@ public class LoginController extends HttpServlet {
     static final UserDao userDao = new UserDao();
     static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PrintWriter writer = resp.getWriter();
-        writer.println("<p style =\"font-size: 20px;\n" + //
-                "font-family: sans-serif;\" >Login get</p>");
-        writer.flush();
-        writer.close();
-    }
+    // @Override
+    // protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    //     PrintWriter writer = resp.getWriter();
+    //     writer.println("<p style =\"font-size: 20px;\n" + //
+    //             "font-family: sans-serif;\" >Login get</p>");
+    //     writer.flush();
+    //     writer.close();
+    // }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -54,7 +53,6 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
 
             boolean success = userDao.login(newLogin.getUsername(), newLogin.getPassword(), newLogin.getType());
-
             String redirectPath = "";
 
             if (!success) {

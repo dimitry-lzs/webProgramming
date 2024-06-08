@@ -1,8 +1,8 @@
-<%@ include file="common.jsp" %>
-<html>
+<%@ include file="/common.jsp" %>
 
+<html>
     <head>
-        <title>Registration Form</title>
+        <title>Create Form</title>
         <link rel="stylesheet" href="./style.css">
         <script>
             function validateForm() {
@@ -67,7 +67,7 @@
             <div class="signin">
                 <div class="content">
                     <h2>Register as Admin</h2>
-                    <form class="form" action="register-admin" method="post" onsubmit="return validateForm()">
+                    <form class="form" action="/vietnam/register-admin" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
                             <input type="text" id="name" name="name" required>
                             <i>Name</i>
@@ -77,22 +77,22 @@
                             <i>Surname</i>
                         </div>
                         <div class="inputBox">
-                        <input type="text" id="username" name="username" required>
-                        <i>Username</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="password" id="password" name="password" required>
-                        <i>Password</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
-                        <i>Confirm Password</i>
-                    </div>
-                    <div class="inputBox"> 
+                            <input type="text" id="username" name="username" required>
+                            <i>Username</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="password" id="password" name="password" required>
+                            <i>Password</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <i>Confirm Password</i>
+                        </div>
+                        <div class="inputBox"> 
 
-                        <input type="submit" value="Sign Up"> 
-                 
-                    </div> 
+                            <input type="submit" value="Sign Up"> 
+                        
+                        </div> 
                     </form>
                 </div>
             </div>

@@ -46,8 +46,11 @@ public class Admin extends User {
         return program;
     }
 
-    public Seller createSeller(String username, String name, String surname) {
+    public Seller createSeller(String username, String name, String surname, String password) {
         Seller seller = new Seller(username, name, surname);
+        seller.setPassword(password);
+        seller.setAdmin(this);
+
         // Seller[] newSellers = new Seller[sellers.length + 1];
 
         // for (int i = 0; i < sellers.length; i++) {

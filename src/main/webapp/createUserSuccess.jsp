@@ -1,10 +1,14 @@
 <%@ include file="/common.jsp" %>
-<%String username =  (String) request.getAttribute("username");%>
-<%String password =  (String) request.getAttribute("password");%>
+<%String type = (String) request.getParameter("type");%>
+<%String option = (String) request.getParameter("option");%>
+<%String username = (String) request.getParameter("username");%>
+<%String password = (String) request.getParameter("password");%>
+
+
 
 <html>
     <head>
-        <title>Menu</title>
+        <title>Create User Success</title>
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
@@ -48,19 +52,16 @@
             <span></span>
         <div class="signin">
             <div class="content">
-                <h2>Admin Menu</h2>
-                <h2>Welcome!</h2>
-                
-                <form form class="form" action="admin" method="post">
+                <h2>Create <%= option%> Success</h2>
+
+                <form form class="form" action="<%= type.toLowerCase()%>" method="post">
                     <input type="hidden" id="username" name="username" value="<%= username%>">
                     <input type="hidden" id="password" name="password" value="<%= password%>">
-                    <input type="hidden" id="controler" name="controler" value="SELLER">
-
+                    <input type="hidden" id="controler" name="controler" value="<%= option%>">
                     <div class="inputBox"> 
-                        <input type="submit" value="Create Seller">
+                        <input type="submit" value="Create <%= option%>">
                     </div>
                 </form>
-
                 <div class="links"><a href="index.html">Back to Homepage</a></div>
             </div>
         </div>

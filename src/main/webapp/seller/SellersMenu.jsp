@@ -1,17 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% if (request.getAttribute("username") == null) {
-    response.sendRedirect("../index.html");
-    //kanonika testari an yparhei o seller pou sindeete
+<%String username = (String) request.getAttribute("username");%>
+<%String password = (String) request.getAttribute("password");%>
 
-} %>
-
-
-
-<%
-String username = (String) request.getAttribute("username");
-String table = (String) request.getAttribute("table");
-%>
 <html>
 <head>
     <title>Seller Page</title>
@@ -94,7 +85,14 @@ String table = (String) request.getAttribute("table");
     </button>
 
     <button onclick="location.href='http://localhost:8080/vietnam/assignProgram';" class="rectangleButton" style="top: 70px"><p>assignProgram</p></button>
-    <a href="seller/AddClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 150px"><p>Add Client</p></div></a>
+    <form form class="form" action="/vietnam/seller" method="post">
+        <input type="hidden" id="username" name="username" value="<%= username%>">
+        <input type="hidden" id="password" name="password" value="<%= password%>">
+        <input type="hidden" id="controler" name="controler" value="CLIENT">
+
+        <button class="rectangleButton" style="top: 150px" type="submit" >Create Client</button>
+
+    </form>
     <button onclick="location.href='http://localhost:8080/vietnam/viewPrograms';" class="rectangleButton" style="top: 230px"><p>viewPrograms</p></button>
 
 

@@ -8,49 +8,4 @@
        <!-- <url-pattern>/index.html</url-pattern> -->
     </welcome-file-list>
 
-    <servlet>
-        <servlet-name>ClientServlet</servlet-name>
-        <servlet-class>com.webProgramming.ClientServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ClientServlet</servlet-name>
-        <url-pattern>/Client</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>SellerServlet</servlet-name>
-        <servlet-class>com.webProgramming.SellerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SellerServlet</servlet-name>
-        <url-pattern>/Seller</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>com.webProgramming.AdminServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/Admin</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ViewProgramsServlet</servlet-name>
-        <servlet-class>com.webProgramming.ViewProgramsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ViewProgramsServlet</servlet-name>
-        <url-pattern>/ViewPrograms</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AssignProgramToClientServlet</servlet-name>
-        <servlet-class>com.webProgramming.AssignProgramToClientServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AssignProgramToClientServlet</servlet-name>
-        <url-pattern>/AssignProgramToClient</url-pattern>
-    </servlet-mapping>
-
 </web-app>
