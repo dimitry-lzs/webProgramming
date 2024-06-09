@@ -6,18 +6,6 @@
 
 } %>
 
-<!--Imports-->
-<%@page import="javax.servlet.http.HttpServlet"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="javax.servlet.http.HttpServletResponse"%>
-
-<%@page import="org.hibernate.HibernateException"%>
-<%@page import="org.hibernate.Session"%>
-<%@page import="org.hibernate.SessionFactory"%>
-
-<%@page import="com.webProgramming.Classes.Program"%>
-<%@page import="com.webProgramming.Classes.Util"%>
-
 
 
 

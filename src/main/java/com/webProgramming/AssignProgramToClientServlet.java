@@ -20,6 +20,9 @@ import com.webProgramming.models.Util;
 
 public class AssignProgramToClientServlet extends HttpServlet {
 
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {}
+
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         System.out.println("POSTING");
@@ -43,15 +46,19 @@ public class AssignProgramToClientServlet extends HttpServlet {
             //Look for matching AFM and Program.
             writer.println("Finding AFM...");
 
+            try {
+                java.util.List<Client> clients = ses.createQuery("select c from Client c where c.AFM = " + AFM, Client.class).list();
+            }
+            catch (HibernateException e) {
 
-            java.util.List<Client> clients = ses.createQuery("select c from Client c where c.AFM = " + AFM, Client.class).list();
+            }
 
             writer.println("Finding Program...");
             java.util.List<Program> programs = ses.createQuery("select p from Program p where p.id = " + programid, Program.class).list();
 
             writer.println("Printing Result...");
             //if (clients.size() > 0 && programs.size() > 0) {
-            if (clients.size() > 0 && programs.size() > 0) {
+            if (programs.size() > 0) {
                 writer.println("Found matching AFM and Program ID!");
             }
             else {

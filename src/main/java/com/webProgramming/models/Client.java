@@ -17,7 +17,7 @@ public class Client extends User {
     private String AFM;
 
     @Column(name = "Phone_Number")
-    private int Phone_Number;
+    private Integer Phone_Number;   //Integer kai oxi int apeidh me int to hibernate evgaze error.
 
     @OneToMany(mappedBy = "client")
     private Set<Bill> bills;
