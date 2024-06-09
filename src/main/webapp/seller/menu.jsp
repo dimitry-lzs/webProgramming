@@ -1,4 +1,4 @@
-<%@ include file="/common.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.webProgramming.src.Login" %>
 
 <%
@@ -8,14 +8,19 @@
     }
     String username = login.getUsername();
     String type = login.getType().name();
+    if (!type.equals("SELLER")) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not a seller!");
+    }
 %>
-    <html>
+
+<html>
     <head>
-        <title>Menu</title>
+        <title>Seller Menu</title>
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <section>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -67,14 +72,10 @@
                     </div>
                 </div>
             </header>
-            <div class="signin">
-                <div class="content">
-                    <h2>Admin Menu</h2>
-                    <h2>Welcome!</h2>
-                    <div class="links"><a href="index.html">Back to Homepage</a></div>
-                </div>
-            </div>
+
+            <button onclick="location.href='http://localhost:8080/vietnam/assignProgram';" class="rectangleButton" style="top: 70px"><p>assignProgram</p></button>
+            <a href="seller/AddClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 150px"><p>Add Client</p></div></a>
+            <button onclick="location.href='http://localhost:8080/vietnam/viewPrograms';" class="rectangleButton" style="top: 230px"><p>viewPrograms</p></button>
         </section>
     </body>
-
-    </html>
+</html>
