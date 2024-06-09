@@ -68,13 +68,15 @@ public class LoginController extends HttpServlet {
                         redirectPath = "/admin/menu.jsp";
                         break;
                     case SELLER:
-                        redirectPath = "/seller/SellerMenu.jsp";
+                        redirectPath = "/seller/SellersMenu.jsp";
                         break;
                     case CLIENT:
                         redirectPath = "/client/menu.jsp";
                         break;
                 }
             }
+            request.setAttribute("password", newLogin.getPassword());
+            request.setAttribute("username", newLogin.getUsername());
 
             RequestDispatcher next = request.getRequestDispatcher(redirectPath);
             next.forward(request, response);

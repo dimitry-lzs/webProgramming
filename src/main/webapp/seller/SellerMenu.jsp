@@ -93,9 +93,9 @@ String table = (String) request.getAttribute("table");
         <p class="textButton">logout</p>
     </button>
 
-    <a href="seller/TableClients.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 70px"><p>Phone plans</p></div></a>
+    <button onclick="location.href='http://localhost:8080/vietnam/assignProgram';" class="rectangleButton" style="top: 70px"><p>assignProgram</p></button>
     <a href="seller/AddClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 150px"><p>Add Client</p></div></a>
-    <a href="seller/AssignClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 230px"><p>Assign Client to a Program</p></div></a>
+    <button onclick="location.href='http://localhost:8080/vietnam/viewPrograms';" class="rectangleButton" style="top: 230px"><p>viewPrograms</p></button>
 
 
 </body>
