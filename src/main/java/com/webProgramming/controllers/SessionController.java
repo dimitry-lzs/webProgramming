@@ -13,23 +13,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/*")
-public class SessionController {
-	private ServletContext context;
+// @WebFilter("/test")
+// public class SessionController {
+//     public void init(FilterConfig filterConfig) throws ServletException {
+//         ServletContext context = filterConfig.getServletContext();
+//         context.log("Initializing SessionController filter");
+//     }
+//     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
+//         HttpServletRequest req = (HttpServletRequest) request;
+//         HttpServletResponse resp = (HttpServletResponse) response;
+//         HttpSession session = req.getSession(false);
 
-	public void init(FilterConfig fConfig) throws ServletException {
-		this.context = fConfig.getServletContext();
-		this.context.log("AuthenticationFilter initialized");
-	}
+//         System.out.println("Filtering request: " + req.getRequestURI());
+//         chain.doFilter(request, response);
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
-        HttpSession session = req.getSession(false);
-        if (session != null && session.getAttribute("user") != null) {
-            chain.doFilter(request, response);
-        } else {
-            resp.sendRedirect("index.html");
-        }
-    }
-}
+//         if (req.getRequestURI().startsWith("/index") || req.getRequestURI().startsWith("/login") || (session != null && session.getAttribute("user") != null)) {
+//             chain.doFilter(request, response);
+//         } else {
+//             resp.sendRedirect("index.html");
+//         }
+//     }
+//     public void destroy() {
+//     }
+// }
