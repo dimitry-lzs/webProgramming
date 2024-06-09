@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.webProgramming.models.Client;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Util;
 
@@ -41,14 +42,14 @@ public class AssignProgramToClientServlet extends HttpServlet {
             writer.println("Finding AFM...");
 
 
-           // java.util.List<Client> clients = ses.createQuery("select c from Client c where c.AFM = " + AFM, Client.class).list();
+            java.util.List<Client> clients = ses.createQuery("select c from Client c where c.AFM = " + AFM, Client.class).list();
 
             writer.println("Finding Program...");
             java.util.List<Program> programs = ses.createQuery("select p from Program p where p.id = " + programid, Program.class).list();
 
             writer.println("Printing Result...");
             //if (clients.size() > 0 && programs.size() > 0) {
-            if (programs.size() > 0) {
+            if (clients.size() > 0 && programs.size() > 0) {
                 writer.println("Found matching AFM and Program ID!");
             }
             else {
