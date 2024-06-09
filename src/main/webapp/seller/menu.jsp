@@ -72,10 +72,23 @@
                     </div>
                 </div>
             </header>
-
-            <button onclick="location.href='http://localhost:8080/vietnam/assignProgram';" class="rectangleButton" style="top: 70px"><p>assignProgram</p></button>
-            <a href="seller/AddClient.jsp?username=<%=username%>"><div class="rectangleButton" style="top: 150px"><p>Add Client</p></div></a>
-            <button onclick="location.href='http://localhost:8080/vietnam/viewPrograms';" class="rectangleButton" style="top: 230px"><p>viewPrograms</p></button>
+            <div class="signin">
+                <div class="content">
+                    <h2>Hello <% out.println(username); %></h2>
+                    <div class="buttons">
+                        <button class="button" onclick="location.href='seller/AddClient.jsp?username=<%=username%>';">
+                            Add Client
+                        </button>
+                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/assignProgram';">
+                            Assign Program
+                        </button>
+                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/viewPrograms';">
+                            View Programs
+                        </button>
+                    </div>
+                    <div class="links"><a href="index.html">Back to Homepage</a></div>
+                </div>
+            </div>
         </section>
     </body>
 </html>

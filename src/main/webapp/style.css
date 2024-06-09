@@ -163,6 +163,12 @@ section .signin .content .form .inputBox i
   letter-spacing: 0.05em;
   cursor: pointer;
 }
+.signin .content .buttons {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
 input[type="submit"]:active, .button:active
 {
   opacity: 0.6;
