@@ -1,7 +1,6 @@
 package com.webProgramming.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,11 +21,12 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PrintWriter writer = resp.getWriter();
-        writer.println("<p style =\"font-size: 20px;\n" + //
-                "font-family: sans-serif;\" >Login get</p>");
-        writer.flush();
-        writer.close();
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("user") != null) {
+            resp.getWriter().write("User is logged in");
+        } else {
+            resp.sendRedirect("index.html");
+        }
     }
 
     @Override
@@ -60,23 +60,19 @@ public class LoginController extends HttpServlet {
             if (!success) {
                 redirectPath = "/loginError.jsp";
             } else {
-                session.setAttribute("username", newLogin.getUsername());
-                session.setAttribute("type", newLogin.getType());
-
+                session.setAttribute("user", newLogin);
                 switch (userType) {
                     case ADMIN:
                         redirectPath = "/admin/menu.jsp";
                         break;
                     case SELLER:
-                        redirectPath = "/seller/SellersMenu.jsp";
+                        redirectPath = "/seller/menu.jsp";
                         break;
                     case CLIENT:
                         redirectPath = "/client/menu.jsp";
                         break;
                 }
             }
-            request.setAttribute("password", newLogin.getPassword());
-            request.setAttribute("username", newLogin.getUsername());
 
             RequestDispatcher next = request.getRequestDispatcher(redirectPath);
             next.forward(request, response);
