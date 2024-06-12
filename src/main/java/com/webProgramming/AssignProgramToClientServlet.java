@@ -46,7 +46,7 @@ public class AssignProgramToClientServlet extends HttpServlet {
             //Look for matching AFM and Program.
             writer.println("Finding AFM...");
 
-
+                
             java.util.List<Client> clients = ses.createQuery("select c from Client c where c.AFM = " + AFM, Client.class).list();
 
 
