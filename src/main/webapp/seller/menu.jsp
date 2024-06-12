@@ -60,7 +60,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="index.html">Home</a>
+                    <a href="index.html">Back to Homepage</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -86,7 +86,6 @@
                             View Programs
                         </button>
                     </div>
-                    <div class="links"><a href="index.html">Back to Homepage</a></div>
                 </div>
             </div>
         </section>
