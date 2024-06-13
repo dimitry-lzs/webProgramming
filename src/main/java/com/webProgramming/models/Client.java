@@ -8,12 +8,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "clients", uniqueConstraints = @UniqueConstraint(columnNames = {"AFM"}))
+@Table(name = "clients")
 public class Client extends User {
-    @Column(name = "AFM")
+    @Column(name = "AFM", unique = true)
     private String AFM;
 
     @Column(name = "Phone_Number")
@@ -36,6 +35,10 @@ public class Client extends User {
         super(username, name, surname);
         this.AFM = afm;
         this.Phone_Number = phonenumber;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     public void setBills(Bill[] bills) {
@@ -63,4 +66,6 @@ public class Client extends User {
     public void payBill() {
         // bills[bills.length - 1].setPaid(true);
     }
+
+
 }

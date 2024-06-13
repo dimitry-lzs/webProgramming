@@ -90,7 +90,7 @@ String type = (String) request.getAttribute("type");
                         <input type="submit" value="Login">
 
                     </div>
-                        <input type="hidden" id="type" name="type">
+                        <input type="hidden" id="type" name="type" value="<%= type%>">
                     </form>
                 </div>
             </div>

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webProgramming.models.UserDao;
+import com.webProgramming.models.enums.UserType;
+
 @WebServlet("/seller")
 public class SellerServlet extends HttpServlet{
     @Override
@@ -16,12 +19,29 @@ public class SellerServlet extends HttpServlet{
         dispatcher.forward(req, resp);
     }
 
-    public static boolean testClientExist(String username, String password) {
-        //edw benei stin vasei kanei eleghw kai epistrefei an yparhei o client
-        return true;
+
+    static final UserDao userDao = new UserDao();
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
+        req.setAttribute("type", "SELLER");
+        String controler = req.getParameter("controler");
+        RequestDispatcher dispatcher = null;
+
+        if ("CLIENT".equals(controler)){
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            int ID = userDao.getId(username, password, UserType.SELLER);
+
+            req.setAttribute("username", username);
+            req.setAttribute("password", password);
+            req.setAttribute("ID", ID);
+            dispatcher = req.getRequestDispatcher("seller/AddClient.jsp");
+        }
+        dispatcher.forward(req, resp);
+
     }
-    public static boolean testClientExist(String AFM) {
-        //edw benei stin vasei kanei eleghw kai epistrefei an yparhei o client
-        return true;
-    }
+
+
+
+
 }

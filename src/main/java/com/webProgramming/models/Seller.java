@@ -35,15 +35,21 @@ public class Seller extends User {
         return admin;
     }
 
-    public Client addClient(String afm, int phonenum, String username, String name, String surname){
-        System.out.println("Adding client...");
+    // public Client addClient(String afm, int phonenum, String username, String name, String surname){
+    //     System.out.println("Adding client...");
 
-        // //Creating new client.
-        Client newclient = new Client(afm, phonenum, username, name, surname);
-        // //Adding client to client array.
-        // clientarray[0] = newclient;
-        // //Return client.
-        return newclient;
+    //     // //Creating new client.
+    //     Client newclient = new Client(afm, phonenum, username, name, surname);
+    //     // //Adding client to client array.
+    //     // clientarray[0] = newclient;
+    //     // //Return client.
+    //     return newclient;
+    // }
+    public Client createClient(String afm, int phonenumber, String username, String name, String surname, String password){
+        Client client = new Client(afm, phonenumber, username, name, surname);
+        client.setPassword(password);
+        client.setSeller(this);
+        return client;
     }
     public Bill issueBill(PhoneNumber phonenumber, Call[] calls){
         Bill newbill = new Bill(1, phonenumber);
