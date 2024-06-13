@@ -5,13 +5,14 @@
     //kanonika testari an yparhei o seller pou sindeete
 } %>
 
-<html>  
+<html>
     <head>
         <title>Add Client</title>
         <link rel="stylesheet" href="./style.css"/>
     </head>
     <body>
-        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <section>
+            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -82,11 +83,9 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" required>
                     <i>Confirm Password</i>
                 </div>
-                <div class="inputBox"> 
-
-                    <input type="submit" value="Add"> 
-             
-                </div> 
+                <div class="inputBox">
+                    <input type="submit" value="Add">
+                </div>
                 </form>
             </div>
         </div>

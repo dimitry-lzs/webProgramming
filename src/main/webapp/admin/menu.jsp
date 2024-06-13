@@ -63,7 +63,7 @@
                         <div class="role"><% out.println(type); %></div>
                     </div>
                     <div class="logout">
-                        <a href="/logout">Logout</a>
+                        <a href="logout">Logout</a>
                     </div>
                 </div>
             </header>
