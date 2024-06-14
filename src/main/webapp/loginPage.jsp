@@ -3,7 +3,6 @@
     if (type == null) {
         throw new Exception("Type is not defined");
     }
-    System.out.println("Type: " + type);
 %>
 
 <html>

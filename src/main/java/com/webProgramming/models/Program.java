@@ -59,6 +59,10 @@ public class Program implements Serializable {
         this.Benefits = Benefits;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getBenefits() {
         return Benefits;
     }

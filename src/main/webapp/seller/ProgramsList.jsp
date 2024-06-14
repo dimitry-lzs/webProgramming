@@ -4,27 +4,39 @@
     Login login = (Login) session.getAttribute("user");
 
     if (login == null) {
-        request.setAttribute("accessDenied", true);
         response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
     }
-
     String type = login.getType().name();
     String username = login.getUsername();
 
     if (!type.equals("SELLER")) {
-        request.setAttribute("accessDenied", true);
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=Persmission denied");
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
     }
 %>
 
+
 <html>
+
     <head>
-        <title>Seller Menu</title>
+        <title>Create Form</title>
         <link rel="stylesheet" href="/vietnam/style.css">
+        <script>
+            function validateForm() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match");
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
     </head>
+
     <body>
-        <section>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -62,35 +74,28 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
-            <header class="header">
-                <div class="home">
-                    <a href="index.html">Back to Homepage</a>
-                </div>
-                <div class="sessionTools">
-                    <div class="user">
-                        <div class="username"><% out.println(username); %></div>
-                        <div class="role"><% out.println(type); %></div>
-                    </div>
-                    <div class="logout">
-                        <a href="logout">Logout</a>
-                    </div>
-                </div>
-            </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Hello <% out.println(username); %></h2>
-                    <div class="buttons">
-                        <button class="button" onclick="location.href='seller/AddClient.jsp';">
-                            Add Client
-                        </button>
-                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/assignProgram';">
-                            Assign Program
-                        </button>
-                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/programs';">
-                            View Programs
-                        </button>
-                    </div>
-                    <div class="links"><a href="index.html">Back to Homepage</a></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Program ID</th>
+                                <th>Program Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                List<Program> programs = (List<Program>) request.getAttribute("programs");
+                                for (Program program : programs) {
+                            %>
+                            <tr>
+                                <td><%= program.getId() %></td>
+                                <td><%= program.getProgramName() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                    </table>
                 </div>
             </div>
         </section>
