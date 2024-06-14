@@ -1,5 +1,4 @@
 <%@ include file="/common.jsp" %>
-<%@ page import="com.webProgramming.src.Login" %>
 
 <%
     Login login = (Login) session.getAttribute("user");
@@ -8,29 +7,21 @@
         return;
     }
     String username = login.getUsername();
-    String type = login.getType().name();
-    long id = login.getId();
 %>
 
 <html>
 
     <head>
-        <title>Create Form</title>
-        <link rel="stylesheet" href="./style.css">
+        <title>Create Client</title>
+        <link rel="stylesheet" href="/vietnam/style.css">
         <script>
             function validateForm() {
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
-                const AFM = document.getElementById('afm').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
 
-                if(password !== confirmPassword){
+                if (password !== confirmPassword) {
                     alert("Passwords do not match");
-                    return false;
-                }
-
-                if (username.trim() === "" || password.trim() === "" || AFM.trim() === ""){
-                    alert("Username, password, phoneNumber and AFM cannot be empty or spaces");
                     return false;
                 }
 
@@ -107,12 +98,11 @@
                             <i>Confirm Password</i>
                         </div>
                         <div class="inputBox">
-                            <input type="submit" value="create">
+                            <input type="submit" value="Create">
                         </div>
                     </form>
                 </div>
             </div>
         </section>
     </body>
-
 </html>

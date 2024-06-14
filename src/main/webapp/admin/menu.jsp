@@ -1,19 +1,22 @@
 <%@ include file="/common.jsp" %>
-<%@ page import="com.webProgramming.src.Login" %>
 
 <%
     Login login = (Login) session.getAttribute("user");
+
     if (login == null) {
         response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
     }
-    String username = login.getUsername();
     String type = login.getType().name();
-    long id = login.getId();
+    String username = login.getUsername();
+
+    if (!type.equals("ADMIN")) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
+    }
 %>
     <html>
     <head>
         <title>Menu</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="/vietnam/style.css">
     </head>
     <body>
         <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -70,8 +73,12 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Admin Menu</h2>
-                    <h2>Welcome!</h2>
+                    <h2>Hello <% out.println(username); %></h2>
+                    <div class="buttons">
+                        <button class="button" onclick="location.href='admin/AddSeller.jsp';">
+                            Add Seller
+                        </button>
+                    </div>
                     <div class="links"><a href="index.html">Back to Homepage</a></div>
                 </div>
             </div>

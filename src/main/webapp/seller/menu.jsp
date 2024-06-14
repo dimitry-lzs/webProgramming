@@ -1,22 +1,26 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.webProgramming.src.Login" %>
+<%@ include file="/common.jsp" %>
 
 <%
     Login login = (Login) session.getAttribute("user");
+
     if (login == null) {
+        request.setAttribute("accessDenied", true);
         response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
     }
-    String username = login.getUsername();
+
     String type = login.getType().name();
+    String username = login.getUsername();
+
     if (!type.equals("SELLER")) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not a seller!");
+        request.setAttribute("accessDenied", true);
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=Persmission denied");
     }
 %>
 
 <html>
     <head>
         <title>Seller Menu</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="/vietnam/style.css">
     </head>
     <body>
         <section>
@@ -76,7 +80,7 @@
                 <div class="content">
                     <h2>Hello <% out.println(username); %></h2>
                     <div class="buttons">
-                        <button class="button" onclick="location.href='seller/AddClient.jsp?username=<%=username%>';">
+                        <button class="button" onclick="location.href='seller/AddClient.jsp';">
                             Add Client
                         </button>
                         <button class="button" onclick="location.href='http://localhost:8080/vietnam/assignProgram';">
@@ -86,6 +90,7 @@
                             View Programs
                         </button>
                     </div>
+                    <div class="links"><a href="index.html">Back to Homepage</a></div>
                 </div>
             </div>
         </section>

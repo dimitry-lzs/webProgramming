@@ -1,28 +1,26 @@
 <%@ include file="/common.jsp" %>
-<% int ID = (int) request.getAttribute("ID"); %>
-<% String username = (String) request.getAttribute("username"); %>
-<% String password = (String) request.getAttribute("password"); %>
+
+<%
+    Login login = (Login) session.getAttribute("user");
+    if (login == null) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
+        return;
+    }
+    String username = login.getUsername();
+%>
 
 <html>
 
     <head>
         <title>Create Form</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="/vietnam/style.css">
         <script>
             function validateForm() {
-                const newUsername = document.getElementById('newUsername').value;
-                const newPassword = document.getElementById('newPassword').value;
-                const newConfirmPassword = document.getElementById('newConfirmPassword').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
 
-
-
-                if(newPassword !== newConfirmPassword){
+                if (password !== confirmPassword) {
                     alert("Passwords do not match");
-                    return false;
-                }
-
-                if (newUsername.trim() === "" || newPassword.trim() === ""){
-                    alert("Username and password cannot be empty or spaces");
                     return false;
                 }
 
@@ -73,40 +71,33 @@
             <div class="signin">
                 <div class="content">
                     <h2>Create Seller</h2>
-                    <form class="form" action="create" method="post" onsubmit="return validateForm()">
+                    <form class="form" action="/vietnam/seller" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
-                            <input type="text" id="newName" name="newName" required>
+                            <input type="text" id="name" name="name" required>
                             <i>Name</i>
                         </div>
                         <div class="inputBox">
-                            <input type="text" id="newSurname" name="newSurname" required>
+                            <input type="text" id="surname" name="surname" required>
                             <i>Surname</i>
                         </div>
                         <div class="inputBox">
-                            <input type="text" id="newUsername" name="newUsername" required>
+                            <input type="text" id="username" name="username" required>
                             <i>Username</i>
                         </div>
                         <div class="inputBox">
-                            <input type="password" id="newPassword" name="newPassword" required>
+                            <input type="password" id="password" name="password" required>
                             <i>Password</i>
                         </div>
                         <div class="inputBox">
-                            <input type="password" id="newConfirmPassword" name="newConfirmPassword" required>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
                             <i>Confirm Password</i>
                         </div>
-                        <div class="inputBox"> 
-                            <input type="hidden" id="username" name="username" value="<%= username%>">
-                            <input type="hidden" id="password" name="password" value="<%= password%>">
-                            <input type="hidden" id="type" name="type" value="ADMIN">
-                            <input type="hidden" id="option" name="option" value="SELLER">
-                            <input type="hidden" id="ID" name="ID" value="<%= ID%>">
-                            <input type="submit" value="create"> 
-                        
-                        </div> 
+                        <div class="inputBox">
+                            <input type="submit" value="Create Seller">
+                        </div>
                     </form>
                 </div>
             </div>
         </section>
     </body>
-
 </html>
