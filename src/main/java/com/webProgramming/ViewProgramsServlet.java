@@ -44,6 +44,7 @@ public class ViewProgramsServlet extends HttpServlet {
 
             //Print every program's Name.
             writer.println("Printing Programs...");
+            writer.println("------------------------");
             for (Program p : programs) {
                writer.println(p.getProgramName());
             }
@@ -52,6 +53,8 @@ public class ViewProgramsServlet extends HttpServlet {
         catch(HibernateException e) {
             writer.println(e);
         }
+
+        writer.println("------------------------");
 
         //Test to see if it got through here.
         writer.println("Done!");
