@@ -1,10 +1,16 @@
 <%@ include file="/common.jsp" %>
-<% int ID = (int) request.getAttribute("ID"); %>
-<% String username = (String) request.getAttribute("username"); %>
-<% String password = (String) request.getAttribute("password"); %>
+<%@ page import="com.webProgramming.src.Login" %>
 
-
-
+<%
+    Login login = (Login) session.getAttribute("user");
+    if (login == null) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
+        return;
+    }
+    String username = login.getUsername();
+    String type = login.getType().name();
+    long id = login.getId();
+%>
 
 <html>
 
@@ -13,20 +19,17 @@
         <link rel="stylesheet" href="./style.css">
         <script>
             function validateForm() {
-                const newUsername = document.getElementById('newUsername').value;
-                const newPassword = document.getElementById('newPassword').value;
-                const phonenumber = document.getElementById('phonenumber').value;
-                const AFM = document.getElementById('AFM').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const AFM = document.getElementById('afm').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
 
-
-
-                if(newPassword !== confirmPassword){
+                if(password !== confirmPassword){
                     alert("Passwords do not match");
                     return false;
                 }
 
-                if (newUsername.trim() === "" || newPassword.trim() === "" || phonenumber.trim() === "" || AFM.trim() === ""){
+                if (username.trim() === "" || password.trim() === "" || AFM.trim() === ""){
                     alert("Username, password, phoneNumber and AFM cannot be empty or spaces");
                     return false;
                 }
@@ -78,43 +81,33 @@
             <div class="signin">
                 <div class="content">
                     <h2>Create Client</h2>
-                    <form class="form" action="create" method="post" onsubmit="return validateForm()">
+                    <form class="form" action="/vietnam/client" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
-                            <input type="text" id="newName" name="newName" required>
+                            <input type="text" id="name" name="name" required>
                             <i>Name</i>
                         </div>
                         <div class="inputBox">
-                            <input type="text" id="newSurname" name="newSurname" required>
+                            <input type="text" id="surname" name="surname" required>
                             <i>Surname</i>
                         </div>
                         <div class="inputBox">
-                            <input type="text" id="AFM" name="AFM" required>
+                            <input type="text" id="afm" name="afm" required>
                             <i>AFM</i>
                         </div>
                         <div class="inputBox">
-                            <input type="text" id="phonenumber" name="phonenumber" required>
-                            <i>Phone Number</i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" id="newUsername" name="newUsername" required>
+                            <input type="text" id="username" name="username" required>
                             <i>Username</i>
                         </div>
                         <div class="inputBox">
-                            <input type="password" id="newPassword" name="newPassword" required>
+                            <input type="password" id="password" name="password" required>
                             <i>Password</i>
                         </div>
                         <div class="inputBox">
-                            <input type="password" id="newConfirmPassword" name="newConfirmPassword" required>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
                             <i>Confirm Password</i>
                         </div>
                         <div class="inputBox">
-                            <input type="hidden" id="username" name="username" value="<%= username%>">
-                            <input type="hidden" id="password" name="password" value="<%= password%>">
-                            <input type="hidden" id="type" name="type" value="SELLER">
-                            <input type="hidden" id="option" name="option" value="CLIENT">
-                            <input type="hidden" id="ID" name="ID" value="<%= ID%>">
                             <input type="submit" value="create">
-
                         </div>
                     </form>
                 </div>

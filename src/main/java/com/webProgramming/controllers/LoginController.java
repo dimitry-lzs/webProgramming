@@ -35,10 +35,8 @@ public class LoginController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             request.setCharacterEncoding("UTF-8");
 
-            Login newLogin = new Login();
-
-            newLogin.setUsername(request.getParameter("username"));
-            newLogin.setPassword(request.getParameter("password"));
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
             String type = request.getParameter("type");
 
@@ -47,18 +45,16 @@ public class LoginController extends HttpServlet {
             }
 
             UserType userType = UserType.valueOf(type);
-            newLogin.setType(userType);
-            newLogin.setType(UserType.valueOf(request.getParameter("type")));
 
             HttpSession session = request.getSession();
 
-            boolean success = userDao.login(newLogin.getUsername(), newLogin.getPassword(), newLogin.getType());
+            Login login = userDao.login(username, password, userType);
             String redirectPath = "";
 
-            if (!success) {
+            if (login == null) {
                 redirectPath = "/loginError.jsp";
             } else {
-                session.setAttribute("user", newLogin);
+                session.setAttribute("user", login);
                 switch (userType) {
                     case ADMIN:
                         redirectPath = "/admin/menu.jsp";

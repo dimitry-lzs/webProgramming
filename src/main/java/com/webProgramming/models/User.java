@@ -50,7 +50,8 @@ public abstract class User implements Serializable {
     public void logout() {
         //
     }
-    public int getID() {
+
+    public int getId() {
         return id;
     }
 

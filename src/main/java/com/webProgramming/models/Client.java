@@ -2,6 +2,8 @@ package com.webProgramming.models;
 
 import java.util.Set;
 
+import com.webProgramming.models.enums.UserType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -43,6 +45,10 @@ public class Client extends User {
 
     public void setBills(Bill[] bills) {
         // this.bills = bills;
+    }
+
+    public void setAfm(String afm) {
+        this.AFM = afm;
     }
 
     public String getAfm() {

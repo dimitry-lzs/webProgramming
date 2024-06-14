@@ -8,6 +8,7 @@
     }
     String username = login.getUsername();
     String type = login.getType().name();
+    long id = login.getId();
 %>
     <html>
     <head>
