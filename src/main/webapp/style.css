@@ -65,7 +65,8 @@ section span:hover
 section .signin
 {
   position: absolute;
-  width: 400px;
+  /* width: 400px; */
+  min-width: max-content;
   background: #222;
   z-index: 1000;
   display: flex;
@@ -148,11 +149,6 @@ section .signin .content .form .inputBox i
   font-weight: 600;
   cursor: pointer;
 }
-/* .signin .content .form .links a:nth-child(2)
-{
-  color: #0f0;
-  font-weight: 600;
-} */
 .signin .content .form .inputBox input[type="submit"], .button
 {
   padding: 10px;
@@ -251,4 +247,39 @@ input[type="submit"]:active, .button:active
 .header .sessionTools .logout a {
     color: #aaa;
     text-decoration: none;
+}
+
+.table {
+	width:100%;
+}
+
+.table-header {
+	display:flex;
+	width: 100%;
+	background:#151515;
+    min-width: max-content;
+    flex-wrap: nowrap;
+	padding: calc(24px / 2 * 1.5) 10;
+}
+
+.table-row {
+	display:flex;
+	width:100%;
+	padding: calc(24px / 2 * 1.5) 0;
+}
+
+.table-row:nth-of-type(odd) {
+    background: #333;
+}
+
+.table-data, .header-cell {
+	flex: 1 1 20%;
+	text-align: center;
+    color: #0f0;
+}
+
+.header-cell {
+	text-transform: uppercase;
+    white-space: nowrap;
+    padding: 10px 6px;
 }

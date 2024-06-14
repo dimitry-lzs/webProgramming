@@ -76,26 +76,38 @@
             <span></span>
             <div class="signin">
                 <div class="content">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Program ID</th>
-                                <th>Program Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                                List<Program> programs = (List<Program>) request.getAttribute("programs");
-                                for (Program program : programs) {
-                            %>
-                            <tr>
-                                <td><%= program.getId() %></td>
-                                <td><%= program.getProgramName() %></td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                    </table>
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="header-cell">Name and lastname</div>
+                            <div class="header-cell">Wins</div>
+                            <div class="header-cell">Draws</div>
+                            <div class="header-cell">Losses</div>
+                            <div class="header-cell">Total</div>
+                        </div>
+                        <div class="table-content">
+                            <div class="table-row">
+                                <div class="table-data">Tom</div>
+                                <div class="table-data">2</div>
+                                <div class="table-data">0</div>
+                                <div class="table-data">1</div>
+                                <div class="table-data">5</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-data">Dick</div>
+                                <div class="table-data">1</div>
+                                <div class="table-data">1</div>
+                                <div class="table-data">2</div>
+                                <div class="table-data">3</div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-data">Harry</div>
+                                <div class="table-data">0</div>
+                                <div class="table-data">2</div>
+                                <div class="table-data">2</div>
+                                <div class="table-data">2</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
