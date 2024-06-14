@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
-import com.webProgramming.models.UserDao;
 
 @WebServlet("/register-admin")
 public class RegisterController extends HttpServlet {

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webProgramming.models.UserDao;
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.enums.UserType;
 
 @WebServlet("/admin")

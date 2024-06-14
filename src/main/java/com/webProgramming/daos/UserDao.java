@@ -1,4 +1,4 @@
-package com.webProgramming.models;
+package com.webProgramming.daos;
 
 import java.util.List;
 
@@ -6,6 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.webProgramming.models.Admin;
+import com.webProgramming.models.Client;
+import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
+import com.webProgramming.models.Util;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 

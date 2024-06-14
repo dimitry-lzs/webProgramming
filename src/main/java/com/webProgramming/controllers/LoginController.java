@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.webProgramming.models.UserDao;
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 

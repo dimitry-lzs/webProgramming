@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
 import com.webProgramming.models.Seller;
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Client;
-import com.webProgramming.models.UserDao;
 import com.webProgramming.models.enums.UserType;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class CreateControler extends HttpServlet{
             int ID = Integer.parseInt(request.getParameter("ID"));
             String type = request.getParameter("type");
             String option = request.getParameter("option");
-            
+
 
             if (newUsername == null || newPassword == null || newConfirmPassword == null) {
                 throw new Exception("Username, password, or confirm password is null");
@@ -54,10 +54,10 @@ public class CreateControler extends HttpServlet{
             UserType CreateuserType = UserType.valueOf(option);
             switch(CreateuserType) {
                 case SELLER:
-            
+
                     Admin adminCreator = (Admin) userDao.findById(ID, UserType.ADMIN);
                     Seller seller = adminCreator.createSeller(newUsername, newName, newSurname, newPassword);
-            
+
                     registerSuccess = userDao.saveUser(seller);
                     break;
                 case CLIENT:
@@ -67,7 +67,7 @@ public class CreateControler extends HttpServlet{
 
                     Seller sellerCreator = (Seller) userDao.findById(ID, UserType.SELLER);
                     Client client = sellerCreator.createClient(AFM, phonenumber, newUsername, newName, newSurname, newPassword);
-            
+
                     registerSuccess = userDao.saveUser(client);
                     break;
                 case ADMIN:
@@ -93,6 +93,6 @@ public class CreateControler extends HttpServlet{
             request.setAttribute("errorMessage", e.getMessage());
             dispatcher.forward(request, response);
         }
-    
+
     }
 }
