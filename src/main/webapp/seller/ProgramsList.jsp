@@ -18,21 +18,8 @@
 <html>
 
     <head>
-        <title>Create Form</title>
+        <title>Programs</title>
         <link rel="stylesheet" href="/vietnam/style.css">
-        <script>
-            function validateForm() {
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-
-                if (password !== confirmPassword) {
-                    alert("Passwords do not match");
-                    return false;
-                }
-
-                return true;
-            }
-        </script>
     </head>
 
     <body>

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -25,25 +24,24 @@ public class ProgramsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        // Get and open session.
-
-        Login loggedInSeller = (Login) request.getSession().getAttribute("user");
-
-        if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
-            throw new IllegalArgumentException("Permission denied.");
-        }
-
         SessionFactory factory = Util.getSessionFactory();
         Session session = factory.openSession();
 
         try {
+            // Get and open session.
+            Login loggedInSeller = (Login) request.getSession().getAttribute("user");
+
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
+                throw new IllegalArgumentException("Permission denied.");
+            }
+
             List<Program> programs = session.createQuery("select p from Program p", Program.class).list();
 
             request.setAttribute("programs", programs);
             request.getRequestDispatcher("seller/ProgramsList.jsp").forward(request, response);
         }
 
-        catch (HibernateException e) {
+        catch (Exception e) {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
