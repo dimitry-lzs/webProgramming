@@ -13,7 +13,7 @@ public class PhoneNumberDao  {
 
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.persist(phoneNumber);
+            session.merge(phoneNumber);
             transaction.commit();
             success = true;
         } catch (Exception e) {

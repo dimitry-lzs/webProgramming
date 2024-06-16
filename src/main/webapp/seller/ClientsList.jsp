@@ -74,7 +74,7 @@
                         </div>
                         <div class="table-content">
                             <c:forEach var="client" items="${clients}">
-                                <div class="table-row" onclick="window.location.href='/vietnam/clients?id=${client.getId()}'">
+                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='/vietnam/clients?id=${client.getId()}'">
                                     <div class="table-data">${client.getName()}</div>
                                     <div class="table-data">${client.getSurname()}</div>
                                     <div class="table-data">${client.getUsername()}</div>

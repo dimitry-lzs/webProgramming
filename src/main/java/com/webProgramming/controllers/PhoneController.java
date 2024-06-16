@@ -3,7 +3,6 @@ package com.webProgramming.controllers;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,17 +60,18 @@ public class PhoneController extends HttpServlet {
             Program program = programDao.findById(programId);
 
             phoneNumber.setProgram(program);
-            phoneNumberDao.updatePhoneNumber(phoneNumber);
+            boolean updated = phoneNumberDao.updatePhoneNumber(phoneNumber);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-            request.setAttribute("message", "Phone number created successfully");
-            request.setAttribute("title", "Success");
-            dispatcher.forward(request, response);
+            if (!updated) {
+                throw new IllegalArgumentException("Failed to update phone number");
+            }
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Updated phone number successfully");
         } catch (Exception e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", e.getMessage());
-            dispatcher.forward(request, response);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(e.getMessage());
         }
     }
 }
