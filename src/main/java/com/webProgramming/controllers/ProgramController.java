@@ -21,7 +21,7 @@ import com.webProgramming.src.Login;
 import com.webProgramming.models.enums.UserType;
 
 @WebServlet("/programs")
-public class ProgramsController extends HttpServlet {
+public class ProgramController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
