@@ -1,4 +1,5 @@
 <%@ include file="/common.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
     Login login = (Login) session.getAttribute("user");
@@ -65,34 +66,22 @@
                 <div class="content">
                     <div class="table">
                         <div class="table-header">
-                            <div class="header-cell">Name and lastname</div>
-                            <div class="header-cell">Wins</div>
-                            <div class="header-cell">Draws</div>
-                            <div class="header-cell">Losses</div>
-                            <div class="header-cell">Total</div>
+                            <div class="header-cell">Name</div>
+                            <div class="header-cell">Call Time</div>
+                            <div class="header-cell">Charge</div>
+                            <div class="header-cell">Fee</div>
+                            <div class="header-cell">Benefits</div>
                         </div>
                         <div class="table-content">
-                            <div class="table-row">
-                                <div class="table-data">Tom</div>
-                                <div class="table-data">2</div>
-                                <div class="table-data">0</div>
-                                <div class="table-data">1</div>
-                                <div class="table-data">5</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-data">Dick</div>
-                                <div class="table-data">1</div>
-                                <div class="table-data">1</div>
-                                <div class="table-data">2</div>
-                                <div class="table-data">3</div>
-                            </div>
-                            <div class="table-row">
-                                <div class="table-data">Harry</div>
-                                <div class="table-data">0</div>
-                                <div class="table-data">2</div>
-                                <div class="table-data">2</div>
-                                <div class="table-data">2</div>
-                            </div>
+                            <c:forEach var="program" items="${programs}">
+                                <div class="table-row">
+                                    <div class="table-data">${program.getName()}</div>
+                                    <div class="table-data">${program.getCallTime()}</div>
+                                    <div class="table-data">${program.getChargePerSecond()}</div>
+                                    <div class="table-data">${program.getFee()}</div>
+                                    <div class="table-data">${program.getBenefits()}</div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
