@@ -96,6 +96,23 @@ section .signin .content {
     gap: 40px;
 }
 
+section .signin .content .client-data {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #0f0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+section .signin .content .client-data .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 24px;
+}
+
 section .signin .content h2 {
     font-size: 2em;
     color: #0f0;
@@ -199,6 +216,8 @@ input[type="submit"]:active,
     }
 }
 
+/* Header style */
+
 .header {
     position: absolute;
     top: 0;
@@ -270,6 +289,8 @@ input[type="submit"]:active,
     text-decoration: none;
 }
 
+/* Table style */
+
 .table {
     width: 100%;
 }
@@ -286,7 +307,7 @@ input[type="submit"]:active,
 .table-row {
     display: flex;
     width: 100%;
-    padding: calc(24px / 2 * 1.5) 0;
+    padding: calc(24px / 2 * 1.5) 10;
 }
 
 .table-row:nth-of-type(odd) {
@@ -298,10 +319,38 @@ input[type="submit"]:active,
     flex: 1 1 20%;
     text-align: center;
     color: #0f0;
+    padding: 10px 6px;
 }
 
 .header-cell {
     text-transform: uppercase;
     white-space: nowrap;
-    padding: 10px 6px;
+}
+
+/* Select style */
+
+.select-style {
+    border: 1px solid #0f0;
+    width: 160px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #333;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 16px;
+    color: #0f0;
+}
+
+.select-style select:focus {
+    outline: none;
 }

@@ -64,24 +64,21 @@
             <span></span>
             <div class="signin">
                 <div class="content">
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Name</div>
-                            <div class="header-cell">Surname</div>
-                            <div class="header-cell">Username</div>
-                            <div class="header-cell">AFM</div>
-                            <div class="header-cell">Phone Number</div>
-                        </div>
-                        <div class="table-content">
-                            <c:forEach var="client" items="${clients}">
-                                <div class="table-row" onclick="window.location.href='/vietnam/clients?id=${client.getId()}'">
-                                    <div class="table-data">${client.getName()}</div>
-                                    <div class="table-data">${client.getSurname()}</div>
-                                    <div class="table-data">${client.getUsername()}</div>
-                                    <div class="table-data">${client.getAfm()}</div>
-                                    <div class="table-data">${client.getPhoneNumberValue()}</div>
-                                </div>
-                            </c:forEach>
+                    <div class="client-data">
+                        <div class="row">${client.getAfm()}</div>
+                        <div class="row">${client.getName()}</div>
+                        <div class="row">${client.getSurname()}</div>
+                        <div class="row">${client.getUsername()}</div>
+                        <div class="row">${client.getPhoneNumberValue()}</div>
+                        <div class="row">
+                            <div class="select-style">
+                                <select name="program" id="program">
+                                    <option value="null">Select Program</option>
+                                    <c:forEach var="program" items="${programs}">
+                                        <option value="${program.getId()}">${program.getName()}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

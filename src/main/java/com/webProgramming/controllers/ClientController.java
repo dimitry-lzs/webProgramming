@@ -15,6 +15,7 @@ import org.hibernate.SessionFactory;
 
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
+import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
 import com.webProgramming.models.Util;
 import com.webProgramming.src.Login;
@@ -35,10 +36,20 @@ public class ClientController extends HttpServlet {
                 throw new IllegalArgumentException("Permission denied.");
             }
 
-            List<Client> clients = session.createQuery("select p from Client p", Client.class).list();
+            String id = request.getParameter("id");
 
-            request.setAttribute("clients", clients);
-            request.getRequestDispatcher("seller/ClientsList.jsp").forward(request, response);
+            if (id != null) {
+                UserDao userDao = new UserDao();
+                Client client = (Client) userDao.findById(id, UserType.CLIENT);
+                List<Program> programs = session.createQuery("select p from Program p", Program.class).list();
+                request.setAttribute("programs", programs);
+                request.setAttribute("client", client);
+                request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
+            } else {
+                List<Client> clients = session.createQuery("select p from Client p", Client.class).list();
+                request.setAttribute("clients", clients);
+                request.getRequestDispatcher("seller/ClientsList.jsp").forward(request, response);
+            }
         }
 
         catch (Exception e) {

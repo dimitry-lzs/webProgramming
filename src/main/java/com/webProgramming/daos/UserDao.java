@@ -34,8 +34,7 @@ public class UserDao {
                     query.setParameter("username", username);
                     query.setParameter("password", password);
 
-                    List<Admin> result = query.list();
-                    user = result.get(0);
+                    user = query.getSingleResult();
                     break;
 
                 case UserType.SELLER:
@@ -45,8 +44,7 @@ public class UserDao {
                     querySeller.setParameter("username", username);
                     querySeller.setParameter("password", password);
 
-                    List<Seller> resultSeller = querySeller.list();
-                    user = resultSeller.get(0);
+                    user = querySeller.getSingleResult();
                     break;
 
                 case UserType.CLIENT:
@@ -56,8 +54,7 @@ public class UserDao {
                     queryCustomer.setParameter("username", username);
                     queryCustomer.setParameter("password", password);
 
-                    List<Client> resultCustomer = queryCustomer.list();
-                    user = resultCustomer.get(0);
+                    user = queryCustomer.getSingleResult();
                     break;
             }
         } catch (Exception e) {
@@ -80,7 +77,7 @@ public class UserDao {
         return sucessfulLogin;
     }
 
-    public User findById(int id, UserType userType) {
+    public User findById(String id, UserType userType) {
         Session session = null;
         User user = null;
 

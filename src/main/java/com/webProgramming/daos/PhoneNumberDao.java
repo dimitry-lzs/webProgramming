@@ -3,20 +3,17 @@ package com.webProgramming.daos;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.webProgramming.models.Program;
+import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Util;
 
-public class ProgramDao {
-    public boolean createProgram(Program program) {
-        Session session = null;
-        Transaction transaction = null;
+public class PhoneNumberDao  {
+    public boolean updatePhoneNumber(PhoneNumber phoneNumber) {
         boolean success = false;
+        Transaction transaction = null;
 
-        try {
-            session = Util.getSessionFactory().openSession();
+        try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-
-            session.persist(program);
+            session.persist(phoneNumber);
             transaction.commit();
             success = true;
         } catch (Exception e) {
@@ -24,21 +21,17 @@ public class ProgramDao {
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return success;
     }
 
-    public Program findById(String id) {
+    public PhoneNumber findByNumber(String number) {
         Session session = null;
-        Program program = null;
+        PhoneNumber phoneNumber = null;
 
         try {
             session = Util.getSessionFactory().openSession();
-            program = session.get(Program.class, id);
+            phoneNumber = session.get(PhoneNumber.class, number);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -47,6 +40,6 @@ public class ProgramDao {
             }
         }
 
-        return program;
+        return phoneNumber;
     }
 }

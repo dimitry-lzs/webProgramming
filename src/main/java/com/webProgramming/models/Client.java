@@ -18,7 +18,7 @@ public class Client extends User {
     private String AFM;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "phone_number", referencedColumnName = "number")
+    @JoinColumn(name = "phone_number", referencedColumnName = "number", nullable = false)
     private PhoneNumber phoneNumber;
 
     @OneToMany(mappedBy = "client")

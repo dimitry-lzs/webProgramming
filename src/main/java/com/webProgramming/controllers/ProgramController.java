@@ -22,7 +22,6 @@ import com.webProgramming.models.enums.UserType;
 
 @WebServlet("/programs")
 public class ProgramController extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         SessionFactory factory = Util.getSessionFactory();
