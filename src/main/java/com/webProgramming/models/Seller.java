@@ -1,4 +1,5 @@
 package com.webProgramming.models;
+import java.util.Random;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -35,22 +36,22 @@ public class Seller extends User {
         return admin;
     }
 
-    // public Client addClient(String afm, int phonenum, String username, String name, String surname){
-    //     System.out.println("Adding client...");
+    public Client createClient(String afm, String username, String name, String surname, String password) {
+        String number = "30";
+        Random rand = new Random();
 
-    //     // //Creating new client.
-    //     Client newclient = new Client(afm, phonenum, username, name, surname);
-    //     // //Adding client to client array.
-    //     // clientarray[0] = newclient;
-    //     // //Return client.
-    //     return newclient;
-    // }
-    public Client createClient(String afm, int phonenumber, String username, String name, String surname, String password){
-        Client client = new Client(afm, phonenumber, username, name, surname);
+        for (int i = 0; i < 9; i++) {
+            number += rand.nextInt(10);
+        }
+
+        PhoneNumber phoneNumber = new PhoneNumber(number, null);
+
+        Client client = new Client(afm, phoneNumber, username, name, surname);
         client.setPassword(password);
         client.setSeller(this);
         return client;
     }
+
     public Bill issueBill(PhoneNumber phonenumber, Call[] calls){
         Bill newbill = new Bill(1, phonenumber);
         System.out.println("Issuing bill...");

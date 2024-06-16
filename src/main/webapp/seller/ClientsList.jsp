@@ -1,33 +1,26 @@
 <%@ include file="/common.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
     Login login = (Login) session.getAttribute("user");
+
     if (login == null) {
         response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
-        return;
     }
+    String type = login.getType().name();
     String username = login.getUsername();
+
+    if (!type.equals("SELLER")) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
+    }
 %>
+
 
 <html>
 
     <head>
-        <title>Create Client</title>
+        <title>Clients</title>
         <link rel="stylesheet" href="/vietnam/style.css">
-        <script>
-            function validateForm() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-
-                if (password !== confirmPassword) {
-                    alert("Passwords do not match");
-                    return false;
-                }
-
-                return true;
-            }
-        </script>
     </head>
 
     <body>
@@ -71,36 +64,26 @@
             <span></span>
             <div class="signin">
                 <div class="content">
-                    <h2>Create Client</h2>
-                    <form class="form" action="/vietnam/clients" method="post" onsubmit="return validateForm()">
-                        <div class="inputBox">
-                            <input type="text" id="name" name="name" required>
-                            <i>Name</i>
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="header-cell">Name</div>
+                            <div class="header-cell">Surname</div>
+                            <div class="header-cell">Username</div>
+                            <div class="header-cell">AFM</div>
+                            <div class="header-cell">Phone Number</div>
                         </div>
-                        <div class="inputBox">
-                            <input type="text" id="surname" name="surname" required>
-                            <i>Surname</i>
+                        <div class="table-content">
+                            <c:forEach var="client" items="${clients}">
+                                <div class="table-row">
+                                    <div class="table-data">${client.getName()}</div>
+                                    <div class="table-data">${client.getSurname()}</div>
+                                    <div class="table-data">${client.getUsername()}</div>
+                                    <div class="table-data">${client.getAfm()}</div>
+                                    <div class="table-data">${client.getPhoneNumberValue()}</div>
+                                </div>
+                            </c:forEach>
                         </div>
-                        <div class="inputBox">
-                            <input type="text" id="afm" name="afm" required>
-                            <i>AFM</i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" id="username" name="username" required>
-                            <i>Username</i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="password" id="password" name="password" required>
-                            <i>Password</i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="password" id="confirmPassword" name="confirmPassword" required>
-                            <i>Confirm Password</i>
-                        </div>
-                        <div class="inputBox">
-                            <input type="submit" value="Create">
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>

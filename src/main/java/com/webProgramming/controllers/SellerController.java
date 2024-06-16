@@ -47,13 +47,7 @@ public class SellerController extends HttpServlet {
                 throw new IllegalArgumentException("Passwords do not match");
             }
 
-            Seller seller = new Seller();
-            seller.setUsername(username);
-            seller.setPassword(password);
-            seller.setName(name);
-            seller.setSurname(surname);
-            seller.setAdmin(admin);
-
+            Seller seller = admin.createSeller(username, name, surname, password);
             UserDao userDao = new UserDao();
             userDao.saveUser(seller);
 

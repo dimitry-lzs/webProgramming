@@ -1,6 +1,7 @@
 package com.webProgramming.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -9,14 +10,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.Util;
 import com.webProgramming.src.Login;
 import com.webProgramming.models.enums.UserType;
 
-@WebServlet("/client")
-public class ClientController extends HttpServlet{
+@WebServlet("/clients")
+public class ClientController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        SessionFactory factory = Util.getSessionFactory();
+        Session session = factory.openSession();
+
+        try {
+            // Get and open session.
+            Login loggedInSeller = (Login) request.getSession().getAttribute("user");
+
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
+                throw new IllegalArgumentException("Permission denied.");
+            }
+
+            List<Client> clients = session.createQuery("select p from Client p", Client.class).list();
+
+            request.setAttribute("clients", clients);
+            request.getRequestDispatcher("seller/ClientsList.jsp").forward(request, response);
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+            request.setAttribute("errorMessage", e.getMessage());
+            dispatcher.forward(request, response);
+        }
+
+        finally {
+            // Close session.
+            session.close();
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -49,13 +85,7 @@ public class ClientController extends HttpServlet{
                 throw new IllegalArgumentException("Passwords do not match");
             }
 
-            Client client = new Client();
-            client.setUsername(username);
-            client.setPassword(password);
-            client.setName(name);
-            client.setSurname(surname);
-            client.setAfm(password);
-            client.setSeller(seller);
+            Client client = seller.createClient(afm, username, username, surname, password);
 
             UserDao userDao = new UserDao();
             userDao.saveUser(client);

@@ -51,15 +51,6 @@ public class Admin extends User {
         Seller seller = new Seller(username, name, surname);
         seller.setPassword(password);
         seller.setAdmin(this);
-
-        // Seller[] newSellers = new Seller[sellers.length + 1];
-
-        // for (int i = 0; i < sellers.length; i++) {
-        //     newSellers[i] = sellers[i];
-        // }
-
-        // newSellers[sellers.length] = seller;
-        // this.setSellers(newSellers);
         return seller;
     }
 

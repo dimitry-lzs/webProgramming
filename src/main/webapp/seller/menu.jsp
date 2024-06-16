@@ -89,6 +89,9 @@
                         <button class="button" onclick="location.href='http://localhost:8080/vietnam/programs';">
                             View Programs
                         </button>
+                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/clients';">
+                            View Clients
+                        </button>
                     </div>
                     <div class="links"><a href="index.html">Back to Homepage</a></div>
                 </div>
