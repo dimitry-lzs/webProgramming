@@ -6,6 +6,12 @@
         response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
         return;
     }
+
+    if (!login.getType().name().equals("ADMIN")) {
+        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
+        return;
+    }
+
     String username = login.getUsername();
 %>
 

@@ -7,6 +7,17 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -104,7 +115,8 @@ section .signin .content .form .inputBox {
     width: 100%;
 }
 
-section .signin .content .form .inputBox input {
+section .signin .content .form .inputBox input,
+section .signin .content .form .inputBox textarea {
     position: relative;
     width: 100%;
     background: #333;
@@ -128,7 +140,9 @@ section .signin .content .form .inputBox i {
 }
 
 .signin .content .form .inputBox input:focus~i,
-.signin .content .form .inputBox input:valid~i {
+.signin .content .form .inputBox input:valid~i,
+.signin .content .form .inputBox textarea:focus~i,
+.signin .content .form .inputBox textarea:valid~i {
     transform: translateY(-7.5px);
     font-size: 0.8em;
     color: #fff;
