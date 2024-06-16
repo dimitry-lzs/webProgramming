@@ -75,7 +75,14 @@
                                 <select name="program" id="program">
                                     <option value="null">Select Program</option>
                                     <c:forEach var="program" items="${programs}">
-                                        <option value="${program.getId()}">${program.getName()}</option>
+                                        <c:choose>
+                                            <c:when test="${not empty client.getPhoneNumber() and not empty client.getPhoneNumber().getProgram() and client.getPhoneNumber().getProgram().getId() == program.getId()}">
+                                                <option value="${program.getId()}" selected>${program.getName()}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${program.getId()}">${program.getName()}</option>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
                                 </select>
                             </div>
