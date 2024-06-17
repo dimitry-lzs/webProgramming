@@ -49,9 +49,14 @@ public class SellerController extends HttpServlet {
 
             Seller seller = admin.createSeller(username, name, surname, password);
             UserDao userDao = new UserDao();
-            userDao.saveUser(seller);
+            boolean created = userDao.saveUser(seller);
+
+            if (!created) {
+                throw new IllegalArgumentException("Seller could not be created");
+            }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+            request.setAttribute("link", request.getContextPath() + "/admin/menu.jsp");
             request.setAttribute("message", "Seller created successfully");
             request.setAttribute("title", "Success");
             dispatcher.forward(request, response);

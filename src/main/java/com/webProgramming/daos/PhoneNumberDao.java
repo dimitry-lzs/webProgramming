@@ -7,7 +7,7 @@ import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Util;
 
 public class PhoneNumberDao  {
-    public boolean updatePhoneNumber(PhoneNumber phoneNumber) {
+    public boolean updatePhoneNumber(PhoneNumber phoneNumber) throws Exception {
         boolean success = false;
         Transaction transaction = null;
 
@@ -16,11 +16,12 @@ public class PhoneNumberDao  {
             session.merge(phoneNumber);
             transaction.commit();
             success = true;
-        } catch (Exception e) {
+        } catch (Exception exception) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            exception.printStackTrace();
+            throw exception;
         }
         return success;
     }

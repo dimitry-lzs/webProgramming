@@ -7,7 +7,7 @@ import com.webProgramming.models.Program;
 import com.webProgramming.models.Util;
 
 public class ProgramDao {
-    public boolean createProgram(Program program) {
+    public boolean createProgram(Program program) throws Exception {
         Session session = null;
         Transaction transaction = null;
         boolean success = false;
@@ -19,11 +19,12 @@ public class ProgramDao {
             session.persist(program);
             transaction.commit();
             success = true;
-        } catch (Exception e) {
+        } catch (Exception exception) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            exception.printStackTrace();
+            throw exception;
         } finally {
             if (session != null) {
                 session.close();

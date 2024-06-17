@@ -82,7 +82,7 @@ public class ProgramController extends HttpServlet {
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-
+            request.setAttribute("link", request.getContextPath() + "/admin/menu.jsp");
             request.setAttribute("message", "New program created successfully.");
             request.setAttribute("title", "Success");
             dispatcher.forward(request, response);

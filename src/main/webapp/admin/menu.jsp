@@ -71,7 +71,6 @@
                             Add Program
                         </button>
                     </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back to Homepage</a></div>
                 </div>
             </div>
         </section>

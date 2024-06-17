@@ -123,7 +123,7 @@ public class UserDao {
     }
 
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(User user) throws Exception {
         Transaction transaction = null;
         Session session = null;
         boolean success = false;
@@ -134,11 +134,12 @@ public class UserDao {
             session.persist(user);
             transaction.commit();
             success = true;
-        } catch (Exception e) {
+        } catch (Exception exception) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            exception.printStackTrace();
+            throw exception;
         } finally {
             if (session != null) {
                 session.close();

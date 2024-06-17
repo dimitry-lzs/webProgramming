@@ -99,9 +99,14 @@ public class ClientController extends HttpServlet {
             Client client = seller.createClient(afm, username, username, surname, password);
 
             UserDao userDao = new UserDao();
-            userDao.saveUser(client);
+            boolean created = userDao.saveUser(client);
+
+            if (!created) {
+                throw new IllegalArgumentException("Client could not be created");
+            }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+            request.setAttribute("link", request.getContextPath() + "/seller/menu.jsp");
             request.setAttribute("message", "Client created successfully");
             request.setAttribute("title", "Success");
             dispatcher.forward(request, response);

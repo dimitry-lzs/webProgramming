@@ -74,14 +74,15 @@ section span:hover {
 
 section .signin {
     position: absolute;
-    top: 140px;
     min-width: 400px;
     width: max-content;
+    max-width: 80vw;
     background: #222;
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding: 40px;
     border-radius: 4px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 9);
@@ -123,6 +124,13 @@ section .signin .content .client-data .row .button {
 
 section .signin .content h2 {
     font-size: 2em;
+    color: #0f0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+section .signin .content h3 {
+    font-size: 1.2em;
     color: #0f0;
     text-transform: uppercase;
     text-align: center;

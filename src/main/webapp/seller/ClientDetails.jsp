@@ -110,6 +110,7 @@
                         <div class="row">${client.getSurname()}</div>
                         <div class="row">${client.getUsername()}</div>
                         <div class="row">${client.getPhoneNumberValue()}</div>
+                        <h3>Client's Program</h3>
                         <div class="row">
                             <div class="select-style">
                                 <select name="program" id="program">
@@ -129,7 +130,7 @@
                             <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
                         </div>
                     </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href='<%=request.getContextPath()%>/clients';>Back to List</a></div>
                 </div>
             </div>
         </section>
