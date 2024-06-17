@@ -55,6 +55,10 @@ public class Program implements Serializable {
         this.chargePerSecond = chargePerSecond;
     }
 
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.webProgramming.daos.ProgramDao;
+import com.webProgramming.models.Admin;
 import com.webProgramming.models.Program;
+import com.webProgramming.models.Seller;
 import com.webProgramming.models.Util;
 import com.webProgramming.src.Login;
 
@@ -35,7 +38,12 @@ public class ProgramController extends HttpServlet {
                 throw new IllegalArgumentException("Permission denied.");
             }
 
-            List<Program> programs = session.createQuery("select p from Program p", Program.class).list();
+            Seller seller = (Seller) loggedInSeller.getUser();
+            int adminId = seller.getAdmin().getId();
+
+            String hql = "SELECT p FROM Program p WHERE p.admin.id = :adminId";
+            Query<Program> query = session.createQuery(hql, Program.class);
+            List<Program> programs = query.setParameter("adminId", adminId).list();
 
             request.setAttribute("programs", programs);
             request.getRequestDispatcher("seller/ProgramsList.jsp").forward(request, response);
@@ -64,6 +72,8 @@ public class ProgramController extends HttpServlet {
                 throw new IllegalArgumentException("Permission denied.");
             }
 
+            Admin admin = (Admin) loggedInAdmin.getUser();
+
             String programName = request.getParameter("programName");
             Integer callTime = Integer.parseInt(request.getParameter("callTime"));
             Integer fee = Integer.parseInt(request.getParameter("fee"));
@@ -73,6 +83,7 @@ public class ProgramController extends HttpServlet {
             Program program = new Program(programName, callTime, fee, chargePerSecond);
 
             program.setBenefits(benefits);
+            program.setAdmin(admin);
             ProgramDao programDao = new ProgramDao();
 
             boolean programCreated = programDao.createProgram(program);

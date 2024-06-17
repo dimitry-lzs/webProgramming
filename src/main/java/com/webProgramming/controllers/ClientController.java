@@ -2,6 +2,7 @@ package com.webProgramming.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.RequestDispatcher;
@@ -38,15 +39,29 @@ public class ClientController extends HttpServlet {
 
             String id = request.getParameter("id");
 
+            Seller seller = (Seller) loggedInSeller.getUser();
+
             if (id != null) {
-                UserDao userDao = new UserDao();
-                Client client = (Client) userDao.findById(id, UserType.CLIENT);
+                Set<Client> clients = seller.getClients();
+                Client client = null;
+
+                for (Client c : clients) {
+                    if (c.getId() == Integer.parseInt(id)) {
+                        client = c;
+                        break;
+                    }
+                }
+
+                if (client == null) {
+                    throw new IllegalArgumentException("Client not found");
+                }
+
                 List<Program> programs = session.createQuery("select p from Program p", Program.class).list();
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
                 request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
             } else {
-                List<Client> clients = session.createQuery("select p from Client p", Client.class).list();
+                Set<Client> clients = seller.getClients();
                 request.setAttribute("clients", clients);
                 request.getRequestDispatcher("seller/ClientsList.jsp").forward(request, response);
             }
