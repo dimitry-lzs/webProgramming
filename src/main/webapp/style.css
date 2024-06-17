@@ -78,7 +78,7 @@ section .signin {
     width: max-content;
     max-width: 80vw;
     max-height: 70vh;
-    overflow: scroll;
+    overflow: auto;
     background: #222;
     z-index: 1000;
     display: flex;
