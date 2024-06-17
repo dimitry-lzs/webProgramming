@@ -1,9 +1,22 @@
 package com.webProgramming.src;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 
 public class Login {
-	String username, password;
-    UserType type;
+	private String username, password;
+    private UserType type;
+
+    private long id;
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public long getId() {
+        return id;
+    }
 
 	public String getUsername() {
 		return username;
@@ -16,6 +29,14 @@ public class Login {
 	public UserType getType() {
 		return type;
 	}
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -31,6 +52,6 @@ public class Login {
 
 	@Override
     public String toString() {
-        return "Login [Username=" + username + "]";
+        return "Login [Username=" + username + "]" + "[ID=" + id + "]";
     }
 }

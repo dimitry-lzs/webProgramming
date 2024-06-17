@@ -1,38 +1,10 @@
-<%
-    String type = (String) request.getParameter("type");
-    if (type == null) {
-        throw new Exception("Type is not defined");
-    }
-%>
+<%@ include file="/admin/common.jsp" %>
 
-<html>
-
+    <html>
     <head>
-        <title>Login Page</title>
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css"/>
-        <script>
-            function validateForm() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const type = "<%= type %>";
-
-                if (username.trim() === "" || password.trim() === "") {
-                    alert("Username and password cannot be empty or spaces");
-                    return false;
-                }
-
-                if (!type) {
-                    alert("User type is not defined");
-                    return false;
-                }
-
-                document.getElementById('type').value = type;
-
-                return true;
-            }
-        </script>
+        <title>Menu</title>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
-
     <body>
         <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -72,29 +44,36 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
+            <header class="header">
+                <div class="home">
+                    <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
+                </div>
+                <div class="sessionTools">
+                    <div class="user">
+                        <div class="username"><% out.println(username); %></div>
+                        <div class="role"><% out.println(type); %></div>
+                    </div>
+                    <div class="logout">
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Login</h2>
-                    <form class="form" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return validateForm()">
-                        <div class="inputBox">
-                        <input type="text" id="username" name="username" required>
-                        <i>Username</i>
+                    <h2>Hello <% out.println(username); %></h2>
+                    <div class="buttons">
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/admin/AddSeller.jsp';">
+                            Add Seller
+                        </button>
                     </div>
-                    <div class="inputBox">
-                        <input type="password" id="password" name="password" required>
-                        <i>Password</i>
+                    <div class="buttons">
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/admin/AddProgram.jsp';">
+                            Add Program
+                        </button>
                     </div>
-                    <div class="inputBox">
-
-                        <input type="submit" value="Login as <%= type %>">
-
-                    </div>
-                        <input type="hidden" id="type" name="type" value="<%= type%>">
-                    </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
                 </div>
             </div>
         </section>
     </body>
 
-</html>
+    </html>

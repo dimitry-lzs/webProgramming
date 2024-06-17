@@ -15,7 +15,7 @@ public abstract class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -51,6 +51,9 @@ public abstract class User implements Serializable {
         //
     }
 
+    public int getId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;

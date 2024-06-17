@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
-import com.webProgramming.models.UserDao;
 
 @WebServlet("/register-admin")
 public class RegisterController extends HttpServlet {
@@ -44,7 +44,7 @@ public class RegisterController extends HttpServlet {
             boolean registerSuccess = userDao.saveUser(admin);
 
             if (!registerSuccess) {
-                throw new Exception("User could not be registered");
+                throw new Exception("The user with this username already exists or an error has occurred");
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/registerSuccess.jsp");

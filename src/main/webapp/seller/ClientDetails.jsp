@@ -1,34 +1,49 @@
-<%
-    String type = (String) request.getParameter("type");
-    if (type == null) {
-        throw new Exception("Type is not defined");
-    }
-%>
+<%@ include file="/seller/common.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 
     <head>
-        <title>Login Page</title>
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css"/>
+        <title>Clients</title>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
-            function validateForm() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const type = "<%= type %>";
+            let timeout = null;
 
-                if (username.trim() === "" || password.trim() === "") {
-                    alert("Username and password cannot be empty or spaces");
-                    return false;
-                }
+            function updatePhoneNumber() {
+                let program_id = document.getElementById("program").value;
+                let number = "${client.getPhoneNumberValue()}";
+                let url = "<%=request.getContextPath()%>/phonenumbers";
 
-                if (!type) {
-                    alert("User type is not defined");
-                    return false;
-                }
-
-                document.getElementById('type').value = type;
-
-                return true;
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        program_id,
+                        number
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById("updateButton").innerHTML = "Updated!";
+                        if (timeout) {
+                            clearTimeout(timeout);
+                        }
+                        timeout = setTimeout(() => {
+                            document.getElementById("updateButton").innerHTML = "Update";
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("updateButton").innerHTML = "Error!";
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                });
             }
         </script>
     </head>
@@ -72,29 +87,52 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
+            <header class="header">
+                <div class="home">
+                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                </div>
+                <div class="sessionTools">
+                    <div class="user">
+                        <div class="username"><% out.println(username); %></div>
+                        <div class="role"><% out.println(type); %></div>
+                    </div>
+                    <div class="logout">
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Login</h2>
-                    <form class="form" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return validateForm()">
-                        <div class="inputBox">
-                        <input type="text" id="username" name="username" required>
-                        <i>Username</i>
+                    <h2>Client Details</h2>
+                    <div class="client-data">
+                        <div class="row">${client.getAfm()}</div>
+                        <div class="row">${client.getName()}</div>
+                        <div class="row">${client.getSurname()}</div>
+                        <div class="row">${client.getUsername()}</div>
+                        <div class="row">${client.getPhoneNumberValue()}</div>
+                        <h3>Client's Program</h3>
+                        <div class="row">
+                            <div class="select-style">
+                                <select name="program" id="program">
+                                    <option value="null">Select Program</option>
+                                    <c:forEach var="program" items="${programs}">
+                                        <c:choose>
+                                            <c:when test="${not empty client.getPhoneNumber() and not empty client.getPhoneNumber().getProgram() and client.getPhoneNumber().getProgram().getId() == program.getId()}">
+                                                <option value="${program.getId()}" selected>${program.getName()}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${program.getId()}">${program.getName()}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
+                        </div>
                     </div>
-                    <div class="inputBox">
-                        <input type="password" id="password" name="password" required>
-                        <i>Password</i>
-                    </div>
-                    <div class="inputBox">
-
-                        <input type="submit" value="Login as <%= type %>">
-
-                    </div>
-                        <input type="hidden" id="type" name="type" value="<%= type%>">
-                    </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
+                    <div class="links"><a href='<%=request.getContextPath()%>/clients';>Back to List</a></div>
                 </div>
             </div>
         </section>
     </body>
-
 </html>

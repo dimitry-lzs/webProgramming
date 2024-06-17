@@ -1,36 +1,9 @@
-<%
-    String type = (String) request.getParameter("type");
-    if (type == null) {
-        throw new Exception("Type is not defined");
-    }
-%>
+<%@ include file="/admin/common.jsp" %>
 
 <html>
-
     <head>
-        <title>Login Page</title>
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css"/>
-        <script>
-            function validateForm() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const type = "<%= type %>";
-
-                if (username.trim() === "" || password.trim() === "") {
-                    alert("Username and password cannot be empty or spaces");
-                    return false;
-                }
-
-                if (!type) {
-                    alert("User type is not defined");
-                    return false;
-                }
-
-                document.getElementById('type').value = type;
-
-                return true;
-            }
-        </script>
+        <title>Create Program</title>
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
     <body>
@@ -72,29 +45,51 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
+            <header class="header">
+                <div class="home">
+                    <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
+                </div>
+                <div class="sessionTools">
+                    <div class="user">
+                        <div class="username"><% out.println(username); %></div>
+                        <div class="role"><% out.println(type); %></div>
+                    </div>
+                    <div class="logout">
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Login</h2>
-                    <form class="form" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return validateForm()">
+                    <h2>Create Program</h2>
+                    <form class="form" action="<%=request.getContextPath()%>/programs" method="post">
                         <div class="inputBox">
-                        <input type="text" id="username" name="username" required>
-                        <i>Username</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="password" id="password" name="password" required>
-                        <i>Password</i>
-                    </div>
-                    <div class="inputBox">
-
-                        <input type="submit" value="Login as <%= type %>">
-
-                    </div>
-                        <input type="hidden" id="type" name="type" value="<%= type%>">
+                            <input type="text" id="programName" name="programName" required>
+                            <i>Program Name</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="number" id="callTime" name="callTime" required>
+                            <i>Call Time</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="number" id="charge" name="charge" required>
+                            <i>Charge per second</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="number" id="fee" name="fee" required>
+                            <i>Fee</i>
+                        </div>
+                        <div class="inputBox">
+                            <textarea id="benefits" name="benefits" required></textarea>
+                            <i>Benefits</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Create Program">
+                        </div>
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>
     </body>
-
 </html>

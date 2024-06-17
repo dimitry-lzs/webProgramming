@@ -24,20 +24,20 @@ public class Program implements Serializable {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @Column(name = "Program_Name")
-    private String Program_Name;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "Call_Time")
-    private Integer Call_Time;
+    @Column(name = "call_time")
+    private int callTime;
 
-    @Column(name = "Fee")
-    private Integer Fee;  //Ik
+    @Column(name = "fee")
+    private int fee;  //Ik
 
-    @Column(name = "Charge_Per_Second")
-    private Integer Charge_Per_Second;
+    @Column(name = "charge_per_second")
+    private int chargePerSecond;
 
-    @Column(name = "Benefits")
-    private String Benefits;
+    @Column(name = "benefits")
+    private String benefits;
 
     @OneToMany(mappedBy = "program")
     private Set<PhoneNumber> phoneNumbers;
@@ -48,63 +48,64 @@ public class Program implements Serializable {
         super();
     }
 
-    public Program(String Program_Name, Integer Call_Time, Integer Fee, Integer Charge_Per_Second) {
-        this.Program_Name = Program_Name;
-        this.Call_Time = Call_Time;
-        this.Fee = Fee;
-        this.Charge_Per_Second = Charge_Per_Second;
+    public Program(String name, int callTime, int fee, int chargePerSecond) {
+        this.name = name;
+        this.callTime = callTime;
+        this.fee = fee;
+        this.chargePerSecond = chargePerSecond;
     }
 
-    public void setBenefits(String Benefits) {
-        this.Benefits = Benefits;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBenefits() {
-        return Benefits;
+    public void setCall_Time(int callTime) {
+        this.callTime = callTime;
     }
 
-    public String getProgramName() {
-        return Program_Name;
+    public void setFee(int fee) {
+        this.fee = fee;
     }
 
-    public void setProgram_Name(String Program_Name) {
-        this.Program_Name = Program_Name;
+    public void setChargePerSecond(int chargePerSecond) {
+        this.chargePerSecond = chargePerSecond;
     }
 
-    public int getCall_Time() {
-        return Call_Time;
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
     }
 
-    public void setCall_Time(int Call_Time) {
-        this.Call_Time = Call_Time;
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCallTime() {
+        return callTime;
     }
 
     public int getFee() {
-        return Fee;
+        return fee;
     }
 
-    public void setFee(int Fee) {
-        this.Fee = Fee;
+    public int getChargePerSecond() {
+        return chargePerSecond;
     }
 
-    public int getCharge_Per_Second() {
-        return Charge_Per_Second;
-    }
-
-    public void setCharge_Per_Second(int Charge_Per_Second) {
-        this.Charge_Per_Second = Charge_Per_Second;
+    public String getBenefits() {
+        return benefits;
     }
 
     public void printProgram() {
         System.out.println(
             "PROGRAM INFO\n" +
-            "Name: " + Program_Name + "\n" +
-            "Call Time: " + Call_Time + "\n" +
-            "Invoice: " + Fee + "\n" +
+            "Name: " + name + "\n" +
+            "Call Time: " + callTime + "\n" +
+            "Invoice: " + fee + "\n" +
             "\n"
-            );
+        );
     }
-
-
-
 }
