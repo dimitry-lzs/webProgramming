@@ -83,6 +83,10 @@ public class Program implements Serializable {
         return id;
     }
 
+    public Admin getAdmin() {
+        return admin;
+    }
+
     public String getName() {
         return name;
     }

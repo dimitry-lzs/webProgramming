@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.annotation.WebServlet;
+import org.hibernate.query.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,7 @@ public class ClientController extends HttpServlet {
             String id = request.getParameter("id");
 
             Seller seller = (Seller) loggedInSeller.getUser();
+            session.refresh(seller);
 
             if (id != null) {
                 Set<Client> clients = seller.getClients();
@@ -56,7 +58,12 @@ public class ClientController extends HttpServlet {
                     throw new IllegalArgumentException("Client not found");
                 }
 
-                List<Program> programs = session.createQuery("select p from Program p", Program.class).list();
+                String hql = "SELECT p FROM Program p WHERE p.admin.id = :adminId";
+                Query<Program> query = session.createQuery(hql, Program.class);
+
+                query.setParameter("adminId", seller.getAdmin().getId());
+                List<Program> programs = query.list();
+
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
                 request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
