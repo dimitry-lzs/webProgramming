@@ -29,13 +29,15 @@ public class ProgramController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         SessionFactory factory = Util.getSessionFactory();
         Session session = factory.openSession();
+        String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
             // Get and open session.
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
-                throw new IllegalArgumentException("Permission denied.");
+                redirectLink = request.getContextPath() + "/login.jsp";
+                throw new SecurityException("Permission denied.");
             }
 
             Seller seller = (Seller) loggedInSeller.getUser();
@@ -53,6 +55,7 @@ public class ProgramController extends HttpServlet {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
         }
 
@@ -64,12 +67,14 @@ public class ProgramController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String redirectLink = request.getContextPath() + "/admin/menu.jsp";
         try {
             // Get and open session.
             Login loggedInAdmin = (Login) request.getSession().getAttribute("user");
 
             if (loggedInAdmin == null || loggedInAdmin.getType() != UserType.ADMIN){
-                throw new IllegalArgumentException("Permission denied.");
+                redirectLink = request.getContextPath() + "/login.jsp";
+                throw new SecurityException("Permission denied.");
             }
 
             Admin admin = (Admin) loggedInAdmin.getUser();
@@ -102,6 +107,7 @@ public class ProgramController extends HttpServlet {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
         }
     }

@@ -29,13 +29,15 @@ public class ClientController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         SessionFactory factory = Util.getSessionFactory();
         Session session = factory.openSession();
+        String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
             // Get and open session.
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
-                throw new IllegalArgumentException("Permission denied.");
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + "/login.jsp";
+                throw new SecurityException("Permission denied.");
             }
 
             String id = request.getParameter("id");
@@ -78,6 +80,7 @@ public class ClientController extends HttpServlet {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
         }
 
@@ -89,16 +92,14 @@ public class ClientController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+        String redirectLink = request.getContextPath() + "/seller/menu.jsp";
+
         try {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null) {
-                response.sendRedirect("/login.jsp");
-                return;
-            }
-
-            if (loggedInSeller.getType() != UserType.SELLER) {
-                throw new IllegalArgumentException("Only sellers can create clients");
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + "/login.jsp";
+                throw new SecurityException("Permission denied.");
             }
 
             Seller seller = (Seller) loggedInSeller.getUser();
@@ -136,6 +137,7 @@ public class ClientController extends HttpServlet {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);;
         }
     }

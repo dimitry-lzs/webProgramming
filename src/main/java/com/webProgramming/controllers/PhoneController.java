@@ -32,13 +32,11 @@ public class PhoneController extends HttpServlet {
             Session session = factory.openSession();
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null) {
-                response.sendRedirect("/login.jsp");
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
+                String redirectLink = request.getContextPath() + "/seller/menu.jsp";
+                redirectLink = request.getContextPath() + "/login.jsp";
+                request.getRequestDispatcher(redirectLink).forward(request, response);
                 return;
-            }
-
-            if (loggedInSeller.getType() != UserType.SELLER) {
-                throw new IllegalArgumentException("Only seller can update phone numbers");
             }
 
             BufferedReader reader = request.getReader();

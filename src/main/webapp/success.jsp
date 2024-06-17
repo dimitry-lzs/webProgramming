@@ -7,7 +7,6 @@
     if (link == null) {
         link = request.getContextPath() + "/index.html";
     }
-    System.out.println("link: " + link);
 %>
 <html>
     <head>

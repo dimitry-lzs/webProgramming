@@ -19,16 +19,14 @@ public class SellerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String redirectLink = request.getContextPath() + "/admin/menu.jsp";
+
         try {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null) {
-                response.sendRedirect("/login.jsp");
-                return;
-            }
-
-            if (loggedInSeller.getType() != UserType.ADMIN) {
-                throw new IllegalArgumentException("Only admin can create sellers");
+            if (loggedInSeller == null || loggedInSeller.getType() != UserType.ADMIN) {
+                redirectLink = request.getContextPath() + "/login.jsp";
+                throw new SecurityException("Permission denied.");
             }
 
             Admin admin = (Admin) loggedInSeller.getUser();
@@ -64,6 +62,7 @@ public class SellerController extends HttpServlet {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);;
         }
     }
