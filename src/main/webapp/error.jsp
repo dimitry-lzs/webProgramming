@@ -19,7 +19,7 @@
 <html>
     <head>
         <title>Error</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
     <body>
         <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>

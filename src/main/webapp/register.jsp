@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Create Form</title>
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
             function validateForm() {
                 const username = document.getElementById('username').value;
@@ -67,7 +67,7 @@
             <div class="signin">
                 <div class="content">
                     <h2>Register as Admin</h2>
-                    <form class="form" action="/vietnam/register-admin" method="post" onsubmit="return validateForm()">
+                    <form class="form" action="<%=request.getContextPath()%>/register-admin" method="post" onsubmit="return validateForm()">
                         <div class="inputBox">
                             <input type="text" id="name" name="name" required>
                             <i>Name</i>
@@ -88,12 +88,13 @@
                             <input type="password" id="confirmPassword" name="confirmPassword" required>
                             <i>Confirm Password</i>
                         </div>
-                        <div class="inputBox"> 
+                        <div class="inputBox">
 
-                            <input type="submit" value="Sign Up"> 
-                        
-                        </div> 
+                            <input type="submit" value="Sign Up">
+
+                        </div>
                     </form>
+                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
                 </div>
             </div>
         </section>
