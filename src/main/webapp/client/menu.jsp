@@ -48,7 +48,7 @@
         <span></span>
         <header class="header">
             <div class="home">
-                <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
+                <a href="<%=request.getContextPath()%>/client/menu.jsp">Home</a>
             </div>
             <div class="sessionTools">
                 <div class="user">
