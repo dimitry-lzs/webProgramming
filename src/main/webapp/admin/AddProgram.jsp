@@ -1,26 +1,9 @@
-<%@ include file="/common.jsp" %>
-
-<%
-    Login login = (Login) session.getAttribute("user");
-
-    if (login == null) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
-        return;
-    }
-
-    if (!login.getType().name().equals("ADMIN")) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
-        return;
-    }
-
-    String username = login.getUsername();
-%>
+<%@ include file="/admin/common.jsp" %>
 
 <html>
-
     <head>
         <title>Create Program</title>
-        <link rel="stylesheet" href="/vietnam/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
     <body>
@@ -62,10 +45,24 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
+            <header class="header">
+                <div class="home">
+                    <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
+                </div>
+                <div class="sessionTools">
+                    <div class="user">
+                        <div class="username"><% out.println(username); %></div>
+                        <div class="role"><% out.println(type); %></div>
+                    </div>
+                    <div class="logout">
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="signin">
                 <div class="content">
                     <h2>Create Program</h2>
-                    <form class="form" action="/vietnam/programs" method="post">
+                    <form class="form" action="<%=request.getContextPath()%>/programs" method="post">
                         <div class="inputBox">
                             <input type="text" id="programName" name="programName" required>
                             <i>Program Name</i>
@@ -83,7 +80,6 @@
                             <i>Fee</i>
                         </div>
                         <div class="inputBox">
-                            <!-- <input type="text" id="benefits" name="benefits" required> -->
                             <textarea id="benefits" name="benefits" required></textarea>
                             <i>Benefits</i>
                         </div>
@@ -91,6 +87,7 @@
                             <input type="submit" value="Create Program">
                         </div>
                     </form>
+                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>

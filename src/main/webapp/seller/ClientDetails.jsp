@@ -1,33 +1,18 @@
-<%@ include file="/common.jsp" %>
+<%@ include file="/seller/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<%
-    Login login = (Login) session.getAttribute("user");
-
-    if (login == null) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
-    }
-    String type = login.getType().name();
-    String username = login.getUsername();
-
-    if (!type.equals("SELLER")) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=Permission denied");
-    }
-%>
-
 
 <html>
 
     <head>
         <title>Clients</title>
-        <link rel="stylesheet" href="/vietnam/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
             let timeout = null;
 
             function updatePhoneNumber() {
                 let program_id = document.getElementById("program").value;
                 let number = "${client.getPhoneNumberValue()}";
-                let url = "/vietnam/phonenumbers";
+                let url = "<%=request.getContextPath()%>/phonenumbers";
 
                 fetch(url, {
                     method: "PUT",
@@ -102,8 +87,23 @@
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span>
+            <header class="header">
+                <div class="home">
+                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                </div>
+                <div class="sessionTools">
+                    <div class="user">
+                        <div class="username"><% out.println(username); %></div>
+                        <div class="role"><% out.println(type); %></div>
+                    </div>
+                    <div class="logout">
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
+                    </div>
+                </div>
+            </header>
             <div class="signin">
                 <div class="content">
+                    <h2>Client Details</h2>
                     <div class="client-data">
                         <div class="row">${client.getAfm()}</div>
                         <div class="row">${client.getName()}</div>
@@ -129,6 +129,7 @@
                             <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
                         </div>
                     </div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>

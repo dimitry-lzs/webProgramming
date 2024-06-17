@@ -74,6 +74,7 @@ section span:hover {
 
 section .signin {
     position: absolute;
+    top: 140px;
     min-width: 400px;
     width: max-content;
     background: #222;
@@ -283,7 +284,7 @@ input[type="submit"]:active,
 .header .sessionTools .logout {
     padding: 10px;
     background-color: #a00;
-    font-size: 1.35em;
+    font-size: 1em;
     letter-spacing: 0.05em;
     cursor: pointer;
     height: 100%;
@@ -292,7 +293,7 @@ input[type="submit"]:active,
 }
 
 .header .sessionTools .logout a {
-    color: #aaa;
+    color: #b7b7b7;
     text-decoration: none;
 }
 

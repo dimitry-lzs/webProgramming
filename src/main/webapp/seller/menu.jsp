@@ -1,21 +1,5 @@
-<%@ include file="/common.jsp" %>
+<%@ include file="/seller/common.jsp" %>
 
-<%
-    Login login = (Login) session.getAttribute("user");
-
-    if (login == null) {
-        request.setAttribute("accessDenied", true);
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=You are not logged in!");
-    }
-
-    String type = login.getType().name();
-    String username = login.getUsername();
-
-    if (!type.equals("SELLER")) {
-        request.setAttribute("accessDenied", true);
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=Persmission denied");
-    }
-%>
 
 <html>
     <head>
@@ -64,7 +48,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="index.html">Back to Homepage</a>
+                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -72,7 +56,7 @@
                         <div class="role"><% out.println(type); %></div>
                     </div>
                     <div class="logout">
-                        <a href="logout">Logout</a>
+                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
                     </div>
                 </div>
             </header>
@@ -80,20 +64,16 @@
                 <div class="content">
                     <h2>Hello <% out.println(username); %></h2>
                     <div class="buttons">
-                        <button class="button" onclick="location.href='seller/AddClient.jsp';">
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/seller/AddClient.jsp';">
                             Add Client
                         </button>
-                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/assignProgram';">
-                            Assign Program
-                        </button>
-                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/programs';">
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/programs';">
                             View Programs
                         </button>
-                        <button class="button" onclick="location.href='http://localhost:8080/vietnam/clients';">
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/clients';">
                             View Clients
                         </button>
                     </div>
-                    <div class="links"><a href="index.html">Back to Homepage</a></div>
                 </div>
             </div>
         </section>
