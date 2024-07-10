@@ -9,17 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.json.JSONObject;
 
 import com.webProgramming.daos.PhoneNumberDao;
 import com.webProgramming.daos.ProgramDao;
+import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
-import com.webProgramming.models.Util;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -28,8 +26,6 @@ public class PhoneController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            SessionFactory factory = Util.getSessionFactory();
-            Session session = factory.openSession();
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
@@ -69,8 +65,8 @@ public class PhoneController extends HttpServlet {
             }
 
             Seller seller = (Seller) loggedInSeller.getUser();
-            session.refresh(seller);
-            session.close();
+            UserDao userDao = new UserDao();
+            userDao.reloadUser(seller);
 
             boolean phoneBelongsToSeller = false;
 

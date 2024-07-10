@@ -148,4 +148,20 @@ public class UserDao {
 
         return success;
     }
+
+    public void reloadUser(User user) {
+        Session session = null;
+
+        try {
+            session = Util.getSessionFactory().openSession();
+            session.refresh(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }
