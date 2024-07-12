@@ -4,31 +4,26 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.annotation.WebServlet;
-import org.hibernate.query.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
+import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
-import com.webProgramming.models.Util;
-import com.webProgramming.src.Login;
 import com.webProgramming.models.enums.UserType;
+import com.webProgramming.src.Login;
 
 @WebServlet("/clients")
 public class ClientController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        SessionFactory factory = Util.getSessionFactory();
-        Session session = factory.openSession();
+        ProgramDao programDao = new ProgramDao();
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
@@ -42,8 +37,9 @@ public class ClientController extends HttpServlet {
 
             String id = request.getParameter("id");
 
+
             Seller seller = (Seller) loggedInSeller.getUser();
-            session.refresh(seller);
+            
 
             if (id != null) {
                 Set<Client> clients = seller.getClients();
@@ -59,12 +55,8 @@ public class ClientController extends HttpServlet {
                 if (client == null) {
                     throw new IllegalArgumentException("Client not found");
                 }
-
-                String hql = "SELECT p FROM Program p WHERE p.admin.id = :adminId";
-                Query<Program> query = session.createQuery(hql, Program.class);
-
-                query.setParameter("adminId", seller.getAdmin().getId());
-                List<Program> programs = query.list();
+                
+                List<Program> programs = programDao.DataProgramList(seller, UserType.SELLER);
 
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
@@ -84,10 +76,7 @@ public class ClientController extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        finally {
-            // Close session.
-            session.close();
-        }
+
     }
 
     @Override

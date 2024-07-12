@@ -10,45 +10,58 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-
 import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
-import com.webProgramming.models.Util;
-import com.webProgramming.src.Login;
-
 import com.webProgramming.models.enums.UserType;
+import com.webProgramming.src.Login;
 
 @WebServlet("/programs")
 public class ProgramController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        SessionFactory factory = Util.getSessionFactory();
-        Session session = factory.openSession();
-        String redirectLink = request.getContextPath() + "/seller/menu.jsp";
+        String redirectLink = request.getContextPath() + "/login.jsp";
 
         try {
             // Get and open session.
-            Login loggedInSeller = (Login) request.getSession().getAttribute("user");
+            Login logged = (Login) request.getSession().getAttribute("user");
+            List<Program> programs = null;
+            ProgramDao programDao = new ProgramDao();
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER){
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (logged != null && logged.getType() == UserType.SELLER){
+                redirectLink = request.getContextPath() + "/seller/menu.jsp";
+
+                Seller seller = (Seller) logged.getUser();
+                programs = programDao.DataProgramList(seller, UserType.SELLER);
+
+                request.setAttribute("programs", programs);
+                request.getRequestDispatcher("seller/ProgramsList.jsp").forward(request, response);
+
+            } else if (logged != null && logged.getType() == UserType.ADMIN){
+                redirectLink = request.getContextPath() + "/admin/menu.jsp";
+                
+                Admin admin = (Admin) logged.getUser();
+
+                String id = request.getParameter("id");
+                
+                // If id program not null, show program details
+                if (id != null) {
+                    Program program = programDao.findById(id);
+                    
+                    request.setAttribute("program", program);
+                    request.getRequestDispatcher("admin/ChaingeProgram.jsp").forward(request, response);
+                } else { //else show list of programs
+                    programs = programDao.DataProgramList(admin, UserType.ADMIN);
+
+                    request.setAttribute("programs", programs);
+                    request.getRequestDispatcher("admin/ProgramsList.jsp").forward(request, response);
+                }
+
+            }else {
                 throw new SecurityException("Permission denied.");
             }
 
-            Seller seller = (Seller) loggedInSeller.getUser();
-            int adminId = seller.getAdmin().getId();
-
-            String hql = "SELECT p FROM Program p WHERE p.admin.id = :adminId";
-            Query<Program> query = session.createQuery(hql, Program.class);
-            List<Program> programs = query.setParameter("adminId", adminId).list();
-
-            request.setAttribute("programs", programs);
-            request.getRequestDispatcher("seller/ProgramsList.jsp").forward(request, response);
         }
 
         catch (Exception e) {
@@ -59,10 +72,6 @@ public class ProgramController extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
-        finally {
-            // Close session.
-            session.close();
-        }
     }
 
     @Override
@@ -86,20 +95,31 @@ public class ProgramController extends HttpServlet {
             String benefits = request.getParameter("benefits");
 
             Program program = new Program(programName, callTime, fee, chargePerSecond);
-
             program.setBenefits(benefits);
             program.setAdmin(admin);
+            
             ProgramDao programDao = new ProgramDao();
 
-            boolean programCreated = programDao.createProgram(program);
+            String option = request.getParameter("option");
+            Boolean programCrOrUb = false;
 
-            if (!programCreated) {
-                throw new IllegalArgumentException("Program creation failed.");
+            if (option.equals("Ubdate_Program")){
+                Program editProgram = programDao.findById(request.getParameter("id"));
+
+                programCrOrUb = programDao.updateProgram(editProgram, program);
+
+            }
+            else if (option.equals("Create_Program")) {
+                programCrOrUb = programDao.createProgram(program);   
+            }
+
+            if (!programCrOrUb) {
+                throw new IllegalArgumentException("Program creation or update failed.");
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
             request.setAttribute("link", request.getContextPath() + "/admin/menu.jsp");
-            request.setAttribute("message", "New program created successfully.");
+            request.setAttribute("message", "New program created or update successfully.");
             request.setAttribute("title", "Success");
             dispatcher.forward(request, response);
 

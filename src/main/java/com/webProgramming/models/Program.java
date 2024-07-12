@@ -1,5 +1,8 @@
 package com.webProgramming.models;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "programs")
@@ -63,7 +63,7 @@ public class Program implements Serializable {
         this.name = name;
     }
 
-    public void setCall_Time(int callTime) {
+    public void setCallTime(int callTime) {
         this.callTime = callTime;
     }
 

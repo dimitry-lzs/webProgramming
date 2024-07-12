@@ -1,10 +1,14 @@
 <%@ include file="/admin/common.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-    <html>
+
+<html>
+
     <head>
-        <title>Menu</title>
+        <title>programs</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
+
     <body>
         <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
             <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
@@ -60,21 +64,30 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Hello <% out.println(username); %></h2>
-                    <div class="buttons">
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/admin/AddSeller.jsp';">
-                            Add Seller
-                        </button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/admin/AddProgram.jsp';">
-                            Add Program
-                        </button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/programs';">
-                            Chainge Program
-                        </button>
+                    <h2>Programs</h2>
+                    <div class="table">
+                        <div class="table-header">
+                            <div class="header-cell">Benefits</div>
+                            <div class="header-cell">Call_Time</div>
+                            <div class="header-cell">Charge_Per_Second</div>
+                            <div class="header-cell">Fee</div>
+                            <div class="header-cell">Name</div>
+                        </div>
+                        <div class="table-content">
+                            <c:forEach var="program" items="${programs}">
+                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/programs?id=${program.getId()}'">
+                                    <div class="table-data">${program.getBenefits()}</div>
+                                    <div class="table-data">${program.getCallTime()}</div>
+                                    <div class="table-data">${program.getChargePerSecond()}</div>
+                                    <div class="table-data">${program.getFee()}</div>
+                                    <div class="table-data">${program.getName()}</div>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/admin/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>
     </body>
-
-    </html>
+</html>

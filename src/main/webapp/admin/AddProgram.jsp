@@ -62,7 +62,7 @@
             <div class="signin">
                 <div class="content">
                     <h2>Create Program</h2>
-                    <form class="form" action="<%=request.getContextPath()%>/programs" method="post">
+                    <form class="form" action="<%=request.getContextPath()%>/programs?option=Create_Program" method="post">
                         <div class="inputBox">
                             <input type="text" id="programName" name="programName" required>
                             <i>Program Name</i>
