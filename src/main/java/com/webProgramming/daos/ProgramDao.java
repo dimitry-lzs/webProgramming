@@ -40,7 +40,7 @@ public class ProgramDao {
         }
         return success;
     }
-    
+
     public boolean updateProgram(Program program, Program newProgram) throws Exception {
         Session session = null;
         Transaction transaction = null;
@@ -50,7 +50,7 @@ public class ProgramDao {
             session = Util.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            // Update the managed entity's properties 
+            // Update the managed entity's properties
             program.setBenefits(newProgram.getBenefits());
             program.setCallTime(newProgram.getCallTime());
             program.setChargePerSecond(newProgram.getChargePerSecond());
@@ -91,7 +91,7 @@ public class ProgramDao {
 
         return program;
     }
-    public List DataProgramList(User user, UserType type) throws Exception {
+    public List<Program> DataProgramList(User user, UserType type) throws Exception {
         List<Program> programs = null;
         int adminId;
 
