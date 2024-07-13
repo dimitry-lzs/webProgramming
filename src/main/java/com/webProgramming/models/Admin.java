@@ -1,4 +1,5 @@
 package com.webProgramming.models;
+import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -46,9 +47,11 @@ public class Admin extends User {
         return program;
     }
 
-    public Seller createSeller(String username, String name, String surname, String password) {
+    public Seller createSeller(String username, String name, String surname, String password) throws NoSuchAlgorithmException {
         Seller seller = new Seller(username, name, surname);
-        seller.setPassword(password);
+        byte[] salt=seller.generateSalt();
+        seller.setSalt(salt);
+        seller.setPassword(User.hashPassword(password, salt));
         seller.setAdmin(this);
         return seller;
     }

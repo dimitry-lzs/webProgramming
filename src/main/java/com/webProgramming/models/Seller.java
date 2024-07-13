@@ -1,4 +1,5 @@
 package com.webProgramming.models;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class Seller extends User {
         return admin;
     }
 
-    public Client createClient(String afm, String username, String name, String surname, String password) {
+    public Client createClient(String afm, String username, String name, String surname, String password) throws NoSuchAlgorithmException {
         String number = "30";
         Random rand = new Random();
 
@@ -48,7 +49,9 @@ public class Seller extends User {
         PhoneNumber phoneNumber = new PhoneNumber(number, null);
 
         Client client = new Client(afm, phoneNumber, username, name, surname);
-        client.setPassword(password);
+        byte[] salt=client.generateSalt();
+        client.setSalt(salt);
+        client.setPassword(User.hashPassword(password, salt));
         client.setSeller(this);
         return client;
     }
