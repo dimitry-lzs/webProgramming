@@ -75,9 +75,9 @@
                         </div>
                         <div class="table-content">
                             <c:forEach var="call" items="${calls}">
-                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/call?id=${call.getId()}'">
-                                    <div class="table-data">${call.getCaller()}</div>
-                                    <div class="table-data">${call.getReceiver()}</div>
+                                <div class="table-row">
+                                    <div class="table-data">${call.getCaller().getNumber()}</div>
+                                    <div class="table-data">${call.getReceiver().getNumber()}</div>
                                     <div class="table-data">${call.getCallTimestamp()}</div>
                                     <div class="table-data">${call.getEndTimestamp()}</div>
                                     <div class="table-data">${call.getDuration()}</div>
@@ -85,7 +85,7 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/client/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>

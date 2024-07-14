@@ -64,7 +64,7 @@
             <div class="content">
                 <h2>Hello <% out.println(username); %></h2>
                 <div class="buttons">
-                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/client/CallStory.jsp';">
+                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/calls';">
                         View Call Story
                     </button>
                 </div>
