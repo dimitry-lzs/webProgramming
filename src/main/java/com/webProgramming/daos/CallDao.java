@@ -24,8 +24,6 @@ public class CallDao {
             String hql = "FROM Call WHERE caller.number = :numberCaller";
             Query<Call> query = session.createQuery(hql, Call.class);
             calls = query.setParameter("numberCaller", numberCaller.getNumber()).list();
-
-            System.out.println("calls: " + calls);
   
         } catch (Exception e) {
             e.printStackTrace();
