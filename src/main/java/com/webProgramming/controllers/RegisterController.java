@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
+import com.webProgramming.models.User;
 
 @WebServlet("/register-admin")
 public class RegisterController extends HttpServlet {
@@ -40,6 +41,11 @@ public class RegisterController extends HttpServlet {
 
             Admin admin = new Admin(username, name, surname);
             admin.setPassword(password);
+            byte[] salt = new byte[16];
+            salt=admin.generateSalt();
+            admin.setSalt(salt);
+            admin.setPassword(User.hashPassword(password, salt));
+
 
             boolean registerSuccess = userDao.saveUser(admin);
 

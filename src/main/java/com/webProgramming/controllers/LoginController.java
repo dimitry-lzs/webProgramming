@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
 
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-
+            
             String type = request.getParameter("type");
 
             if (type == null) {
