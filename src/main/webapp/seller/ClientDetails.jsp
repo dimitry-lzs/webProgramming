@@ -132,7 +132,6 @@
                         </div>
                     </div>
                     <div class="links"><a href='<%=request.getContextPath()%>/clients';>Back to List</a></div>
-                    <p> ${referer} </p>
                 </div>
             </div>
         </section>
