@@ -52,12 +52,8 @@
             </div>
             <div class="sessionTools">
                 <div class="user">
-                    <div class="username">
-                        <% out.println(username); %>
-                    </div>
-                    <div class="role">
-                        <% out.println(type); %>
-                    </div>
+                    <div class="username"><% out.println(username); %></div>
+                    <div class="role"><% out.println(type); %></div>
                 </div>
                 <div class="logout">
                     <a href="<%=request.getContextPath()%>/logout">Logout</a>
@@ -66,8 +62,12 @@
         </header>
         <div class="signin">
             <div class="content">
-                <h2>Client Menu</h2>
-                <h2>Welcome!</h2>
+                <h2>Hello <% out.println(username); %></h2>
+                <div class="buttons">
+                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/client/CallStory.jsp';">
+                        View Call Story
+                    </button>
+                </div>
             </div>
         </div>
     </section>
