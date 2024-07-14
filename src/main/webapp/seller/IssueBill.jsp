@@ -108,9 +108,22 @@
             <div class="signin">
                 <div class="content">
                     <h2>Bill Information</h2>
-                    
-                    <p> Month: ${SelectedMonthText} </p>
+                    <div class="client-data">
+                        <h3>Client Details</h3>
+                        <div class="row">AFM: ${client.getAfm()}</div>
+                        <div class="row">Name: ${client.getName()}</div>
+                        <div class="row">Surname: ${client.getSurname()}</div>
+                        <div class="row">Username: ${client.getUsername()}</div>
+                        <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
+                        <div></div>
+                        <h3>Bill Details</h3>
+                        <div class="row">Month: ${SelectedMonthText}</div>
+                        <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
                         
+                    </div>
+
+                    <div></div>
+                    
                     
                     <p> ${referer} </p>
                 </div>
