@@ -5,7 +5,7 @@
 <html>
 
     <head>
-        <title>Clients</title>
+        <title>CallHistory</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
