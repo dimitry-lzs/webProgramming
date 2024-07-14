@@ -47,9 +47,13 @@ public class BillController extends HttpServlet {
                 bills = billdao.viewClientsBills(client);
                 request.setAttribute("bills", bills);
                 request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
-                
+
             } else if (logged != null && logged.getType() == UserType.CLIENT){
-               
+                Client client = (Client) logged.getUser();
+                bills = billdao.viewClientsBills(client);
+                request.setAttribute("bills", bills);
+                request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
+
             }else {
                 throw new SecurityException("Permission denied.");
             }

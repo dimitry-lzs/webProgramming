@@ -1,4 +1,4 @@
-<%@ include file="/seller/common.jsp" %>
+<%@ include file="/client/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <html>
@@ -49,7 +49,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/client/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -85,7 +85,7 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/client/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>
