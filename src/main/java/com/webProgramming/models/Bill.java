@@ -36,6 +36,8 @@ public class Bill {
     @Column(name = "paid")
     private boolean paid;   //True if the bill is paid, false if it is not paid.
 
+    @Column(name = "charge")
+    private double charge;  //The total charge of the bill.
 
     public boolean isPaid() {
         return paid;
@@ -50,6 +52,12 @@ public class Bill {
     }
     public void setMonth(int month) {
         this.month = month;
+    }
+    public double getCharge() {
+        return charge;
+    }
+    public void setCharge(double charge) {
+        this.charge = charge;
     }
     public PhoneNumber getPhonenumber() {
         return phone_number;

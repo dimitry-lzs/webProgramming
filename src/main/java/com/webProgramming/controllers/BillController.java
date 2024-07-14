@@ -17,6 +17,7 @@ import org.hibernate.query.Query;
 
 import com.webProgramming.daos.BillDao;
 import com.webProgramming.daos.PhoneNumberDao;
+import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Bill;
@@ -24,6 +25,7 @@ import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.Util;
 import com.webProgramming.src.Login;
 
@@ -33,7 +35,31 @@ import com.webProgramming.models.enums.UserType;
 public class BillController extends HttpServlet {
        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-       
+       try{
+            Login logged = (Login) request.getSession().getAttribute("user");
+            List<Bill> bills = null;
+            BillDao billdao = new BillDao();
+            UserDao userDao = new UserDao();
+            if (logged != null && logged.getType() == UserType.SELLER){
+
+                String ClientID = request.getParameter("id");
+                Client client = (Client)userDao.findById(ClientID,UserType.CLIENT);  
+                bills = billdao.viewClientsBills(client);
+                request.setAttribute("bills", bills);
+                request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                
+            } else if (logged != null && logged.getType() == UserType.CLIENT){
+               
+            }else {
+                throw new SecurityException("Permission denied.");
+            }
+       } catch(Exception e){
+           e.printStackTrace();
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+           request.setAttribute("errorMessage", e.getMessage());
+           //request.setAttribute("link", request.getContextPath() + "/seller/menu.jsp"); //check this later
+           dispatcher.forward(request, response);
+       }
     }
 
 
