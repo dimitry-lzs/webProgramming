@@ -56,11 +56,13 @@ public class Seller extends User {
         return client;
     }
 
+    /* 
     public Bill issueBill(PhoneNumber phonenumber, Call[] calls){
         Bill newbill = new Bill(1, phonenumber);
         System.out.println("Issuing bill...");
         return newbill;
     }
+    */
     public void changeClientProgram(){
         System.out.println("Changing client program...");
     }

@@ -72,6 +72,8 @@
                 <div class="content">
                     <h2>Select Client Bill Month</h2>
                     
+                    <%--There needs to be code that shows only the months for which a bill has not been issued yet.--%>
+
                     <select name="months" id="months">
                         <option value="1" selected="selected">Jan</option>
                         <option value="2">Feb</option>
