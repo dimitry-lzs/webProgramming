@@ -7,10 +7,47 @@
         <title>Bill Information</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
-            let timeout = null;
+            let monthText = null;
 
-            function getMonthValue() {   
-                return document.getElementById("months").value;
+            function monthConvert(num) {   
+                if (num == 1) {
+                    monthText = 'January';
+                }                    
+                else if (num == 2)  {
+                    monthText = 'February';
+                }
+                else if (num == 3)  {
+                    monthText = 'March';
+                }
+                else if (num == 4)  {
+                    monthText = 'April';
+                }
+                else if (num == 5)  {
+                    monthText = 'May';
+                }
+                else if (num == 6)  {
+                    monthText = 'June';
+                }
+                else if (num == 7)  {
+                    monthText = 'July';
+                }
+                else if (num == 8)  {
+                    monthText = 'August';
+                }
+                else if (num == 9)  {
+                    monthText = 'September';
+                }
+                else if (num == 10)  {
+                    monthText = 'October';
+                }
+                else if (num == 11)  {
+                    monthText = 'November';
+                }
+                else if (num == 12)  {
+                    monthText = 'December';
+                }
+                return monthText;
+
             }
         </script>
     </head>
@@ -72,9 +109,8 @@
                 <div class="content">
                     <h2>Bill Information</h2>
                     
-                    <p> ISSUE BILL</p>
-                    <p> ${SelectedMonth}</p>
-
+                    <p> Month: ${SelectedMonthText} </p>
+                        
                     
                     <p> ${referer} </p>
                 </div>
