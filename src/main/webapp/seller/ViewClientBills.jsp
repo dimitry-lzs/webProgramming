@@ -85,6 +85,9 @@
                             </c:forEach>
                         </div>
                     </div>
+                    <button class="button" onclick="window.location.href='<%=request.getContextPath()%>/bills?option=create&id=${client.getId()}'">
+                        Bill Issue
+                    </button>
                     <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>

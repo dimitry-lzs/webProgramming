@@ -6,49 +6,6 @@
     <head>
         <title>Bill Information</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
-        <script>
-           
-
-            function issueBill() {
-
-                let program_id = document.getElementById("program").value;
-                let number = "${client.getPhoneNumberValue()}";
-                let url = "<%=request.getContextPath()%>/phonenumbers";
-
-                fetch(url, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        program_id,
-                        number
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById("updateButton").innerHTML = "Updated!";
-                        if (timeout) {
-                            clearTimeout(timeout);
-                        }
-                        timeout = setTimeout(() => {
-                            document.getElementById("updateButton").innerHTML = "Update";
-                        }, 2000);
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("updateButton").innerHTML = "Error!";
-                    if (timeout) {
-                        clearTimeout(timeout);
-                    }
-                    timeout = setTimeout(() => {
-                        document.getElementById("updateButton").innerHTML = "Update";
-                    }, 2000);
-                });
-            }
-            
-
-        </script>
     </head>
 
     <body>
@@ -119,29 +76,28 @@
 
                             <h3>Bill Details</h3>
                             <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
-                            <div class="row">Month: ${SelectedMonthText}</div>
+                            <div class="row">Month:</div><!--The month will be selected from a dropdown list.-->
                             <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
-                            <div class="row">Total Call Duration:</div> <%--Somewhere, the total duration will be calculated.--%>
-                            <div class="row">Total Cost:</div> <%--Somewhere, the total cost will be calculated.--%>
+                            <div class="row">Total Call Duration:</div> <!--Somewhere, the total duration will be calculated.-->
+                            <div class="row">Total Cost:</div> <!--Somewhere, the total cost will be calculated.-->
 
                         </div>
 
                         <form class="form" action="<%=request.getContextPath()%>/bills" method="post">
                         
-                            <%-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. --%>
+                            <!-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. -->
                             <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
                             <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
-                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value=${SelectedMonthInt}> 
+                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value=""> 
 
                             <input class="button" type="submit" value="Issue Bill">
                         </form>
                        
 
                     <div></div>
-                   <%-- <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&selectedmonthint=${SelectedMonthInt}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div> --%>
+                   <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div>
                     
                     
-                    <p> ${referer} </p>
                 </div>
             </div>
         </section>
