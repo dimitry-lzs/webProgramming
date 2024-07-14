@@ -1,5 +1,7 @@
 package com.webProgramming.daos;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -18,7 +20,9 @@ public class UserDao {
         Session session = null;
         User user = null;
         Login sucessfulLogin = null;
-
+        String storedPassword=null;
+        byte[] salt=null;
+        boolean isPasswordCorrect=false;
         try {
             session = Util.getSessionFactory().openSession();
             String hql = "";
@@ -26,33 +30,36 @@ public class UserDao {
             switch (userType) {
                 case UserType.ADMIN:
 
-                    hql = "FROM Admin WHERE username = :username AND password = :password";
+                    hql = "FROM Admin WHERE username = :username";
                     Query<Admin> query = session.createQuery(hql, Admin.class);
 
                     query.setParameter("username", username);
-                    query.setParameter("password", password);
-
                     user = query.getSingleResult();
+                    storedPassword=user.getPassword();
+                    salt=user.getSalt();
+                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
                     break;
 
                 case UserType.SELLER:
-                    hql = "FROM Seller WHERE username = :username AND password = :password";
+                    hql = "FROM Seller WHERE username = :username";
                     Query<Seller> querySeller = session.createQuery(hql, Seller.class);
 
                     querySeller.setParameter("username", username);
-                    querySeller.setParameter("password", password);
-
                     user = querySeller.getSingleResult();
+                    storedPassword=user.getPassword();
+                    salt=user.getSalt();
+                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
                     break;
 
                 case UserType.CLIENT:
-                    hql = "FROM Client WHERE username = :username AND password = :password";
+                    hql = "FROM Client WHERE username = :username";
                     Query<Client> queryCustomer = session.createQuery(hql, Client.class);
 
                     queryCustomer.setParameter("username", username);
-                    queryCustomer.setParameter("password", password);
-
                     user = queryCustomer.getSingleResult();
+                    storedPassword=user.getPassword();
+                    salt=user.getSalt();
+                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
                     break;
             }
         } catch (Exception e) {
@@ -63,7 +70,7 @@ public class UserDao {
             }
         }
 
-        if (user != null) {
+        if (user != null && isPasswordCorrect) {
             sucessfulLogin = new Login();
             sucessfulLogin.setUsername(username);
             sucessfulLogin.setPassword(password);
@@ -73,6 +80,11 @@ public class UserDao {
         }
 
         return sucessfulLogin;
+    }
+
+    public static boolean verifyPassword(String password, byte[] salt, String storedHashedPassword) throws NoSuchAlgorithmException {
+        String hashedPassword = User.hashPassword(password, salt);
+        return hashedPassword.equals(storedHashedPassword);
     }
 
     public User findById(String id, UserType userType) {
