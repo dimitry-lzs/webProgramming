@@ -54,8 +54,6 @@
                 <div class="user">
                     <div class="username"><% out.println(username); %></div>
                     <div class="role"><% out.println(type); %></div>
-                    <div class="username"><% out.println(username); %></div>
-                    <div class="role"><% out.println(type); %></div>
                 </div>
                 <div class="logout">
                     <a href="<%=request.getContextPath()%>/logout">Logout</a>
