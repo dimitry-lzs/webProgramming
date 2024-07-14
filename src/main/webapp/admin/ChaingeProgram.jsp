@@ -85,23 +85,23 @@
                     </div>
                     <form class="form" action="<%=request.getContextPath()%>/programs?option=Ubdate_Program&amp;id=${program.getId()}" method="post">
                         <div class="inputBox">
-                            <input type="text" id="programName" name="programName" required>
+                            <input type="text" id="programName" name="programName" value="${program.getName()}" required>
                             <i>Program Name</i>
                         </div>
                         <div class="inputBox">
-                            <input type="number" id="callTime" name="callTime" required>
+                            <input type="number" id="callTime" name="callTime"  value="${program.getCallTime()}" required>
                             <i>Call Time</i>
                         </div>
                         <div class="inputBox">
-                            <input type="number" id="charge" name="charge" required>
+                            <input type="number" id="charge" name="charge" value="${program.getChargePerSecond()}" required>
                             <i>Charge per second</i>
                         </div>
                         <div class="inputBox">
-                            <input type="number" id="fee" name="fee" required>
+                            <input type="number" id="fee" name="fee" value="${program.getFee()}" required>
                             <i>Fee</i>
                         </div>
                         <div class="inputBox">
-                            <textarea id="benefits" name="benefits" required></textarea>
+                            <textarea id="benefits" name="benefits" required>${program.getBenefits()}</textarea>
                             <i>Benefits</i>
                         </div>
                         <div class="inputBox">
