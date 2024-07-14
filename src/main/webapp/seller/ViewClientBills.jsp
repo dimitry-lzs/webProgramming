@@ -73,16 +73,14 @@
                         <div class="table-content">
                             <c:forEach var="bill" items="${bills}">
                                 <div class="table-row">
-                                    <div class="table-data">${bill.getMonth()}</div>
-                                    <div class="table-data">${bill.getCharge()}</div>
-                                    <!--<div class="table-data"><%
-                                        if(bill.isPaid()){
-                                            out.print("Paid");
-                                        }else{
-                                            out.print("Not Paid");
-                                        } 
-                                    %> 
-                                    </div>-->
+                                    <div class="table-data">${bill.getMonth()}</div> 
+                                    <div class="table-data">${bill.getCharge()}</div> 
+                                    <div class="table-data">
+                                        <c:choose> 
+                                            <c:when test="${bill.isPaid()}">Paid</c:when>
+                                            <c:otherwise>Not Paid</c:otherwise>
+                                        </c:choose>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </div>
