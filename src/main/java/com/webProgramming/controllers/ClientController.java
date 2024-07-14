@@ -19,6 +19,7 @@ import com.webProgramming.models.Seller;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
+
 @WebServlet("/clients")
 public class ClientController extends HttpServlet {
     @Override
@@ -60,7 +61,30 @@ public class ClientController extends HttpServlet {
 
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
-                request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
+
+                //Test
+                request.setAttribute("referer", request.getHeader("referer"));
+                if (request.getParameter("fromjsp").equals("list")){
+                    request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
+                }
+                else if (request.getParameter("fromjsp").equals("clientdetails")) {
+                    request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                }
+                else if (request.getParameter("fromjsp").equals("viewclientbills")) {
+                    request.getRequestDispatcher("seller/SelectClientBillMonth.jsp").forward(request, response);
+                }
+                else if (request.getParameter("fromjsp").equals("monthselect")) {
+                    request.setAttribute("SelectedMonthInt", request.getParameter("selectedmonthint"));
+                    request.setAttribute("SelectedMonthText", monthIntToText(Integer.parseInt(request.getParameter("selectedmonthint"))));
+                    request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
+                }
+                else {
+                    String er = "Error from value:" + request.getParameter("fromjsp");
+                    request.setAttribute("errorMessage", er);
+                    request.getRequestDispatcher("/error.jsp").forward(request, response);
+                }
+                
+
             } else {
                 Set<Client> clients = seller.getClients();
                 request.setAttribute("clients", clients);
@@ -129,5 +153,46 @@ public class ClientController extends HttpServlet {
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);;
         }
+    }
+
+    private String monthIntToText(int num) {
+        String monthText = null;
+        if (num == 1) {
+            monthText = "January";
+        }                    
+        else if (num == 2)  {
+            monthText = "February";
+        }
+        else if (num == 3)  {
+            monthText = "March";
+        }
+        else if (num == 4)  {
+            monthText = "April";
+        }
+        else if (num == 5)  {
+            monthText = "May";
+        }
+        else if (num == 6)  {
+            monthText = "June";
+        }
+        else if (num == 7)  {
+            monthText = "July";
+        }
+        else if (num == 8)  {
+            monthText = "August";
+        }
+        else if (num == 9)  {
+            monthText = "September";
+        }
+        else if (num == 10)  {
+            monthText = "Octorber";
+        }
+        else if (num == 11)  {
+            monthText = "November";
+        }
+        else if (num == 12)  {
+            monthText = "December";
+        }
+        return monthText;
     }
 }

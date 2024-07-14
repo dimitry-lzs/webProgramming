@@ -1,12 +1,18 @@
 <%@ include file="/seller/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <html>
 
     <head>
-        <title>Clients</title>
+        <title>Select Bill Month</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
+        <script>
+            let timeout = null;
+
+            function getMonthValue() {   
+                return document.getElementById("months").value;
+            }
+        </script>
     </head>
 
     <body>
@@ -64,28 +70,19 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Clients</h2>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Name</div>
-                            <div class="header-cell">Surname</div>
-                            <div class="header-cell">Username</div>
-                            <div class="header-cell">AFM</div>
-                            <div class="header-cell">Phone Number</div>
-                        </div>
-                        <div class="table-content">
-                            <c:forEach var="client" items="${clients}">
-                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/clients?id=${client.getId()}&fromjsp=list'">
-                                    <div class="table-data">${client.getName()}</div>
-                                    <div class="table-data">${client.getSurname()}</div>
-                                    <div class="table-data">${client.getUsername()}</div>
-                                    <div class="table-data">${client.getAfm()}</div>
-                                    <div class="table-data">${client.getPhoneNumberValue()}</div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <h2>Select Client Bill Month</h2>
+                    
+                    <%--There needs to be code that shows only the months for which a bill has not been issued yet.--%>
+
+                    <select name="months" id="months">
+                        <option value="1" selected="selected">Jan</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                       
+                    </select>
+
+                    <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/clients?id=${client.getId()}&fromjsp=monthselect&selectedmonthint=' + getMonthValue()  + ''"> Continue To Bill </div>
+                    <p> ${referer} </p>
                 </div>
             </div>
         </section>

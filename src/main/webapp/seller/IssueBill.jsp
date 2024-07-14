@@ -1,12 +1,54 @@
 <%@ include file="/seller/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
 <html>
 
     <head>
-        <title>Clients</title>
+        <title>Bill Information</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
+        <script>
+           
+
+            function issueBill() {
+
+                let program_id = document.getElementById("program").value;
+                let number = "${client.getPhoneNumberValue()}";
+                let url = "<%=request.getContextPath()%>/phonenumbers";
+
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        program_id,
+                        number
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById("updateButton").innerHTML = "Updated!";
+                        if (timeout) {
+                            clearTimeout(timeout);
+                        }
+                        timeout = setTimeout(() => {
+                            document.getElementById("updateButton").innerHTML = "Update";
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("updateButton").innerHTML = "Error!";
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                });
+            }
+            
+
+        </script>
     </head>
 
     <body>
@@ -64,30 +106,45 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Clients</h2>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Name</div>
-                            <div class="header-cell">Surname</div>
-                            <div class="header-cell">Username</div>
-                            <div class="header-cell">AFM</div>
-                            <div class="header-cell">Phone Number</div>
+                    <h2>Bill Information</h2>
+
+                        <div class="client-data">
+                            <h3>Client Details</h3>
+                            <div class="row">AFM: ${client.getAfm()}</div>
+                            <div class="row">Name: ${client.getName()}</div>
+                            <div class="row">Surname: ${client.getSurname()}</div>
+                            <div class="row">Username: ${client.getUsername()}</div>
+                            
+                            <div></div><div></div>
+
+                            <h3>Bill Details</h3>
+                            <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
+                            <div class="row">Month: ${SelectedMonthText}</div>
+                            <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
+                            <div class="row">Total Call Duration:</div> <%--Somewhere, the total duration will be calculated.--%>
+                            <div class="row">Total Cost:</div> <%--Somewhere, the total cost will be calculated.--%>
+
                         </div>
-                        <div class="table-content">
-                            <c:forEach var="client" items="${clients}">
-                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/clients?id=${client.getId()}&fromjsp=list'">
-                                    <div class="table-data">${client.getName()}</div>
-                                    <div class="table-data">${client.getSurname()}</div>
-                                    <div class="table-data">${client.getUsername()}</div>
-                                    <div class="table-data">${client.getAfm()}</div>
-                                    <div class="table-data">${client.getPhoneNumberValue()}</div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+
+                        <form class="form" action="<%=request.getContextPath()%>/bills" method="post">
+                        
+                            <%-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. --%>
+                            <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
+                            <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
+                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value=${SelectedMonthInt}> 
+
+                            <input class="button" type="submit" value="Issue Bill">
+                        </form>
+                       
+
+                    <div></div>
+                   <%-- <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&selectedmonthint=${SelectedMonthInt}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div> --%>
+                    
+                    
+                    <p> ${referer} </p>
                 </div>
             </div>
         </section>
     </body>
 </html>
+

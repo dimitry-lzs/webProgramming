@@ -66,9 +66,11 @@ public class Bill {
         this.calls = calls;
     }
 
-    public Bill(int month, PhoneNumber phoneNumber) {
+    public Bill(Client client, PhoneNumber phoneNumber, int month, Boolean paid) {
         this.month = month;
         this.phone_number = phoneNumber;
+        this.client = client;
+        this.paid = paid;
     }
 
     public void printBill() {
