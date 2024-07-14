@@ -128,7 +128,7 @@
                                 </select>
                             </div>
                             <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
-                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/clients?id=${client.getId()}&fromjsp=clientdetails'"> Issue Bill </div>
+                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/clients?id=${client.getId()}&fromjsp=clientdetails'"> View Client's Bills </div>
                         </div>
                     </div>
                     <div class="links"><a href='<%=request.getContextPath()%>/clients';>Back to List</a></div>
