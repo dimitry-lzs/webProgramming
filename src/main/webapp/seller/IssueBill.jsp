@@ -107,27 +107,35 @@
             <div class="signin">
                 <div class="content">
                     <h2>Bill Information</h2>
-                    <div class="client-data">
-                        <h3>Client Details</h3>
-                        <div class="row">AFM: ${client.getAfm()}</div>
-                        <div class="row">Name: ${client.getName()}</div>
-                        <div class="row">Surname: ${client.getSurname()}</div>
-                        <div class="row">Username: ${client.getUsername()}</div>
-                        <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
+                    <form action="<%=request.getContextPath()%>/bills" method="post">
+                        
+                        
+                        <input type="text" name="phonenumber" id="phonenumber" disabled value=${client.getPhoneNumberValue()}> 
+                        
+                        <div class="client-data">
+                            <h3>Client Details</h3>
+                            <div class="row">AFM: ${client.getAfm()}</div>
+                            <div class="row">Name: ${client.getName()}</div>
+                            <div class="row">Surname: ${client.getSurname()}</div>
+                            <div class="row">Username: ${client.getUsername()}</div>
+                            <div class="row" id="phonenumber0" name="phonenumber0" value=1234567890>Phonenumber: ${client.getPhoneNumberValue()}</div>
+                            <div class="row" id="client_id" name="client_id" value="1" hidden></div>
 
-                        <div></div>
+                            <div></div>
 
-                        <h3>Bill Details</h3>
-                        <div class="row">Month: ${SelectedMonthText}</div>
-                        <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
+                            <h3>Bill Details</h3>
+                            <div class="row" id="selectedmonthint" name="selectedmonthint" value=22>Month: ${SelectedMonthText}</div>
+                            <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
 
-                        <div class="row">Total Call Duration:</div> <%--Somewhere, the total duration will be calculated.--%>
-                        <div class="row">Total Cost:</div> <%--Somewhere, the total cost will be calculated.--%>
+                            <div class="row">Total Call Duration:</div> <%--Somewhere, the total duration will be calculated.--%>
+                            <div class="row">Total Cost:</div> <%--Somewhere, the total cost will be calculated.--%>
 
-                    </div>
+                        </div>
+                        <input class="button" type="submit" value="Issue Bill">
+                    </form>
 
                     <div></div>
-                    <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&selectedmonthint=${SelectedMonthInt}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill </div>
+                   <%-- <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&selectedmonthint=${SelectedMonthInt}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill </div> --%>
                     
                     
                     <p> ${referer} </p>

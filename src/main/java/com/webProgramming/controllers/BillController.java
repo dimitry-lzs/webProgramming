@@ -54,13 +54,13 @@ public class BillController extends HttpServlet {
 
             //Get Bill attributes
             String month = request.getParameter("selectedmonthint");
-            String client_id = request.getParameter("id");
+            String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
             Boolean paid = false;
 
             //Check
             if (month == null || client_id == null || phonenumber == null || paid == null) {
-                throw new IllegalArgumentException("Missing parameters");
+                throw new IllegalArgumentException("Missing parameters:" + "month=" + month  + "id=" + client_id  + "phonenumber=" + phonenumber);
             }
 
             //Cast to correct types, so we can successfully store bill object.
