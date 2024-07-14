@@ -119,7 +119,7 @@ public class ClientController extends HttpServlet {
                 throw new IllegalArgumentException("Passwords do not match");
             }
 
-            Client client = seller.createClient(afm, username, username, surname, password);
+            Client client = seller.createClient(afm, username, name, surname, password);
 
             UserDao userDao = new UserDao();
             boolean created = userDao.saveUser(client);
