@@ -47,7 +47,7 @@ public class CallControler extends HttpServlet {
             //sdafihoisdf
 
             request.setAttribute("calls", calls);
-            request.getRequestDispatcher("client/CallStory.jsp").forward(request, response);
+            request.getRequestDispatcher("client/viewCallHistory.jsp").forward(request, response);
 
 
         } catch (Exception e) {
