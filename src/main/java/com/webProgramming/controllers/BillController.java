@@ -252,56 +252,27 @@ public class BillController extends HttpServlet {
                 //Update
                 boolean success = billdao.updateBill(bill);
                 if (success) {
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-                    request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                    request.setAttribute("message", "Bill paid successfully!");
-                    request.setAttribute("title", "Success");
-                    dispatcher.forward(request, response);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write("Bill paid successfully!");
+
                 } else {
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                    request.setAttribute("errorMessage", "Failed to paid Bill.");
-                    request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                    dispatcher.forward(request, response);
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().write("Bill not paid");
                 }
             }
             else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                request.setAttribute("errorMessage", "Bill has already been paid.");
-                request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                dispatcher.forward(request, response);
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("Bill paid already");
             }             
            
             
             
         } 
         catch(Exception e) {
-            e.printStackTrace();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", e.getMessage());
-
-           
-
-            if (loggedInUser == null) {
-                redirectLink += "/login.jsp";
-            } else {
-                switch (loggedInUser.getType()) {
-                    case UserType.CLIENT: {
-                        redirectLink += "/client/menu.jsp";
-                        break;
-                    }
-                    case UserType.SELLER: {
-                        redirectLink += "/seller/menu.jsp";
-                        break;
-                    }
-                    default: {
-                        redirectLink += "/login.jsp";
-                    }
-                }
-            }
-
-            request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);
-       }
-     }
+        e.printStackTrace();
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.getWriter().write(e.getMessage());
+        }
+    }
 }
 

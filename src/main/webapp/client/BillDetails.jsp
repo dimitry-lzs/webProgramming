@@ -22,8 +22,9 @@
                     })
                 })
                 .then(response => {
+
                     if (response.ok) {
-                        document.getElementById("payButton").innerHTML = "Payed!";
+                        location.reload();
                     }
                 })
                 .catch(error => {
@@ -100,7 +101,6 @@
                             <div class="row">
                                 <c:choose> 
                                     <c:when test="${bill.isPaid()}">Paid</c:when>
-
                                     <c:otherwise>Not Paid</c:otherwise>
                                 </c:choose>
                             </div>
