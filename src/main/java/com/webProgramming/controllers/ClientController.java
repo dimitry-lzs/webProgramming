@@ -74,6 +74,8 @@ public class ClientController extends HttpServlet {
                 else if (request.getParameter("fromjsp").equals("viewclientbills")) {
                     request.getRequestDispatcher("seller/SelectClientBillMonth.jsp").forward(request, response);
                 }
+
+                //This might be useless.
                 else if (request.getParameter("fromjsp").equals("monthselect")) {
                     request.setAttribute("SelectedMonthInt", request.getParameter("selectedmonthint"));
                     request.setAttribute("SelectedMonthText", monthIntToText(Integer.parseInt(request.getParameter("selectedmonthint"))));
@@ -157,7 +159,7 @@ public class ClientController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
             request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);;
+            dispatcher.forward(request, response);
         }
     }
 
