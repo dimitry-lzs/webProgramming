@@ -72,7 +72,7 @@
                         </div>
                         <div class="table-content">
                             <c:forEach var="bill" items="${bills}">
-                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?billID=${bill.getId()} & action=show'">
+                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?action=show&clientId=${client.getId()}&billID=${bill.getID()}'">
                                     <div class="table-data">${bill.getMonth()}</div>
                                     <div class="table-data">${bill.getCharge()}</div>
                                     <div class="table-data">

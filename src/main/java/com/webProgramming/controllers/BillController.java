@@ -77,6 +77,7 @@ public class BillController extends HttpServlet {
                         var billID=request.getAttribute("billID");
                         if(billID==null){ //if billID is null, it means we want to show all bills of the client
                             bills = billdao.viewClientsBills(client);
+                            request.setAttribute("client", client);
                             request.setAttribute("bills", bills);
                             request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
                         }else{ //if billID is not null, it means we want to show a specific bill
