@@ -132,13 +132,18 @@ public class ClientController extends HttpServlet {
             if (!password.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Passwords do not match");
             }
+            boolean userCreated = false;
+            try{
+                Client client = seller.createClient(afm, username, name, surname, password);
+                UserDao userDao = new UserDao();
+                userCreated = userDao.saveUser(client);
+            }catch(Exception e){
+                redirectLink = request.getContextPath() + "/seller/AddClient.jsp";
+                throw new IllegalArgumentException("Username is already been used.\nTry another username.");
+            }
 
-            Client client = seller.createClient(afm, username, name, surname, password);
 
-            UserDao userDao = new UserDao();
-            boolean created = userDao.saveUser(client);
-
-            if (!created) {
+            if (!userCreated) {
                 throw new IllegalArgumentException("Client could not be created");
             }
 

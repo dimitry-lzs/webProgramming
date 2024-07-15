@@ -1,5 +1,6 @@
 package com.webProgramming.controllers;
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,12 +45,18 @@ public class SellerController extends HttpServlet {
             if (!password.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Passwords do not match");
             }
+            boolean userCreated = false;
+            try{
+                Seller seller = admin.createSeller(username, name, surname, password);
+                UserDao userDao = new UserDao();
+                userCreated = userDao.saveUser(seller);
+            }catch(Exception e){
+                redirectLink = request.getContextPath() + "/admin/AddSeller.jsp";
+                throw new IllegalArgumentException("Username is already been used.\nTry another username.");
+            }
 
-            Seller seller = admin.createSeller(username, name, surname, password);
-            UserDao userDao = new UserDao();
-            boolean created = userDao.saveUser(seller);
 
-            if (!created) {
+            if (!userCreated) {
                 throw new IllegalArgumentException("Seller could not be created");
             }
 
