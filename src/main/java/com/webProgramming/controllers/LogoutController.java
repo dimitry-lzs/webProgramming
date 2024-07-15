@@ -18,6 +18,6 @@ public class LogoutController extends HttpServlet {
             session.removeAttribute("user");
             session.invalidate();
         }
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.jsp");
     }
 }

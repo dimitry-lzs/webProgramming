@@ -1,4 +1,5 @@
 package com.webProgramming.models;
+import com.webProgramming.models.enums.UserType;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -119,5 +120,20 @@ public abstract class User implements Serializable {
 
     public static int getCount() {
         return 1;
+    }
+
+    public static String getRedirectionLink(String type) {
+        UserType userType = UserType.valueOf(type);
+        System.out.println("User type: " + userType);
+        switch (userType) {
+            case UserType.CLIENT:
+                return "/client/menu.jsp";
+            case UserType.SELLER:
+                return "/seller/menu.jsp";
+            case UserType.ADMIN:
+                return "/admin/menu.jsp";
+            default:
+                return "/login.jsp";
+        }
     }
 }

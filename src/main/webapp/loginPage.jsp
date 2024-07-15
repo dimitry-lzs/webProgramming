@@ -91,7 +91,7 @@
                     </div>
                         <input type="hidden" id="type" name="type" value="<%= type%>">
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/index.jsp">Back</a></div>
                 </div>
             </div>
         </section>

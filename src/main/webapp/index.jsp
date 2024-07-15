@@ -1,3 +1,12 @@
+<%@ include file="/common.jsp" %>
+<%
+    Login login = (Login) session.getAttribute("user");
+    if (login != null) {
+        String redirectLink = request.getContextPath() + User.getRedirectionLink(login.getType().name());
+        response.sendRedirect(redirectLink);
+    }
+%>
+
 <html>
     <head>
     <title>Welcome!</title>

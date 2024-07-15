@@ -5,7 +5,7 @@
     String link = (String) request.getAttribute("link");
 
     if (link == null) {
-        link = request.getContextPath() + "/index.html";
+        link = request.getContextPath() + "/index.jsp";
     }
 %>
 <html>

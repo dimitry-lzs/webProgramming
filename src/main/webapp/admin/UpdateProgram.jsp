@@ -3,9 +3,8 @@
 
 
 <html>
-
     <head>
-        <title>programs</title>
+        <title>Update</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
@@ -64,25 +63,7 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Programs</h2>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Benefits</div>
-                            <div class="header-cell">Call_Time</div>
-                            <div class="header-cell">Charge_Per_Second</div>
-                            <div class="header-cell">Fee</div>
-                            <div class="header-cell">Name</div>
-                        </div>
-                        <div class="table-content" var="program" items="${program}">
-                            <div class="table-row">
-                                <div class="table-data">${program.getBenefits()}</div>
-                                <div class="table-data">${program.getCallTime()}</div>
-                                <div class="table-data">${program.getChargePerSecond()}</div>
-                                <div class="table-data">${program.getFee()}</div>
-                                <div class="table-data">${program.getName()}</div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2>Update Program</h2>
                     <form class="form" action="<%=request.getContextPath()%>/programs?option=Ubdate_Program&amp;id=${program.getId()}" method="post">
                         <div class="inputBox">
                             <input type="text" id="programName" name="programName" value="${program.getName()}" required>
@@ -105,7 +86,7 @@
                             <i>Benefits</i>
                         </div>
                         <div class="inputBox">
-                            <input type="submit" value="Ubdate Program">
+                            <input type="submit" value="Update Program">
                         </div>
                     </form>
                     <div class="links"><a href="<%=request.getContextPath()%>/admin/menu.jsp">Back to List</a></div>
