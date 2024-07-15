@@ -1,35 +1,46 @@
-<%@ include file="/seller/common.jsp" %>
+<%@ include file="/admin/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<html>
 
+<html>
     <head>
-        <title>Clients</title>
+        <title>Update</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
-            let timeout = null;
+            let timeout;
 
-            function updatePhoneNumber() {
-                let program_id = document.getElementById("program").value;
-                let number = "${client.getPhoneNumberValue()}";
-                let url = "<%=request.getContextPath()%>/phonenumbers";
+            function updateProgram() {
+                const url = "<%=request.getContextPath()%>/programs?id=${program.getId()}"
+                const form = document.getElementById('updateForm');
+
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+
+                document.getElementById("updateButton").innerHTML = "Updating...";
 
                 fetch(url, {
-                    method: "PUT",
+                    method: 'PUT',
                     headers: {
-                        "Content-Type": "application/json"
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        program_id,
-                        number
+                        programName: form.programName.value,
+                        callTime: form.callTime.value,
+                        charge: form.charge.value,
+                        fee: form.fee.value,
+                        benefits: form.benefits.value
                     })
                 })
                 .then(response => {
                     if (response.ok) {
                         document.getElementById("updateButton").innerHTML = "Updated!";
-                        if (timeout) {
-                            clearTimeout(timeout);
-                        }
+                        timeout = setTimeout(() => {
+                            document.getElementById("updateButton").innerHTML = "Update";
+                        }, 2000);
+                    } else {
+                        document.getElementById("updateButton").innerHTML = "Error!";
                         timeout = setTimeout(() => {
                             document.getElementById("updateButton").innerHTML = "Update";
                         }, 2000);
@@ -37,13 +48,15 @@
                 })
                 .catch(error => {
                     document.getElementById("updateButton").innerHTML = "Error!";
-                    if (timeout) {
-                        clearTimeout(timeout);
-                    }
                     timeout = setTimeout(() => {
                         document.getElementById("updateButton").innerHTML = "Update";
                     }, 2000);
-                });
+                })
+                .finally(() => {
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                })
             }
         </script>
     </head>
@@ -89,7 +102,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -103,37 +116,31 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Client Details</h2>
-                    <div class="client-data">
-                        <div class="row">${client.getAfm()}</div>
-                        <div class="row">${client.getName()}</div>
-                        <div class="row">${client.getSurname()}</div>
-                        <div class="row">${client.getUsername()}</div>
-                        <div class="row">${client.getPhoneNumberValue()}</div>
-                        <h3>Client's Program</h3>
-                        <div class="row">
-                            <div class="select-style">
-                                <select name="program" id="program">
-                                    <option value="null">Select Program</option>
-                                    <c:forEach var="program" items="${programs}">
-                                        <c:choose>
-                                            <c:when test="${not empty client.getPhoneNumber() and not empty client.getPhoneNumber().getProgram() and client.getPhoneNumber().getProgram().getId() == program.getId()}">
-                                                <option value="${program.getId()}" selected>${program.getName()}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${program.getId()}">${program.getName()}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
-
-                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?clientId=${client.getId()}&action=show'"> View Client's Bills </div>
-
+                    <h2>Update Program</h2>
+                    <form id="updateForm" class="form">
+                        <div class="inputBox">
+                            <input type="text" id="programName" name="programName" value="${program.getName()}" required>
+                            <i>Program Name</i>
                         </div>
-                    </div>
-                    <div class="links"><a href='<%=request.getContextPath()%>/clients';>Back to List</a></div>
+                        <div class="inputBox">
+                            <input type="number" id="callTime" name="callTime"  value="${program.getCallTime()}" required>
+                            <i>Call Time</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="number" id="charge" name="charge" value="${program.getChargePerSecond()}" required>
+                            <i>Charge per second</i>
+                        </div>
+                        <div class="inputBox">
+                            <input type="number" id="fee" name="fee" value="${program.getFee()}" required>
+                            <i>Fee</i>
+                        </div>
+                        <div class="inputBox">
+                            <textarea id="benefits" name="benefits" required>${program.getBenefits()}</textarea>
+                            <i>Benefits</i>
+                        </div>
+                    </form>
+                    <div id="updateButton" class="button" onclick="updateProgram()">Update Program</div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/programs">Back to List</a></div>
                 </div>
             </div>
         </section>

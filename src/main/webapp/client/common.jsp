@@ -12,6 +12,9 @@
     String username = login.getUsername();
 
     if (!type.equals("CLIENT")) {
-        response.sendRedirect("/vietnam/error.jsp?errorMessage=Persmission denied");
+        String redirectLink = request.getContextPath() + "/error.jsp";
+        redirectLink += "?errorMessage=Permission denied";
+        redirectLink += "&link=" + request.getContextPath() + User.getRedirectionLink(type);
+        response.sendRedirect(redirectLink);
     }
 %>

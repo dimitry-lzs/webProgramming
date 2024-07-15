@@ -47,7 +47,7 @@
         <div class="signin">
             <div class="content">
                 <h2>Wrong Username or Password</h2>
-                <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back to Homepage</a></div>
+                <div class="links"><a href="<%=request.getContextPath()%>/index.jsp">Back to Homepage</a></div>
             </div>
         </div>
         </section>

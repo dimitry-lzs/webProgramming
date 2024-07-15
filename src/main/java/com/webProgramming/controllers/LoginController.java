@@ -19,15 +19,6 @@ public class LoginController extends HttpServlet {
     static final UserDao userDao = new UserDao();
     static final long serialVersionUID = 1L;
 
-    // @Override
-    // protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //     PrintWriter writer = resp.getWriter();
-    //     writer.println("<p style =\"font-size: 20px;\n" + //
-    //             "font-family: sans-serif;\" >Login get</p>");
-    //     writer.flush();
-    //     writer.close();
-    // }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
@@ -37,7 +28,7 @@ public class LoginController extends HttpServlet {
 
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            
+
             String type = request.getParameter("type");
 
             if (type == null) {

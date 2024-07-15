@@ -36,13 +36,29 @@ public class Bill {
     @Column(name = "paid")
     private boolean paid;   //True if the bill is paid, false if it is not paid.
 
+    @Column(name = "charge")
+    private double charge;  //The total charge of the bill.
 
-    public boolean isPaid() {
+    @Column(name = "call_duration")
+    private int call_duration;  //The total call duration of the bill.
+
+    @Column(name = "program_name")
+    private String program_name;    //The name of the program.
+
+    public Boolean isPaid() {
         return paid;
     }
 
+    public int getID(){
+        return id;
+    } 
+
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public String getProgramName() {
+        return program_name;
     }
 
     public int getMonth() {
@@ -50,6 +66,12 @@ public class Bill {
     }
     public void setMonth(int month) {
         this.month = month;
+    }
+    public double getCharge() {
+        return charge;
+    }
+    public void setCharge(double charge) {
+        this.charge = charge;
     }
     public PhoneNumber getPhonenumber() {
         return phone_number;
@@ -65,12 +87,30 @@ public class Bill {
     public void setCalls(Set<Call> calls) {
         this.calls = calls;
     }
-
-    public Bill(int month, PhoneNumber phoneNumber) {
-        this.month = month;
-        this.phone_number = phoneNumber;
+    
+    public Bill() {
     }
 
+    public Bill(Client client, PhoneNumber phoneNumber, int month, Boolean paid, double charge) {
+        this.month = month;
+        this.phone_number = phoneNumber;
+        this.client = client;
+        this.paid = paid;
+        this.charge = charge;
+    }
+    
+    public int getCallDuration() {
+        return this.call_duration;
+    }
+
+    public  void setCallDuration(int call_duration) {
+        this.call_duration = call_duration;
+    }
+
+
+    public void setProgramName(String program_name) {
+        this.program_name=program_name;
+    }
     public void printBill() {
         System.out.println(
             "BILL INFO\n" +

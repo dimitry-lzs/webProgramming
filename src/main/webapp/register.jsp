@@ -94,7 +94,7 @@
 
                         </div>
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/index.html">Back</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/index.jsp">Back</a></div>
                 </div>
             </div>
         </section>

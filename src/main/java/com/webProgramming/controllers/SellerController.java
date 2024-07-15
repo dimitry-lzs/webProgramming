@@ -1,5 +1,6 @@
 package com.webProgramming.controllers;
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -22,14 +24,19 @@ public class SellerController extends HttpServlet {
         String redirectLink = request.getContextPath() + "/admin/menu.jsp";
 
         try {
-            Login loggedInSeller = (Login) request.getSession().getAttribute("user");
+            Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.ADMIN) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInUser == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInUser.getType() != UserType.ADMIN) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInUser.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
-            Admin admin = (Admin) loggedInSeller.getUser();
+            Admin admin = (Admin) loggedInUser.getUser();
 
             String name = request.getParameter("name");
             String surname = request.getParameter("surname");
@@ -44,12 +51,18 @@ public class SellerController extends HttpServlet {
             if (!password.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Passwords do not match");
             }
+            boolean userCreated = false;
+            try{
+                Seller seller = admin.createSeller(username, name, surname, password);
+                UserDao userDao = new UserDao();
+                userCreated = userDao.saveUser(seller);
+            }catch(Exception e){
+                redirectLink = request.getContextPath() + "/admin/AddSeller.jsp";
+                throw new IllegalArgumentException("Username is already been used.\nTry another username.");
+            }
 
-            Seller seller = admin.createSeller(username, name, surname, password);
-            UserDao userDao = new UserDao();
-            boolean created = userDao.saveUser(seller);
 
-            if (!created) {
+            if (!userCreated) {
                 throw new IllegalArgumentException("Seller could not be created");
             }
 

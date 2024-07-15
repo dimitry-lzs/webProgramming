@@ -1,5 +1,6 @@
 package com.webProgramming.controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -21,16 +25,20 @@ import com.webProgramming.src.Login;
 public class ProgramController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String redirectLink = request.getContextPath() + "/login.jsp";
+        String redirectLink = request.getContextPath();
 
         try {
-            // Get and open session.
             Login logged = (Login) request.getSession().getAttribute("user");
             List<Program> programs = null;
             ProgramDao programDao = new ProgramDao();
 
-            if (logged != null && logged.getType() == UserType.SELLER){
-                redirectLink = request.getContextPath() + "/seller/menu.jsp";
+            if (logged == null) {
+                redirectLink = redirectLink + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (logged.getType() == UserType.SELLER) {
+                redirectLink = redirectLink + "/seller/menu.jsp";
 
                 Seller seller = (Seller) logged.getUser();
                 programs = programDao.DataProgramList(seller, UserType.SELLER);
@@ -38,36 +46,34 @@ public class ProgramController extends HttpServlet {
                 request.setAttribute("programs", programs);
                 request.getRequestDispatcher("seller/ProgramsList.jsp").forward(request, response);
 
-            } else if (logged != null && logged.getType() == UserType.ADMIN){
-                redirectLink = request.getContextPath() + "/admin/menu.jsp";
-                
+            } else if (logged.getType() == UserType.ADMIN){
+                redirectLink = redirectLink + "/admin/menu.jsp";
+
                 Admin admin = (Admin) logged.getUser();
 
                 String id = request.getParameter("id");
-                
-                // If id program not null, show program details
+
                 if (id != null) {
                     Program program = programDao.findById(id);
-                    
+
                     request.setAttribute("program", program);
-                    request.getRequestDispatcher("admin/ChaingeProgram.jsp").forward(request, response);
-                } else { //else show list of programs
+                    request.getRequestDispatcher("admin/UpdateProgram.jsp").forward(request, response);
+                } else {
                     programs = programDao.DataProgramList(admin, UserType.ADMIN);
 
                     request.setAttribute("programs", programs);
                     request.getRequestDispatcher("admin/ProgramsList.jsp").forward(request, response);
                 }
 
-            }else {
+            } else {
                 throw new SecurityException("Permission denied.");
             }
-
         }
 
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (Exception exception) {
+            exception.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("errorMessage", exception.getMessage());
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
         }
@@ -78,15 +84,19 @@ public class ProgramController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String redirectLink = request.getContextPath() + "/admin/menu.jsp";
         try {
-            // Get and open session.
-            Login loggedInAdmin = (Login) request.getSession().getAttribute("user");
+            Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInAdmin == null || loggedInAdmin.getType() != UserType.ADMIN){
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInUser == null){
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInUser.getType() != UserType.ADMIN){
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInUser.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
-            Admin admin = (Admin) loggedInAdmin.getUser();
+            Admin admin = (Admin) loggedInUser.getUser();
 
             String programName = request.getParameter("programName");
             Integer callTime = Integer.parseInt(request.getParameter("callTime"));
@@ -97,38 +107,101 @@ public class ProgramController extends HttpServlet {
             Program program = new Program(programName, callTime, fee, chargePerSecond);
             program.setBenefits(benefits);
             program.setAdmin(admin);
-            
+
             ProgramDao programDao = new ProgramDao();
 
-            String option = request.getParameter("option");
-            Boolean programCrOrUb = false;
+            boolean programCreated = programDao.createProgram(program);
 
-            if (option.equals("Ubdate_Program")){
-                Program editProgram = programDao.findById(request.getParameter("id"));
-
-                programCrOrUb = programDao.updateProgram(editProgram, program);
-
-            }
-            else if (option.equals("Create_Program")) {
-                programCrOrUb = programDao.createProgram(program);   
-            }
-
-            if (!programCrOrUb) {
-                throw new IllegalArgumentException("Program creation or update failed.");
+            if (!programCreated) {
+                throw new IllegalArgumentException("Program creation failed.");
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-            request.setAttribute("link", request.getContextPath() + "/admin/menu.jsp");
-            request.setAttribute("message", "New program created or update successfully.");
+            request.setAttribute("link", redirectLink);
+            request.setAttribute("message", "New program created successfully.");
             request.setAttribute("title", "Success");
             dispatcher.forward(request, response);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("errorMessage", exception.getMessage());
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String redirectLink = request.getContextPath() + "/admin/menu.jsp";
+
+        try {
+            Login loggedInUser = (Login) request.getSession().getAttribute("user");
+
+            if (loggedInUser == null){
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInUser.getType() != UserType.ADMIN){
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInUser.getType().name());
+                throw new SecurityException("Permission denied.");
+            }
+
+            String programId = request.getParameter("id");
+
+            if (programId == null) {
+                throw new IllegalArgumentException("Program id is required.");
+            }
+
+            ProgramDao programDao = new ProgramDao();
+
+            Program program = programDao.findById(programId);
+
+            if (program == null) {
+                throw new IllegalArgumentException("Program not found.");
+            }
+
+            Admin admin = (Admin) loggedInUser.getUser();
+
+            if (program.getAdmin().getId() != (admin.getId())) {
+                throw new SecurityException("Permission denied.");
+            }
+
+            BufferedReader reader = request.getReader();
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            String requestBody = stringBuilder.toString();
+
+            JSONObject updatedData = new JSONObject(requestBody);
+
+            String programName = updatedData.getString("programName");
+            int callTime = updatedData.getInt("callTime");
+            int fee = updatedData.getInt("fee");
+            int chargePerSecond = updatedData.getInt("charge");
+            String benefits = updatedData.getString("benefits");
+
+            program.setName(programName);
+            program.setCallTime(callTime);
+            program.setFee(fee);
+            program.setChargePerSecond(chargePerSecond);
+            program.setBenefits(benefits);
+
+            boolean programUpdated = programDao.updateProgram(program);
+
+            if (!programUpdated) {
+                throw new IllegalArgumentException("Program update failed.");
+            }
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Updated phone number successfully");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(exception.getMessage());
         }
     }
 }

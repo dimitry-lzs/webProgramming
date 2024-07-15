@@ -69,7 +69,7 @@
                             Add Program
                         </button>
                         <button class="button" onclick="location.href='<%=request.getContextPath()%>/programs';">
-                            Chainge Program
+                            Update Program
                         </button>
                     </div>
                 </div>

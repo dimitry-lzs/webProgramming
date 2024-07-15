@@ -4,3 +4,5 @@
 <%@ page import="com.webProgramming.src.Login" %>
 <%@ page import="com.webProgramming.models.Program" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.webProgramming.models.User" %>
+<%@ page import="com.webProgramming.models.enums.UserType" %>

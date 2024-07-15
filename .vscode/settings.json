@@ -1,3 +1,15 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "rsp-ui.enableStartServerOnActivation": [
+        {
+            "id": "redhat.vscode-community-server-connector",
+            "name": "Community Server Connector",
+            "startOnActivation": true
+        },
+        {
+            "id": "redhat.vscode-server-connector",
+            "name": "Red Hat Server Connector",
+            "startOnActivation": true
+        }
+    ],
 }

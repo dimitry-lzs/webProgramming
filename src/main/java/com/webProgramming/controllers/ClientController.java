@@ -16,8 +16,10 @@ import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
+
 
 @WebServlet("/clients")
 public class ClientController extends HttpServlet {
@@ -27,11 +29,15 @@ public class ClientController extends HttpServlet {
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
-            // Get and open session.
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInSeller == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged ins.");
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
@@ -39,7 +45,8 @@ public class ClientController extends HttpServlet {
 
 
             Seller seller = (Seller) loggedInSeller.getUser();
-            
+            UserDao userDao = new UserDao();
+            userDao.reloadUser(seller);
 
             if (id != null) {
                 Set<Client> clients = seller.getClients();
@@ -55,12 +62,37 @@ public class ClientController extends HttpServlet {
                 if (client == null) {
                     throw new IllegalArgumentException("Client not found");
                 }
-                
+
                 List<Program> programs = programDao.DataProgramList(seller, UserType.SELLER);
 
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
-                request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
+
+                //Test
+                request.setAttribute("referer", request.getHeader("referer"));
+                if (request.getParameter("fromjsp").equals("list")){
+                    request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
+                }
+                else if (request.getParameter("fromjsp").equals("clientdetails")) {
+                    request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                }
+                else if (request.getParameter("fromjsp").equals("viewclientbills")) {
+                    request.getRequestDispatcher("seller/SelectClientBillMonth.jsp").forward(request, response);
+                }
+
+                //This might be useless.
+                else if (request.getParameter("fromjsp").equals("monthselect")) {
+                    request.setAttribute("SelectedMonthInt", request.getParameter("selectedmonthint"));
+                    request.setAttribute("SelectedMonthText", monthIntToText(Integer.parseInt(request.getParameter("selectedmonthint"))));
+                    request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
+                }
+                else {
+                    String er = "Error from value:" + request.getParameter("fromjsp");
+                    request.setAttribute("errorMessage", er);
+                    request.getRequestDispatcher("/error.jsp").forward(request, response);
+                }
+
+
             } else {
                 Set<Client> clients = seller.getClients();
                 request.setAttribute("clients", clients);
@@ -86,8 +118,13 @@ public class ClientController extends HttpServlet {
         try {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInSeller == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
@@ -107,13 +144,18 @@ public class ClientController extends HttpServlet {
             if (!password.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Passwords do not match");
             }
+            boolean userCreated = false;
+            try{
+                Client client = seller.createClient(afm, username, name, surname, password);
+                UserDao userDao = new UserDao();
+                userCreated = userDao.saveUser(client);
+            }catch(Exception e){
+                redirectLink = request.getContextPath() + "/seller/AddClient.jsp";
+                throw new IllegalArgumentException("Username is already been used.\nTry another username.");
+            }
 
-            Client client = seller.createClient(afm, username, name, surname, password);
 
-            UserDao userDao = new UserDao();
-            boolean created = userDao.saveUser(client);
-
-            if (!created) {
+            if (!userCreated) {
                 throw new IllegalArgumentException("Client could not be created");
             }
 
@@ -127,7 +169,48 @@ public class ClientController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
             request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);;
+            dispatcher.forward(request, response);
         }
+    }
+
+    private String monthIntToText(int num) {
+        String monthText = null;
+        if (num == 1) {
+            monthText = "January";
+        }
+        else if (num == 2)  {
+            monthText = "February";
+        }
+        else if (num == 3)  {
+            monthText = "March";
+        }
+        else if (num == 4)  {
+            monthText = "April";
+        }
+        else if (num == 5)  {
+            monthText = "May";
+        }
+        else if (num == 6)  {
+            monthText = "June";
+        }
+        else if (num == 7)  {
+            monthText = "July";
+        }
+        else if (num == 8)  {
+            monthText = "August";
+        }
+        else if (num == 9)  {
+            monthText = "September";
+        }
+        else if (num == 10)  {
+            monthText = "Octorber";
+        }
+        else if (num == 11)  {
+            monthText = "November";
+        }
+        else if (num == 12)  {
+            monthText = "December";
+        }
+        return monthText;
     }
 }
