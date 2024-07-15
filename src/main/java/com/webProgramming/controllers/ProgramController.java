@@ -40,17 +40,17 @@ public class ProgramController extends HttpServlet {
 
             } else if (logged != null && logged.getType() == UserType.ADMIN){
                 redirectLink = request.getContextPath() + "/admin/menu.jsp";
-                
+
                 Admin admin = (Admin) logged.getUser();
 
                 String id = request.getParameter("id");
-                
+
                 // If id program not null, show program details
                 if (id != null) {
                     Program program = programDao.findById(id);
-                    
+
                     request.setAttribute("program", program);
-                    request.getRequestDispatcher("admin/ChaingeProgram.jsp").forward(request, response);
+                    request.getRequestDispatcher("admin/UpdateProgram.jsp").forward(request, response);
                 } else { //else show list of programs
                     programs = programDao.DataProgramList(admin, UserType.ADMIN);
 
@@ -97,7 +97,7 @@ public class ProgramController extends HttpServlet {
             Program program = new Program(programName, callTime, fee, chargePerSecond);
             program.setBenefits(benefits);
             program.setAdmin(admin);
-            
+
             ProgramDao programDao = new ProgramDao();
 
             String option = request.getParameter("option");
@@ -110,7 +110,7 @@ public class ProgramController extends HttpServlet {
 
             }
             else if (option.equals("Create_Program")) {
-                programCrOrUb = programDao.createProgram(program);   
+                programCrOrUb = programDao.createProgram(program);
             }
 
             if (!programCrOrUb) {
