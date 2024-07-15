@@ -9,8 +9,7 @@
         <script>
             let timeout = null;
 
-            function payBill() {
-                let bill_id = document.getElementById("bill.getID()").value;
+            function payBill(billID) {
                 let url = "<%=request.getContextPath()%>/bills";
 
                 fetch(url, {
@@ -19,7 +18,7 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        bill_id
+                        billID
                     })
                 })
                 .then(response => {
@@ -108,7 +107,7 @@
                         </div>
                         <c:choose> 
                             <c:when test="${!bill.isPaid()}">
-                                 <div class="button" name="payButton" id="payButton" onclick="payBill()" value="Pay Bill">Pay Bill</div>
+                                 <div class="button" name="payButton" id="payButton" onclick="payBill('${bill.getID()}')" value="Pay Bill">Pay Bill</div>
                             </c:when>
                         </c:choose>
                         

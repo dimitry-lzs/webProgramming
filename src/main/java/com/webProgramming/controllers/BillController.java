@@ -1,5 +1,6 @@
 package com.webProgramming.controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.webProgramming.daos.BillDao;
 import com.webProgramming.daos.CallDao;
@@ -210,7 +213,10 @@ public class BillController extends HttpServlet {
 
      @Override 
      protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
+        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
+        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
+        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
+        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
         String redirectLink = request.getContextPath() + "/client/ViewBills.jsp";
         Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
@@ -229,32 +235,45 @@ public class BillController extends HttpServlet {
             if (client == null) {
                 throw new IllegalArgumentException("Client not found");
             }
-                //Get the bill from DB.
-                Bill bill = billdao.findByID(request.getParameter("billID"));    //This parameter came from "View Bill Details by Client"
-                
-                //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
-                if (bill.isPaid() == false) {
-                    //Update
-                    boolean success = billdao.updateBill(bill);
-                    if (success == true) {
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-                        request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                        request.setAttribute("message", "Bill updated successfully!");
-                        request.setAttribute("title", "Success");
-                        dispatcher.forward(request, response);
-                    } else {
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                        request.setAttribute("errorMessage", "Failed to update Bill.");
-                        request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                        dispatcher.forward(request, response);
-                    }
-                }
-                else {
+
+            BufferedReader reader = request.getReader();
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            String requestBody = stringBuilder.toString();
+
+            JSONObject updatedData = new JSONObject(requestBody);
+
+            String billID = updatedData.getString("billID");
+
+
+            //Get the bill from DB.
+            Bill bill = billdao.findByID(billID);    //This parameter came from "View Bill Details by Client"
+            //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
+            if (bill.isPaid() == false) {
+                //Update
+                boolean success = billdao.updateBill(bill);
+                if (success) {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+                    request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
+                    request.setAttribute("message", "Bill paid successfully!");
+                    request.setAttribute("title", "Success");
+                    dispatcher.forward(request, response);
+                } else {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                    request.setAttribute("errorMessage", "Bill has already been paid.");
+                    request.setAttribute("errorMessage", "Failed to paid Bill.");
                     request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
                     dispatcher.forward(request, response);
-                }             
+                }
+            }
+            else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+                request.setAttribute("errorMessage", "Bill has already been paid.");
+                request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
+                dispatcher.forward(request, response);
+            }             
            
             
             
