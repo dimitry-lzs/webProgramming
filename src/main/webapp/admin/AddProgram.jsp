@@ -87,7 +87,7 @@
                             <input type="submit" value="Create Program">
                         </div>
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/admin/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>
