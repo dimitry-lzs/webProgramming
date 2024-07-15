@@ -33,7 +33,7 @@ public class CallControler extends HttpServlet {
 
             Client client = (Client) loggedInClient.getUser();
 
-            List<Call> calls = callDao.DataCallList(client.getPhoneNumber());
+            List<Call> calls = callDao.calls(client.getPhoneNumber());
 
             request.setAttribute("calls", calls);
             request.getRequestDispatcher("client/viewCallHistory.jsp").forward(request, response);

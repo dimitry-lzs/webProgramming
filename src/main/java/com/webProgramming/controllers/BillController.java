@@ -17,6 +17,7 @@ import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Bill;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
+import com.webProgramming.models.Program;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -24,59 +25,98 @@ import com.webProgramming.src.Login;
 public class BillController extends HttpServlet {
        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Login loggedInUser = (Login) request.getSession().getAttribute("user");
+
         try{
-            Login logged = (Login) request.getSession().getAttribute("user");
+            if (loggedInUser == null) {
+                throw new SecurityException("Permission denied.");
+            }
+
             List<Bill> bills = null;
             BillDao billdao = new BillDao();
             UserDao userDao = new UserDao();
-            if (logged != null && logged.getType() == UserType.SELLER){
-                String ClientID = request.getParameter("id");
-                Client client = (Client)userDao.findById(ClientID,UserType.CLIENT);  
-                request.setAttribute("client", client);
-                String option = request.getParameter("option");
-                if (option.equals("create")){
-                    CallDao callDao = new CallDao();
 
-                    int TotalCallDuration = client.getPhoneNumber() == null ? 0 : callDao.TotalCallDuration(client.getPhoneNumber());
+            switch (loggedInUser.getType()) {
+                case UserType.SELLER: {
+                    String ClientID = request.getParameter("clientId");
+                    Client client = (Client)userDao.findById(ClientID, UserType.CLIENT);
 
-                    int getChargePerSecond = client.getPhoneNumber().getProgram().getChargePerSecond();
-                    int fee = client.getPhoneNumber().getProgram().getFee();
-                    int callTime = client.getPhoneNumber().getProgram().getCallTime();
-                    int TotalCost = (TotalCallDuration - callTime) * getChargePerSecond < 0 ? fee : (TotalCallDuration - callTime) * getChargePerSecond + fee; 
+                    if (client == null) {
+                        throw new IllegalArgumentException("Client not found");
+                    }
 
-                    request.setAttribute("TotalCost", TotalCost);
-                    request.setAttribute("TotalCallDuration", TotalCallDuration);
-                    request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
-                } else if (option.equals("show")){
+                    request.setAttribute("client", client);
+                    String action = request.getParameter("action");
 
-                    bills = billdao.viewClientsBills(client);
-                    request.setAttribute("bills", bills);
-                    request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                    if (action.equals("issue")) {
+                        CallDao callDao = new CallDao();
+
+                        PhoneNumber phoneNumber = client.getPhoneNumber();
+
+                        if (phoneNumber == null) {
+                            throw new IllegalArgumentException("Client has no phone number");
+                        }
+
+                        int totalCallDuration = callDao.totalCallDuration(phoneNumber);
+
+                        Program program = client.getPhoneNumber().getProgram();
+
+                        if (program == null) {
+                            throw new IllegalArgumentException("Client has no program");
+                        }
+
+                        int getChargePerSecond = program.getChargePerSecond();
+                        int fee = program.getFee();
+                        int callTime = program.getCallTime();
+                        int amount = (totalCallDuration - callTime) * getChargePerSecond < 0 ? fee : (totalCallDuration - callTime) * getChargePerSecond + fee;
+
+                        request.setAttribute("amount", amount);
+                        request.setAttribute("totalCallDuration", totalCallDuration);
+                        request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
+                    } else if (action.equals("show")) {
+                        bills = billdao.viewClientsBills(client);
+                        request.setAttribute("bills", bills);
+                        request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                    }
+                    break;
                 }
-
-            } else if (logged != null && logged.getType() == UserType.CLIENT){
-
-                Client client = (Client) logged.getUser();
-                bills = billdao.viewClientsBills(client);
-                request.setAttribute("bills", bills);
-                request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
-
-            }else {
-                throw new SecurityException("Permission denied.");
+                case UserType.CLIENT: {
+                        Client client = (Client) loggedInUser.getUser();
+                        bills = billdao.viewClientsBills(client);
+                        request.setAttribute("bills", bills);
+                        request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
+                        break;
+                }
+                default:
+                    throw new SecurityException("Permission denied.");
             }
-       } catch(Exception e){
+       } catch(Exception e) {
             e.printStackTrace();
-            Login logged = (Login) request.getSession().getAttribute("user");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
-            if (logged != null && logged.getType() == UserType.CLIENT){
-                request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-            } else if (logged != null && logged.getType() == UserType.SELLER){
-             request.setAttribute("link", request.getContextPath() + "/seller/menu.jsp"); 
+
+            String redirectLink = request.getContextPath();
+
+            if (loggedInUser == null) {
+                redirectLink += "/login.jsp";
             } else {
-                request.setAttribute("link", request.getContextPath() + "/login.jsp");
+                switch (loggedInUser.getType()) {
+                    case UserType.CLIENT: {
+                        redirectLink += "/client/menu.jsp";
+                        break;
+                    }
+                    case UserType.SELLER: {
+                        redirectLink += "/seller/menu.jsp";
+                        break;
+                    }
+                    default: {
+                        redirectLink += "/login.jsp";
+                    }
+                }
             }
-           dispatcher.forward(request, response);
+
+            request.setAttribute("link", redirectLink);
+            dispatcher.forward(request, response);
        }
     }
 

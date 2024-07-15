@@ -1,5 +1,5 @@
 <%@ include file="/seller/common.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 
@@ -73,10 +73,10 @@
                         <div class="table-content">
                             <c:forEach var="bill" items="${bills}">
                                 <div class="table-row">
-                                    <div class="table-data">${bill.getMonth()}</div> 
-                                    <div class="table-data">${bill.getCharge()}</div> 
+                                    <div class="table-data">${bill.getMonth()}</div>
+                                    <div class="table-data">${bill.getCharge()}</div>
                                     <div class="table-data">
-                                        <c:choose> 
+                                        <c:choose>
                                             <c:when test="${bill.isPaid()}">Paid</c:when>
                                             <c:otherwise>Not Paid</c:otherwise>
                                         </c:choose>
@@ -85,7 +85,7 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <button class="button" onclick="window.location.href='<%=request.getContextPath()%>/bills?option=create&id=${client.getId()}'">
+                    <button class="button" onclick="window.location.href='<%=request.getContextPath()%>/bills?action=issue&id=${client.getId()}'">
                         Bill Issue
                     </button>
                     <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
