@@ -74,14 +74,15 @@ public class BillController extends HttpServlet {
                         request.setAttribute("totalCallDuration", totalCallDuration);
                         request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                     } else if (action.equals("show")) {
-                        var billID = request.getAttribute("billID");
+                        String billID = request.getParameter("billID") ;
                         if(billID==null){ //if billID is null, it means we want to show all bills of the client
                             bills = billdao.viewClientsBills(client);
                             request.setAttribute("client", client);
                             request.setAttribute("bills", bills);
                             request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
                         }else{ //if billID is not null, it means we want to show a specific bill
-                            Bill bill = billdao.findByID((int) billID);
+                            Bill bill = billdao.findByID( billID);
+                            request.setAttribute("client", client);
                             request.setAttribute("bill", bill);
                             request.getRequestDispatcher("seller/BillDetails.jsp").forward(request, response);
 
@@ -92,14 +93,15 @@ public class BillController extends HttpServlet {
                 }
                 case UserType.CLIENT: {
                     Client client = (Client) loggedInUser.getUser();
-                    var billID = request.getAttribute("billID");
+                    String billID = request.getParameter("billID");
+                    
                     if(billID==null){ //if billID is null, it means we want to show all bills of the client
                         bills = billdao.viewClientsBills(client);
                         request.setAttribute("client", client);
                         request.setAttribute("bills", bills);
                         request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
                     }else{ //if billID is not null, it means we want to show a specific bill
-                        Bill bill = billdao.findByID((int) billID);
+                        Bill bill = billdao.findByID( billID);
                         request.setAttribute("bill", bill);
                         request.getRequestDispatcher("client/BillDetails.jsp").forward(request, response);
 

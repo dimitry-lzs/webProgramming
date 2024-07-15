@@ -1,12 +1,14 @@
 package com.webProgramming.daos;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import java.util.List;
+
 import com.webProgramming.models.Bill;
-import com.webProgramming.models.Util;
 import com.webProgramming.models.Client;
+import com.webProgramming.models.Util;
 
 public class BillDao {
     public boolean saveBill(Bill bill) throws Exception {
@@ -35,7 +37,7 @@ public class BillDao {
         return success;
     }
 
-    public Bill findByID(int billID) {
+    public Bill findByID(String billID) {
         Bill bill = null;
         SessionFactory factory = Util.getSessionFactory();
         Session session = factory.openSession();

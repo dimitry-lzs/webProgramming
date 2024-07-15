@@ -4,7 +4,7 @@
 <html>
 
     <head>
-        <title>Bills</title>
+        <title>Bill Information</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
@@ -49,7 +49,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="<%=request.getContextPath()%>/client/menu.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -63,31 +63,28 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Bills</h2>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Month</div>
-                            <div class="header-cell">Charge</div>
-                            <div class="header-cell">Paid</div>
+                    <h2>Bill Information</h2>
+
+                        <div class="client-data">
+                            <h3>Bill Details</h3>
+                            <div class="row">Phonenumber: ${bill.getPhonenumber().getNumber()}</div>
+                            <div class="row">Month: ${bill.getMonth()}</div>
+                            <div class="row">Program Name: ${bill.getProgramName()}</div>
+                            <div class="row">Total Call Duration: ${bill.getCallDuration()}m</div> <!--Somewhere, the total duration will be calculated.-->
+                            <div class="row">Total Cost: ${bill.getCharge()}$</div> <!--Somewhere, the total cost will be calculated.-->
+                            <div class="row">
+                                <c:choose> 
+                                    <c:when test="${bill.isPaid()}">Paid</c:when>
+
+                                    <c:otherwise>Not Paid</c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
-                        <div class="table-content">
-                            <c:forEach var="bill" items="${bills}">
-                                <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?billID=${bill.getId()} & action=show'">
-                                    <div class="table-data">${bill.getMonth()}</div> 
-                                    <div class="table-data">${bill.getCharge()}</div> 
-                                    <div class="table-data">
-                                        <c:choose> 
-                                            <c:when test="${bill.isPaid()}">Paid</c:when>
-                                            <c:otherwise>Not Paid</c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/client/menu.jsp">Back to Menu</a></div>
+                    <div></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/bills?action=show&clientId=${client.getId()}&action=show">Back to Bills</a></div>
                 </div>
             </div>
         </section>
     </body>
 </html>
+

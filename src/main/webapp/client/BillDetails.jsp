@@ -1,4 +1,4 @@
-<%@ include file="/seller/common.jsp" %>
+<%@ include file="/client/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
@@ -67,7 +67,7 @@
 
                         <div class="client-data">
                             <h3>Bill Details</h3>
-                            <div class="row">Phonenumber: ${bill.getPhonenumber()}</div>
+                            <div class="row">Phonenumber: ${bill.getPhonenumber().getNumber()}</div>
                             <div class="row">Month: ${bill.getMonth()}</div>
                             <div class="row">Program Name: ${bill.getProgramName()}</div>
                             <div class="row">Total Call Duration: ${bill.getCallDuration()}m</div> <!--Somewhere, the total duration will be calculated.-->
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     <div></div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/ViewBills.jsp">Back to Bills</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/bills">Back to Bills</a></div>
                 </div>
             </div>
         </section>
