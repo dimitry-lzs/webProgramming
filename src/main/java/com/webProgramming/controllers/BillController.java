@@ -74,7 +74,7 @@ public class BillController extends HttpServlet {
                         request.setAttribute("totalCallDuration", totalCallDuration);
                         request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                     } else if (action.equals("show")) {
-                        var billID=request.getAttribute("billID");
+                        var billID = request.getAttribute("billID");
                         if(billID==null){ //if billID is null, it means we want to show all bills of the client
                             bills = billdao.viewClientsBills(client);
                             request.setAttribute("client", client);
@@ -91,11 +91,20 @@ public class BillController extends HttpServlet {
                     break;
                 }
                 case UserType.CLIENT: {
-                        Client client = (Client) loggedInUser.getUser();
+                    Client client = (Client) loggedInUser.getUser();
+                    var billID = request.getAttribute("billID");
+                    if(billID==null){ //if billID is null, it means we want to show all bills of the client
                         bills = billdao.viewClientsBills(client);
+                        request.setAttribute("client", client);
                         request.setAttribute("bills", bills);
                         request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
-                        break;
+                    }else{ //if billID is not null, it means we want to show a specific bill
+                        Bill bill = billdao.findByID((int) billID);
+                        request.setAttribute("bill", bill);
+                        request.getRequestDispatcher("client/BillDetails.jsp").forward(request, response);
+
+                    }
+                    break;
                 }
                 default:
                     throw new SecurityException("Permission denied.");
