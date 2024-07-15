@@ -50,4 +50,23 @@ public class BillDao {
         }
         return bills;
     }
+
+    public boolean updateBill(Bill bill) {
+        boolean success = false;
+        Transaction transaction = null;
+
+        try (Session session = Util.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.merge(bill);
+            transaction.commit();
+            success = true;
+        } catch (Exception exception) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            exception.printStackTrace();
+            throw exception;
+        }
+        return success;
+    }
 }
