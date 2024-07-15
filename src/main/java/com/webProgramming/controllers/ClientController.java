@@ -154,7 +154,7 @@ public class ClientController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
             request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);;
+            dispatcher.forward(request, response);
         }
     }
 

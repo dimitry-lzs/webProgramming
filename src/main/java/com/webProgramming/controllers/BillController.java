@@ -77,36 +77,8 @@ public class BillController extends HttpServlet {
                         bills = billdao.viewClientsBills(client);
                         request.setAttribute("bills", bills);
                         request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
-                    } else if (action.equals("pay")) {
-                        //Update the "paid" attribute in the Database
-
-                        //Create new Bill object but with true "paid" value
-
-                        Bill oldBill = (Bill) request.getParameter("bill");    //This parameter came from "View Bill Details by Client"
-
-
-                        //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
-
-
-                        //Create new Bill that has the info of the Bill that the Client is viewing right now.
-                        Bill updatedBill = new Bill(client, oldBill.getPhonenumber(), oldBill.getMonth(), true, oldBill.getCharge());
-                        
-                        //Update
-                        boolean success = billdao.updateBill(updatedBill);
-                        if (success == true) {
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-                            request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                            request.setAttribute("message", "Bill updated successfully");
-                            request.setAttribute("title", "Success");
-                            dispatcher.forward(request, response);
-                        } else {
-                            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-                            request.setAttribute("errorMessage", "Failed to update Bill.");
-                            request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
-                            dispatcher.forward(request, response);;
-                        }
+                    } 
                        
-                    }
                     
                     break;
                 }
@@ -209,6 +181,107 @@ public class BillController extends HttpServlet {
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);;
         }
+     }
+
+     @Override 
+     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Login loggedInUser = (Login) request.getSession().getAttribute("user");
+
+        try{
+            if (loggedInUser == null) {
+                throw new SecurityException("Permission denied.");
+            }
+
+            List<Bill> bills = null;
+            BillDao billdao = new BillDao();
+            UserDao userDao = new UserDao();
+
+            switch (loggedInUser.getType()) {
+                case UserType.SELLER: {
+                    String ClientID = request.getParameter("clientId");
+                    Client client = (Client)userDao.findById(ClientID, UserType.CLIENT);
+
+                    if (client == null) {
+                        throw new IllegalArgumentException("Client not found");
+                    }
+
+                    request.setAttribute("client", client);
+                    String action = request.getParameter("action");
+
+                    
+                    if (action.equals("pay")) {
+                        //Update the "paid" attribute in the Database
+
+                        //Create new Bill object but with true "paid" value
+
+                        Bill oldBill = (Bill) request.getParameter("bill");    //This parameter came from "View Bill Details by Client"
+
+
+                        //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
+
+
+                        //Create new Bill that has the info of the Bill that the Client is viewing right now.
+                        Bill updatedBill = new Bill(client, oldBill.getPhonenumber(), oldBill.getMonth(), true, oldBill.getCharge());
+                        
+                        //Update
+                        boolean success = billdao.updateBill(updatedBill);
+                        if (success == true) {
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
+                            request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
+                            request.setAttribute("message", "Bill updated successfully");
+                            request.setAttribute("title", "Success");
+                            dispatcher.forward(request, response);
+                        } else {
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+                            request.setAttribute("errorMessage", "Failed to update Bill.");
+                            request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
+                            dispatcher.forward(request, response);;
+                        }
+                       
+                    }
+                    
+                    break;
+                }
+                case UserType.CLIENT: {
+                        Client client = (Client) loggedInUser.getUser();
+                        bills = billdao.viewClientsBills(client);
+                        request.setAttribute("bills", bills);
+                        request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
+                        break;
+                }
+                default:
+                    throw new SecurityException("Permission denied.");
+                
+            }
+        } 
+        catch(Exception e) {
+            e.printStackTrace();
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+            request.setAttribute("errorMessage", e.getMessage());
+
+            String redirectLink = request.getContextPath();
+
+            if (loggedInUser == null) {
+                redirectLink += "/login.jsp";
+            } else {
+                switch (loggedInUser.getType()) {
+                    case UserType.CLIENT: {
+                        redirectLink += "/client/menu.jsp";
+                        break;
+                    }
+                    case UserType.SELLER: {
+                        redirectLink += "/seller/menu.jsp";
+                        break;
+                    }
+                    default: {
+                        redirectLink += "/login.jsp";
+                    }
+                }
+            }
+
+            request.setAttribute("link", redirectLink);
+            dispatcher.forward(request, response);
+       }
      }
 }
 
