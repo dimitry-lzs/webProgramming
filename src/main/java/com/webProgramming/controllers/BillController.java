@@ -77,8 +77,8 @@ public class BillController extends HttpServlet {
                         request.setAttribute("amount", amount);
                         request.setAttribute("totalCallDuration", totalCallDuration);
                         request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
-                   
-                        
+
+
                     } else if (action.equals("show")) {
 
                         String billID = request.getParameter("billID") ;
@@ -94,7 +94,7 @@ public class BillController extends HttpServlet {
                             request.getRequestDispatcher("seller/BillDetails.jsp").forward(request, response);
 
                         }
-                        
+
                     }
 
                     break;
@@ -102,7 +102,7 @@ public class BillController extends HttpServlet {
                 case UserType.CLIENT: {
                     Client client = (Client) loggedInUser.getUser();
                     String billID = request.getParameter("billID");
-                    
+
                     if(billID==null){ //if billID is null, it means we want to show all bills of the client
                         bills = billdao.viewClientsBills(client);
                         request.setAttribute("client", client);
@@ -150,7 +150,7 @@ public class BillController extends HttpServlet {
     }
 
 
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
@@ -217,7 +217,7 @@ public class BillController extends HttpServlet {
         }
      }
 
-     @Override 
+     @Override
      protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String redirectLink = request.getContextPath() + "/client/ViewBills.jsp";
         Login loggedInUser = (Login) request.getSession().getAttribute("user");
@@ -233,7 +233,7 @@ public class BillController extends HttpServlet {
             BillDao billdao = new BillDao();
 
             Client client = (Client)loggedInClient.getUser();
-                    
+
             if (client == null) {
                 throw new IllegalArgumentException("Client not found");
             }
@@ -269,11 +269,9 @@ public class BillController extends HttpServlet {
             else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().write("Bill paid already");
-            }             
-           
-            
-            
-        } 
+            }
+
+        }
         catch(Exception e) {
         e.printStackTrace();
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
