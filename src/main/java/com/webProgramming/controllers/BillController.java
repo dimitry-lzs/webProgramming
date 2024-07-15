@@ -30,8 +30,6 @@ public class BillController extends HttpServlet {
             BillDao billdao = new BillDao();
             UserDao userDao = new UserDao();
             if (logged != null && logged.getType() == UserType.SELLER){
-
-
                 String ClientID = request.getParameter("id");
                 Client client = (Client)userDao.findById(ClientID,UserType.CLIENT);  
                 request.setAttribute("client", client);
@@ -51,7 +49,7 @@ public class BillController extends HttpServlet {
                     request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                 } else if (option.equals("show")){
 
-
+                    System.out.println("///////////////////////////////////////////////////////////");
                     
                     bills = billdao.viewClientsBills(client);
                     request.setAttribute("bills", bills);

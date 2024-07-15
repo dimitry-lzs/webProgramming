@@ -73,6 +73,9 @@ public class Bill {
     public void setCalls(Set<Call> calls) {
         this.calls = calls;
     }
+    
+    public Bill() {
+    }
 
     public Bill(Client client, PhoneNumber phoneNumber, int month, Boolean paid, double charge) {
         this.month = month;
