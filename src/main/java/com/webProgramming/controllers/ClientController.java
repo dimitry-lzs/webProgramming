@@ -33,7 +33,7 @@ public class ClientController extends HttpServlet {
 
             if (loggedInSeller == null) {
                 redirectLink = request.getContextPath() + "/index.jsp";
-                throw new SecurityException("Permission denied.");
+                throw new SecurityException("You are not logged ins.");
             }
 
             if (loggedInSeller.getType() != UserType.SELLER) {
@@ -116,8 +116,13 @@ public class ClientController extends HttpServlet {
         try {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
+            if (loggedInSeller == null) {
                 redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 

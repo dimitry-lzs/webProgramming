@@ -18,6 +18,7 @@ import com.webProgramming.models.Bill;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Program;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -29,7 +30,7 @@ public class BillController extends HttpServlet {
 
         try{
             if (loggedInUser == null) {
-                throw new SecurityException("Permission denied.");
+                throw new SecurityException("You are not logged in.");
             }
 
             List<Bill> bills = null;
@@ -129,8 +130,13 @@ public class BillController extends HttpServlet {
             //Get seller
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
+            if (loggedInSeller == null) {
                 redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 

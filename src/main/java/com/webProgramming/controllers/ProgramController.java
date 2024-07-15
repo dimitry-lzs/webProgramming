@@ -196,18 +196,12 @@ public class ProgramController extends HttpServlet {
                 throw new IllegalArgumentException("Program update failed.");
             }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
-            request.setAttribute("link", redirectLink);
-            request.setAttribute("message", "New program created successfully.");
-            request.setAttribute("title", "Success");
-            dispatcher.forward(request, response);
-
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Updated phone number successfully");
         } catch (Exception exception) {
             exception.printStackTrace();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", exception.getMessage());
-            request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(exception.getMessage());
         }
     }
 }
