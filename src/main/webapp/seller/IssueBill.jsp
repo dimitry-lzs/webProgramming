@@ -93,8 +93,8 @@ int month = LocalDate.now().getMonthValue();
                             <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
                             <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
                             <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value="<%=month%>"> 
-                            <input type="text" name="totalCost" id="totalCost" hidden value=${TotalCost}>
-                            <input type="text" name="callDuration" id="callDuration" hidden value=${TotalCallDuration}>
+                            <input type="text" name="totalCost" id="totalCost" hidden value=${amount}>
+                            <input type="text" name="callDuration" id="callDuration" hidden value=${totalCallDuration}>
                             <input type="text" name="program_name" id="program_name" hidden value=${client.getPhoneNumber().getProgram().getName()}>
                             <input class="button" type="submit" value="Issue Bill">
                         </form>
