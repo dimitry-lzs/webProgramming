@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.webProgramming.daos.BillDao;
+import com.webProgramming.daos.CallDao;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Bill;
 import com.webProgramming.models.Client;
@@ -21,7 +22,7 @@ import com.webProgramming.src.Login;
 public class BillController extends HttpServlet {
        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-       try{
+        try{
             Login logged = (Login) request.getSession().getAttribute("user");
             List<Bill> bills = null;
             BillDao billdao = new BillDao();
@@ -34,9 +35,17 @@ public class BillController extends HttpServlet {
                 request.setAttribute("client", client);
                 String option = request.getParameter("option");
                 if (option.equals("create")){
+                    CallDao callDao = new CallDao();
 
-                    //edw na ginei doulei
+                    int TotalCallDuration = client.getPhoneNumber() == null ? 0 : callDao.TotalCallDuration(client.getPhoneNumber());
 
+                    int getChargePerSecond = client.getPhoneNumber().getProgram().getChargePerSecond();
+                    int fee = client.getPhoneNumber().getProgram().getFee();
+                    int callTime = client.getPhoneNumber().getProgram().getCallTime();
+                    int TotalCost = (TotalCallDuration - callTime) * getChargePerSecond < 0 ? fee : (TotalCallDuration - callTime) * getChargePerSecond + fee; 
+
+                    request.setAttribute("TotalCost", TotalCost);
+                    request.setAttribute("TotalCallDuration", TotalCallDuration);
                     request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                 } else if (option.equals("show")){
 
@@ -58,10 +67,17 @@ public class BillController extends HttpServlet {
                 throw new SecurityException("Permission denied.");
             }
        } catch(Exception e){
-           e.printStackTrace();
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-           request.setAttribute("errorMessage", e.getMessage());
-           //request.setAttribute("link", request.getContextPath() + "/seller/menu.jsp"); //check this later
+            e.printStackTrace();
+            Login logged = (Login) request.getSession().getAttribute("user");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+            request.setAttribute("errorMessage", e.getMessage());
+            if (logged != null && logged.getType() == UserType.CLIENT){
+                request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
+            } else if (logged != null && logged.getType() == UserType.SELLER){
+             request.setAttribute("link", request.getContextPath() + "/seller/menu.jsp"); 
+            } else {
+                request.setAttribute("link", request.getContextPath() + "/login.jsp");
+            }
            dispatcher.forward(request, response);
        }
     }

@@ -69,6 +69,11 @@ public class Call {
         return this.callEndTs;
     }
 
+    public Bill getBill() {
+        return this.bill;
+    }
+
+
     public void printCall() {
         System.out.println(
                 "CALL INFO\n" +

@@ -15,7 +15,6 @@ import com.webProgramming.models.Call;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
-
 @WebServlet("/calls")
 public class CallControler extends HttpServlet {
     
@@ -36,7 +35,7 @@ public class CallControler extends HttpServlet {
             //sdjbsjbhdnfalsbdkf
             
             //dao
-            // Call call = new Call(client.getPhoneNumber(), client.getPhoneNumber(), 0, 0);
+            // Call call = new Call(client.getPhoneNumber(), client.getPhoneNumber(), 10, 15);
             // Session session = Util.getSessionFactory().openSession();
             // Transaction transaction = session.beginTransaction();
             // session.persist(call);

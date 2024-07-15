@@ -32,6 +32,19 @@ public class CallDao {
         }
 
         return calls;
+    }  
+
+
+    public int TotalCallDuration(PhoneNumber numberCaller) throws Exception {
+        List<Call> calls = DataCallList(numberCaller);
+        int TotalCallDuration = 0;
+        for (Call call : calls) {
+            if (call.getBill() == null){
+                TotalCallDuration += call.getDuration();
+            }
+        }
+        calls.clear();
+        return TotalCallDuration;
     }
 
 }

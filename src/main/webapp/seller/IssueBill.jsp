@@ -1,5 +1,9 @@
 <%@ include file="/seller/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.time.LocalDate" %>
+<% 
+int month = LocalDate.now().getMonthValue(); 
+%>
 
 <html>
 
@@ -76,10 +80,10 @@
 
                             <h3>Bill Details</h3>
                             <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
-                            <div class="row">Month:</div><!--The month will be selected from a dropdown list.-->
+                            <div class="row">Month: <%=month%></div>
                             <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
-                            <div class="row">Total Call Duration:</div> <!--Somewhere, the total duration will be calculated.-->
-                            <div class="row">Total Cost:</div> <!--Somewhere, the total cost will be calculated.-->
+                            <div class="row">Total Call Duration: ${TotalCallDuration}m</div> <!--Somewhere, the total duration will be calculated.-->
+                            <div class="row">Total Cost: ${TotalCost}$</div> <!--Somewhere, the total cost will be calculated.-->
 
                         </div>
 
@@ -88,14 +92,14 @@
                             <!-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. -->
                             <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
                             <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
-                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value=""> 
+                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value="<%=month%>"> 
 
                             <input class="button" type="submit" value="Issue Bill">
                         </form>
                        
 
                     <div></div>
-                   <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div>
+                   <!--<div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div>-->
                     
                     
                 </div>
