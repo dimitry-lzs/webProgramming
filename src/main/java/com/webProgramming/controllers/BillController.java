@@ -131,6 +131,7 @@ public class BillController extends HttpServlet {
     }
 
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
@@ -146,7 +147,7 @@ public class BillController extends HttpServlet {
 
 
             //Get Bill attributes
-            String month = request.getParameter("selectedmonthint").toString();
+            String month = request.getParameter("selectedmonthint");
             String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
             String totalCost=request.getParameter("totalCost");
