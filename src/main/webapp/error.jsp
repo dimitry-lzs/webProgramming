@@ -1,6 +1,8 @@
 <%@ include file="common.jsp" %>
 <%
     String link = (String) request.getAttribute("link");
+    String linkParameter = (String) request.getParameter("link");
+
     String errorMessage = (String) request.getAttribute("errorMessage");
     String errorParameter = (String) request.getParameter("errorMessage");
 
@@ -12,7 +14,11 @@
     request.setAttribute("message", message);
 
     if (link == null) {
-        link = request.getContextPath() + "/index.html";
+        if (linkParameter == null) {
+            link = request.getContextPath() + "/index.jsp";
+        } else {
+            link = linkParameter;
+        }
     }
 %>
 
@@ -64,7 +70,7 @@
             <div class="content">
                 <h2>Something went wrong: ${message}</h2>
                 <div class="links">
-                    <a href="${link}">Back</a>
+                    <a href="<%=link%>">Back</a>
                 </div>
             </div>
         </div>

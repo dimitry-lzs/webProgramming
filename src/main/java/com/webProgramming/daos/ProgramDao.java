@@ -41,7 +41,7 @@ public class ProgramDao {
         return success;
     }
 
-    public boolean updateProgram(Program program, Program newProgram) throws Exception {
+    public boolean updateProgram(Program program) throws Exception {
         Session session = null;
         Transaction transaction = null;
         boolean success = false;
@@ -49,14 +49,6 @@ public class ProgramDao {
         try {
             session = Util.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-
-            // Update the managed entity's properties
-            program.setBenefits(newProgram.getBenefits());
-            program.setCallTime(newProgram.getCallTime());
-            program.setChargePerSecond(newProgram.getChargePerSecond());
-            program.setFee(newProgram.getFee());
-            program.setName(newProgram.getName());
-
             session.merge(program); // Merge the updated program with the persistent state
             transaction.commit(); // Commit the transaction
             success = true;
@@ -81,8 +73,9 @@ public class ProgramDao {
         try {
             session = Util.getSessionFactory().openSession();
             program = session.get(Program.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw exception;
         } finally {
             if (session != null) {
                 session.close();
@@ -91,6 +84,7 @@ public class ProgramDao {
 
         return program;
     }
+
     public List<Program> DataProgramList(User user, UserType type) throws Exception {
         List<Program> programs = null;
         int adminId;
@@ -121,16 +115,13 @@ public class ProgramDao {
             Query<Program> query = session.createQuery(hql, Program.class);
             programs = query.setParameter("adminId", adminId).list();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw exception;
         } finally {
-            // Close session.
             session.close();
         }
 
         return programs;
     }
-
-
-
 }

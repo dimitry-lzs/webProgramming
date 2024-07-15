@@ -3,10 +3,62 @@
 
 
 <html>
-
     <head>
-        <title>programs</title>
+        <title>Update</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
+        <script>
+            let timeout;
+
+            function updateProgram() {
+                const url = "<%=request.getContextPath()%>/programs?id=${program.getId()}"
+                const form = document.getElementById('updateForm');
+
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+
+                document.getElementById("updateButton").innerHTML = "Updating...";
+
+                fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        programName: form.programName.value,
+                        callTime: form.callTime.value,
+                        charge: form.charge.value,
+                        fee: form.fee.value,
+                        benefits: form.benefits.value
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById("updateButton").innerHTML = "Updated!";
+                        timeout = setTimeout(() => {
+                            document.getElementById("updateButton").innerHTML = "Update";
+                        }, 2000);
+                    } else {
+                        document.getElementById("updateButton").innerHTML = "Error!";
+                        timeout = setTimeout(() => {
+                            document.getElementById("updateButton").innerHTML = "Update";
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("updateButton").innerHTML = "Error!";
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                })
+                .finally(() => {
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                })
+            }
+        </script>
     </head>
 
     <body>
@@ -64,26 +116,8 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Programs</h2>
-                    <div class="table">
-                        <div class="table-header">
-                            <div class="header-cell">Benefits</div>
-                            <div class="header-cell">Call_Time</div>
-                            <div class="header-cell">Charge_Per_Second</div>
-                            <div class="header-cell">Fee</div>
-                            <div class="header-cell">Name</div>
-                        </div>
-                        <div class="table-content" var="program" items="${program}">
-                            <div class="table-row">
-                                <div class="table-data">${program.getBenefits()}</div>
-                                <div class="table-data">${program.getCallTime()}</div>
-                                <div class="table-data">${program.getChargePerSecond()}</div>
-                                <div class="table-data">${program.getFee()}</div>
-                                <div class="table-data">${program.getName()}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="form" action="<%=request.getContextPath()%>/programs?option=Ubdate_Program&amp;id=${program.getId()}" method="post">
+                    <h2>Update Program</h2>
+                    <form id="updateForm" class="form">
                         <div class="inputBox">
                             <input type="text" id="programName" name="programName" value="${program.getName()}" required>
                             <i>Program Name</i>
@@ -104,11 +138,9 @@
                             <textarea id="benefits" name="benefits" required>${program.getBenefits()}</textarea>
                             <i>Benefits</i>
                         </div>
-                        <div class="inputBox">
-                            <input type="submit" value="Ubdate Program">
-                        </div>
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/admin/menu.jsp">Back to List</a></div>
+                    <div id="updateButton" class="button" onclick="updateProgram()">Update Program</div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/programs">Back to List</a></div>
                 </div>
             </div>
         </section>

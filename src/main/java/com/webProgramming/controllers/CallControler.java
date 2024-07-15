@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webProgramming.daos.CallDao;
 import com.webProgramming.models.Call;
 import com.webProgramming.models.Client;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 @WebServlet("/calls")
@@ -22,12 +23,16 @@ public class CallControler extends HttpServlet {
         CallDao callDao = new CallDao();
         String redirectLink = request.getContextPath() + "/client/menu.jsp";
 
-
         try {
             Login loggedInClient = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInClient == null || loggedInClient.getType() != UserType.CLIENT) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInClient == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInClient.getType() != UserType.CLIENT) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInClient.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
