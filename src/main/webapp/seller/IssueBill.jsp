@@ -93,13 +93,13 @@ int month = LocalDate.now().getMonthValue();
                             <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
                             <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
                             <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value="<%=month%>"> 
-
+                            <input type="text" name="totalCost" id="totalCost" hidden value=${TotalCost}>
                             <input class="button" type="submit" value="Issue Bill">
                         </form>
                        
 
                     <div></div>
-                   <!--<div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div>-->
+                   <!-- <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div> -->
                     
                     
                 </div>
