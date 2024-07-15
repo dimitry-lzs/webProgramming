@@ -88,7 +88,7 @@ int month = LocalDate.now().getMonthValue();
                         </div>
 
                         <form class="form" action="<%=request.getContextPath()%>/bills" method="post">
-                        
+                            <input type="hidden" name="_method" value="PUT">
                             <!-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. -->
                             <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
                             <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 

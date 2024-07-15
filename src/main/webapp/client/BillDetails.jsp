@@ -6,6 +6,32 @@
     <head>
         <title>Bill Information</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
+        <script>
+            let timeout = null;
+
+            function payBill() {
+                let bill_id = document.getElementById("bill.getID()").value;
+                let url = "<%=request.getContextPath()%>/bills";
+
+                fetch(url, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        bill_id
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById("payButton").innerHTML = "Payed!";
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("payButton").innerHTML = "Error!";
+                });
+            }
+        </script>
     </head>
 
     <body>
@@ -80,24 +106,12 @@
                                 </c:choose>
                             </div>
                         </div>
-
-                        <form class="form" action="<%=request.getContextPath()%>/bills" method="put">
+                        <c:choose> 
+                            <c:when test="${!bill.isPaid()}">
+                                 <div class="button" name="payButton" id="payButton" onclick="payBill()" value="Pay Bill">Pay Bill</div>
+                            </c:when>
+                        </c:choose>
                         
-                            <!-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. -->
-                            <input type="text" name="phonenumber" id="phonenumber" hidden value=${bill.getPhonenumber().getNumber()}> 
-                            <input type="text" name="client_id" id="client_id" hidden value=${clientId}> 
-                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value=${bill.getMonth()}> 
-                            <input type="text" name="totalCost" id="totalCost" hidden value=${bill.getCharge()}>
-                            <input type="text" name="callDuration" id="callDuration" hidden value=${bill.getCallDuration()}>
-                            <input type="text" name="program_name" id="program_name" hidden value=${bill.getProgramName()}>
-                            
-                            <input type="text" name="billId" id="billId" hidden value=${billID}>
-                            <input class="button" type="submit" value="Pay Bill">
-                        </form>
-
-                    <div></div>
-
-                    
 
                     <div class="links"><a href="<%=request.getContextPath()%>/bills">Back to Bills</a></div>
                 </div>

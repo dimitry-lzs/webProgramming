@@ -75,6 +75,7 @@ public class BillDao {
 
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
+            bill.setPaid(true);
             session.merge(bill);
             transaction.commit();
             success = true;

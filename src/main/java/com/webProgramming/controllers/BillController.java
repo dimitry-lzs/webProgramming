@@ -162,6 +162,7 @@ public class BillController extends HttpServlet {
 
 
             //Get Bill attributes
+            String billID=request.getParameter("billID");
             String month = request.getParameter("selectedmonthint");
             String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
@@ -209,7 +210,8 @@ public class BillController extends HttpServlet {
 
      @Override 
      protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String redirectLink = request.getContextPath() + "/client/menu.jsp";
+        System.out.println("PUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUTPUT");
+        String redirectLink = request.getContextPath() + "/client/ViewBills.jsp";
         Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
         try{
@@ -220,32 +222,20 @@ public class BillController extends HttpServlet {
                  redirectLink = request.getContextPath() + "/login.jsp";
                  throw new SecurityException("Permission denied.");
              }
-
-            List<Bill> bills = null;
             BillDao billdao = new BillDao();
-            UserDao userDao = new UserDao();
 
-            Client client = (Client) userDao.findById(request.getParameter("clientId"), UserType.CLIENT);
+            Client client = (Client)loggedInClient.getUser();
                     
             if (client == null) {
                 throw new IllegalArgumentException("Client not found");
             }
-
-            
-            String action = request.getParameter("action");            
-                //Update the "paid" attribute in the Database
-
                 //Get the bill from DB.
-                Bill oldBill = billdao.findByID(request.getParameter("billID"));    //This parameter came from "View Bill Details by Client"
+                Bill bill = billdao.findByID(request.getParameter("billID"));    //This parameter came from "View Bill Details by Client"
                 
                 //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
-                if (oldBill.isPaid() == false) {
-                    
-                    //Create new Bill that has the info of the Bill that the Client is viewing right now.
-                    Bill updatedBill = new Bill(client, oldBill.getPhonenumber(), oldBill.getMonth(), true, oldBill.getCharge());
-                             
+                if (bill.isPaid() == false) {
                     //Update
-                    boolean success = billdao.updateBill(updatedBill);
+                    boolean success = billdao.updateBill(bill);
                     if (success == true) {
                         RequestDispatcher dispatcher = request.getRequestDispatcher("success.jsp");
                         request.setAttribute("link", request.getContextPath() + "/client/menu.jsp");
