@@ -133,7 +133,7 @@ public abstract class User implements Serializable {
             case UserType.ADMIN:
                 return "/admin/menu.jsp";
             default:
-                return "/login.jsp";
+                return "/index.jsp";
         }
     }
 }

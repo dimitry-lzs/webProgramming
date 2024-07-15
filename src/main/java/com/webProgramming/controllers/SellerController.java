@@ -25,7 +25,7 @@ public class SellerController extends HttpServlet {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null || loggedInSeller.getType() != UserType.ADMIN) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+                redirectLink = request.getContextPath() + "/index.jsp";
                 throw new SecurityException("Permission denied.");
             }
 

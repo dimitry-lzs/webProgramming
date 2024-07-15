@@ -64,7 +64,7 @@
             <div class="signin">
                 <div class="content">
                     <h2>Update Program</h2>
-                    <form class="form" action="<%=request.getContextPath()%>/programs?option=Ubdate_Program&amp;id=${program.getId()}" method="post">
+                    <form id="updateForm" class="form" onsubmit="updateProgram">
                         <div class="inputBox">
                             <input type="text" id="programName" name="programName" value="${program.getName()}" required>
                             <i>Program Name</i>
@@ -86,12 +86,64 @@
                             <i>Benefits</i>
                         </div>
                         <div class="inputBox">
-                            <input type="submit" value="Update Program">
+                            <input id="updateButton" type="submit" value="Update Program">
                         </div>
                     </form>
-                    <div class="links"><a href="<%=request.getContextPath()%>/admin/menu.jsp">Back to List</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/programs">Back to List</a></div>
                 </div>
             </div>
         </section>
     </body>
+    <script>
+        let timeout;
+
+        function updateProgram(event) {
+            event && event.preventDefault();
+
+            const url = "<%=request.getContextPath()%>/programs?id=${program.getId()}"
+            const form = document.getElementById('updateForm');
+
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+
+            timeout = setTimeout(() => {
+                document.getElementById("updateButton").innerHTML = "Updating...";
+            }, 2000);
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    programName: form.programName.value,
+                    callTime: form.callTime.value,
+                    charge: form.charge.value,
+                    fee: form.fee.value,
+                    benefits: form.benefits.value
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("updateButton").innerHTML = "Updated!";
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+                    timeout = setTimeout(() => {
+                        document.getElementById("updateButton").innerHTML = "Update";
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                document.getElementById("updateButton").innerHTML = "Error!";
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(() => {
+                    document.getElementById("updateButton").innerHTML = "Update";
+                }, 2000);
+            });
+        }
+    </script>
 </html>

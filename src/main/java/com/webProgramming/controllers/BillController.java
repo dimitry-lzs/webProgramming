@@ -98,7 +98,7 @@ public class BillController extends HttpServlet {
             String redirectLink = request.getContextPath();
 
             if (loggedInUser == null) {
-                redirectLink += "/login.jsp";
+                redirectLink += "/index.jsp";
             } else {
                 switch (loggedInUser.getType()) {
                     case UserType.CLIENT: {
@@ -110,7 +110,7 @@ public class BillController extends HttpServlet {
                         break;
                     }
                     default: {
-                        redirectLink += "/login.jsp";
+                        redirectLink += "/index.jsp";
                     }
                 }
             }
@@ -130,7 +130,7 @@ public class BillController extends HttpServlet {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+                redirectLink = request.getContextPath() + "/index.jsp";
                 throw new SecurityException("Permission denied.");
             }
 

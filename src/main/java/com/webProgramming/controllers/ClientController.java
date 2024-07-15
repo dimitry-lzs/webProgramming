@@ -16,6 +16,7 @@ import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -28,11 +29,15 @@ public class ClientController extends HttpServlet {
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
-            // Get and open session.
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInSeller == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
+                throw new SecurityException("Permission denied.");
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
                 throw new SecurityException("Permission denied.");
             }
 
@@ -112,7 +117,7 @@ public class ClientController extends HttpServlet {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                redirectLink = request.getContextPath() + "/login.jsp";
+                redirectLink = request.getContextPath() + "/index.jsp";
                 throw new SecurityException("Permission denied.");
             }
 

@@ -18,6 +18,7 @@ import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
+import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
@@ -25,14 +26,19 @@ import com.webProgramming.src.Login;
 public class PhoneController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String redirectLink = request.getContextPath() + "/seller/menu.jsp";
         try {
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
-            if (loggedInSeller == null || loggedInSeller.getType() != UserType.SELLER) {
-                String redirectLink = request.getContextPath() + "/seller/menu.jsp";
-                redirectLink = request.getContextPath() + "/login.jsp";
+            if (loggedInSeller == null) {
+                redirectLink = request.getContextPath() + "/index.jsp";
                 request.getRequestDispatcher(redirectLink).forward(request, response);
                 return;
+            }
+
+            if (loggedInSeller.getType() != UserType.SELLER) {
+                redirectLink = request.getContextPath() + User.getRedirectionLink(loggedInSeller.getType().name());
+                throw new SecurityException("Permission denied.");
             }
 
             BufferedReader reader = request.getReader();
