@@ -40,7 +40,8 @@ public class ClientController extends HttpServlet {
 
 
             Seller seller = (Seller) loggedInSeller.getUser();
-            
+            UserDao userDao = new UserDao();
+            userDao.reloadUser(seller);
 
             if (id != null) {
                 Set<Client> clients = seller.getClients();
@@ -56,7 +57,7 @@ public class ClientController extends HttpServlet {
                 if (client == null) {
                     throw new IllegalArgumentException("Client not found");
                 }
-                
+
                 List<Program> programs = programDao.DataProgramList(seller, UserType.SELLER);
 
                 request.setAttribute("programs", programs);
@@ -83,7 +84,7 @@ public class ClientController extends HttpServlet {
                     request.setAttribute("errorMessage", er);
                     request.getRequestDispatcher("/error.jsp").forward(request, response);
                 }
-                
+
 
             } else {
                 Set<Client> clients = seller.getClients();
@@ -159,7 +160,7 @@ public class ClientController extends HttpServlet {
         String monthText = null;
         if (num == 1) {
             monthText = "January";
-        }                    
+        }
         else if (num == 2)  {
             monthText = "February";
         }

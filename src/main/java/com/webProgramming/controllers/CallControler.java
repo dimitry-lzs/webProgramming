@@ -17,7 +17,7 @@ import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 @WebServlet("/calls")
 public class CallControler extends HttpServlet {
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         CallDao callDao = new CallDao();
         String redirectLink = request.getContextPath() + "/client/menu.jsp";
@@ -32,18 +32,8 @@ public class CallControler extends HttpServlet {
             }
 
             Client client = (Client) loggedInClient.getUser();
-            //sdjbsjbhdnfalsbdkf
-            
-            //dao
-            // Call call = new Call(client.getPhoneNumber(), client.getPhoneNumber(), 10, 15);
-            // Session session = Util.getSessionFactory().openSession();
-            // Transaction transaction = session.beginTransaction();
-            // session.persist(call);
-            // transaction.commit();
-
 
             List<Call> calls = callDao.DataCallList(client.getPhoneNumber());
-            //sdafihoisdf
 
             request.setAttribute("calls", calls);
             request.getRequestDispatcher("client/viewCallHistory.jsp").forward(request, response);
