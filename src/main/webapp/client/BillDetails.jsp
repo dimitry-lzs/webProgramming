@@ -66,23 +66,22 @@
                     <h2>Bill Information</h2>
 
                         <div class="client-data">
-                            <h3>Client Details</h3>
-                            <div class="row">AFM: ${client.getAfm()}</div>
-                            <div class="row">Name: ${client.getName()}</div>
-                            <div class="row">Surname: ${client.getSurname()}</div>
-                            <div class="row">Username: ${client.getUsername()}</div>
-                            
-                            <div></div><div></div>
-
                             <h3>Bill Details</h3>
-                            <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
-                            <div class="row">Month: ${client.getPhoneNumberValue()}</div>
-                            <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
-                            <div class="row">Total Call Duration: ${TotalCallDuration}m</div> <!--Somewhere, the total duration will be calculated.-->
-                            <div class="row">Total Cost: ${TotalCost}$</div> <!--Somewhere, the total cost will be calculated.-->
+                            <div class="row">Phonenumber: ${bill.getPhonenumber()}</div>
+                            <div class="row">Month: ${bill.getMonth()}</div>
+                            <div class="row">Program Name: ${bill.getProgramName()}</div>
+                            <div class="row">Total Call Duration: ${bill.getCallDuration()}m</div> <!--Somewhere, the total duration will be calculated.-->
+                            <div class="row">Total Cost: ${bill.getCharge()}$</div> <!--Somewhere, the total cost will be calculated.-->
+                            <div class="row">
+                                <c:choose> 
+                                    <c:when test="${bill.isPaid()}">Paid</c:when>
 
+                                    <c:otherwise>Not Paid</c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     <div></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/seller/ViewBills.jsp">Back to Bills</a></div>
                 </div>
             </div>
         </section>

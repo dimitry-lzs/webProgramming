@@ -1,5 +1,5 @@
 <%@ include file="/seller/common.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 
 <html>
 
@@ -49,7 +49,7 @@
             <span></span>
             <header class="header">
                 <div class="home">
-                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/client/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -73,10 +73,10 @@
                         <div class="table-content">
                             <c:forEach var="bill" items="${bills}">
                                 <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?billID=${bill.getId()} & action=show'">
-                                    <div class="table-data">${bill.getMonth()}</div>
-                                    <div class="table-data">${bill.getCharge()}</div>
+                                    <div class="table-data">${bill.getMonth()}</div> 
+                                    <div class="table-data">${bill.getCharge()}</div> 
                                     <div class="table-data">
-                                        <c:choose>
+                                        <c:choose> 
                                             <c:when test="${bill.isPaid()}">Paid</c:when>
                                             <c:otherwise>Not Paid</c:otherwise>
                                         </c:choose>
@@ -85,10 +85,7 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <button class="button" onclick="window.location.href='<%=request.getContextPath()%>/bills?action=issue&clientId=${client.getId()}'">
-                        Bill Issue
-                    </button>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/client/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>

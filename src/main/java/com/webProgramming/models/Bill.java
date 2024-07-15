@@ -45,12 +45,20 @@ public class Bill {
     @Column(name = "program_name")
     private String program_name;    //The name of the program.
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return paid;
     }
 
+    public int getID(){
+        return id;
+    } 
+
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public String getProgramName() {
+        return program_name;
     }
 
     public int getMonth() {
@@ -91,13 +99,14 @@ public class Bill {
         this.charge = charge;
     }
     
-    public int callDuration() {
+    public int getCallDuration() {
         return this.call_duration;
     }
 
     public  void setCallDuration(int call_duration) {
         this.call_duration = call_duration;
     }
+
 
     public void setProgramName(String program_name) {
         this.program_name=program_name;

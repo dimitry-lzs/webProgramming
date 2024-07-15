@@ -35,6 +35,22 @@ public class BillDao {
         return success;
     }
 
+    public Bill findByID(int billID) {
+        Bill bill = null;
+        SessionFactory factory = Util.getSessionFactory();
+        Session session = factory.openSession();
+        try{
+            String hql = "SELECT b FROM Bill b WHERE b.id = :billID";
+            Query<Bill> query = session.createQuery(hql, Bill.class);
+            bill = query.setParameter("billID", billID).uniqueResult();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return bill;
+    }
+
     public List<Bill> viewClientsBills(Client client) {
         List<Bill> bills = null;
         SessionFactory factory = Util.getSessionFactory();

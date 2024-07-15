@@ -82,8 +82,8 @@ int month = LocalDate.now().getMonthValue();
                             <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
                             <div class="row">Month: <%=month%></div>
                             <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
-                            <div class="row">Total Call Duration: ${TotalCallDuration}m</div> <!--Somewhere, the total duration will be calculated.-->
-                            <div class="row">Total Cost: ${TotalCost}$</div> <!--Somewhere, the total cost will be calculated.-->
+                            <div class="row">Total Call Duration: ${totalCallDuration}m</div> <!--Somewhere, the total duration will be calculated.-->
+                            <div class="row">Total Cost: ${amount}$</div> <!--Somewhere, the total cost will be calculated.-->
 
                         </div>
 

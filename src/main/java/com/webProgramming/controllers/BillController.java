@@ -74,9 +74,18 @@ public class BillController extends HttpServlet {
                         request.setAttribute("totalCallDuration", totalCallDuration);
                         request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                     } else if (action.equals("show")) {
-                        bills = billdao.viewClientsBills(client);
-                        request.setAttribute("bills", bills);
-                        request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                        var billID=request.getAttribute("billID");
+                        if(billID==null){ //if billID is null, it means we want to show all bills of the client
+                            bills = billdao.viewClientsBills(client);
+                            request.setAttribute("bills", bills);
+                            request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
+                        }else{ //if billID is not null, it means we want to show a specific bill
+                            Bill bill = billdao.findByID((int) billID);
+                            request.setAttribute("bill", bill);
+                            request.getRequestDispatcher("seller/BillDetails.jsp").forward(request, response);
+
+                        }
+                        
                     }
                     break;
                 }
@@ -136,7 +145,7 @@ public class BillController extends HttpServlet {
 
 
             //Get Bill attributes
-            String month = request.getParameter("selectedmonthint");
+            String month = request.getParameter("selectedmonthint").toString();
             String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
             String totalCost=request.getParameter("totalCost");
