@@ -49,8 +49,6 @@ public class BillController extends HttpServlet {
                     request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
                 } else if (option.equals("show")){
 
-                    System.out.println("///////////////////////////////////////////////////////////");
-                    
                     bills = billdao.viewClientsBills(client);
                     request.setAttribute("bills", bills);
                     request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
@@ -102,6 +100,8 @@ public class BillController extends HttpServlet {
             String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
             String totalCost=request.getParameter("totalCost");
+            String program_name=request.getParameter("program_name");
+            int call_duration = request.getParameter("callDuration") == null ? 0 : Integer.parseInt(request.getParameter("callDuration"));
             Boolean paid = false;
 
             //Check
@@ -117,7 +117,8 @@ public class BillController extends HttpServlet {
 
             //Create Bill object
             Bill bill = new Bill(client, phonenumberObj, Integer.parseInt(month), paid,Double.parseDouble(totalCost));
-            
+            bill.setCallDuration(call_duration);
+            bill.setProgramName(program_name);
             //Save Bill
             BillDao billDao = new BillDao();
             boolean created = billDao.saveBill(bill);

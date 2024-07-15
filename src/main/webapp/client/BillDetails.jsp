@@ -1,9 +1,5 @@
 <%@ include file="/seller/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.time.LocalDate" %>
-<% 
-int month = LocalDate.now().getMonthValue(); 
-%>
 
 <html>
 
@@ -80,30 +76,13 @@ int month = LocalDate.now().getMonthValue();
 
                             <h3>Bill Details</h3>
                             <div class="row">Phonenumber: ${client.getPhoneNumberValue()}</div>
-                            <div class="row">Month: <%=month%></div>
+                            <div class="row">Month: ${client.getPhoneNumberValue()}</div>
                             <div class="row">Package Name: ${client.getPhoneNumber().getProgram().getName()}</div>
                             <div class="row">Total Call Duration: ${TotalCallDuration}m</div> <!--Somewhere, the total duration will be calculated.-->
                             <div class="row">Total Cost: ${TotalCost}$</div> <!--Somewhere, the total cost will be calculated.-->
 
                         </div>
-
-                        <form class="form" action="<%=request.getContextPath()%>/bills" method="post">
-                        
-                            <!-- If field is disabled, getParameter in BillController will be null. I removed disabled attributem and all the other fields like name, surname etc, and getParameter is not null anymore. -->
-                            <input type="text" name="phonenumber" id="phonenumber" hidden value=${client.getPhoneNumberValue()}> 
-                            <input type="text" name="client_id" id="client_id" hidden value=${client.getId()}> 
-                            <input type="text" name="selectedmonthint" id="selectedmonthint" hidden value="<%=month%>"> 
-                            <input type="text" name="totalCost" id="totalCost" hidden value=${TotalCost}>
-                            <input type="text" name="callDuration" id="callDuration" hidden value=${TotalCallDuration}>
-                            <input type="text" name="program_name" id="program_name" hidden value=${client.getPhoneNumber().getProgram().getName()}>
-                            <input class="button" type="submit" value="Issue Bill">
-                        </form>
-                       
-
                     <div></div>
-                   <!-- <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?client_id=${client.getId()}&phonenumber=${client.getPhoneNumberValue()}&fromjsp=issuebill'"> Issue Bill Old </div> -->
-                    
-                    
                 </div>
             </div>
         </section>

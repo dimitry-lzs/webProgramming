@@ -39,6 +39,12 @@ public class Bill {
     @Column(name = "charge")
     private double charge;  //The total charge of the bill.
 
+    @Column(name = "call_duration")
+    private int call_duration;  //The total call duration of the bill.
+
+    @Column(name = "program_name")
+    private String program_name;    //The name of the program.
+
     public boolean isPaid() {
         return paid;
     }
@@ -84,7 +90,18 @@ public class Bill {
         this.paid = paid;
         this.charge = charge;
     }
+    
+    public int callDuration() {
+        return this.call_duration;
+    }
 
+    public  void setCallDuration(int call_duration) {
+        this.call_duration = call_duration;
+    }
+
+    public void setProgramName(String program_name) {
+        this.program_name=program_name;
+    }
     public void printBill() {
         System.out.println(
             "BILL INFO\n" +
