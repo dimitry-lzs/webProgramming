@@ -1,14 +1,5 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    //"rsp-ui.rsp.java.home": "c:\\Program Files\\Eclipse Adoptium\\jdk-21.0.3.9-hotspot",
-    //"rsp-ui.enableStartServerOnActivation": "true",
-
-    "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\gcc.exe",
-    "launch": {
-        "configurations": [
-        
-        ]
-    },
     "rsp-ui.enableStartServerOnActivation": [
         {
             "id": "redhat.vscode-community-server-connector",
