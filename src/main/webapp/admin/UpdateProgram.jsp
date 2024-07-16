@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>Update</title>
+        <title>Update Program</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
             let timeout;

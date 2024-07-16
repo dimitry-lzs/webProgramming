@@ -5,7 +5,7 @@
 <html>
 
     <head>
-        <title>CallHistory</title>
+        <title>Call History</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
@@ -64,13 +64,13 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Call Histrory</h2>
+                    <h2>Call History</h2>
                     <div class="table">
                         <div class="table-header">
-                            <div class="header-cell">CallerNumber</div>
-                            <div class="header-cell">ReceiverNumber</div>
-                            <div class="header-cell">CallStart</div>
-                            <div class="header-cell">CallEnd</div>
+                            <div class="header-cell">Caller</div>
+                            <div class="header-cell">Receiver</div>
+                            <div class="header-cell">Started</div>
+                            <div class="header-cell">Ended</div>
                             <div class="header-cell">Duration</div>
                         </div>
                         <div class="table-content">

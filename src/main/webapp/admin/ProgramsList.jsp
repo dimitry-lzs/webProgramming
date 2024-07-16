@@ -5,7 +5,7 @@
 <html>
 
     <head>
-        <title>programs</title>
+        <title>Available Programs</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
@@ -67,20 +67,20 @@
                     <h2>Programs</h2>
                     <div class="table">
                         <div class="table-header">
-                            <div class="header-cell">Benefits</div>
-                            <div class="header-cell">Call_Time</div>
-                            <div class="header-cell">Charge_Per_Second</div>
+                            <div class="header-cell">Program</div>
+                            <div class="header-cell">Call Time</div>
                             <div class="header-cell">Fee</div>
-                            <div class="header-cell">Name</div>
+                            <div class="header-cell">$/s</div>
+                            <div class="header-cell">Benefits</div>
                         </div>
                         <div class="table-content">
                             <c:forEach var="program" items="${programs}">
                                 <div class="table-row" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/programs?id=${program.getId()}'">
-                                    <div class="table-data">${program.getBenefits()}</div>
-                                    <div class="table-data">${program.getCallTime()}</div>
-                                    <div class="table-data">${program.getChargePerSecond()}</div>
-                                    <div class="table-data">${program.getFee()}</div>
                                     <div class="table-data">${program.getName()}</div>
+                                    <div class="table-data">${program.getCallTime()}</div>
+                                    <div class="table-data">${program.getFee()}</div>
+                                    <div class="table-data">${program.getChargePerSecond()}</div>
+                                    <div class="table-data">${program.getBenefits()}</div>
                                 </div>
                             </c:forEach>
                         </div>

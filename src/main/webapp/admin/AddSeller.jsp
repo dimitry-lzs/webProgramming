@@ -3,7 +3,7 @@
 <html>
 
     <head>
-        <title>Create Form</title>
+        <title>Create Seller</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
         <script>
             function validateForm() {
