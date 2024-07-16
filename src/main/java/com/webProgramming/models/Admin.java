@@ -29,21 +29,11 @@ public class Admin extends User {
 
     public Admin(String username, String name, String surname) {
         super(username, name, surname);
-        // this.programs = new Program[0]; // Initialize programs as an empty array
-        // this.sellers = new Seller[0]; // Initialize sellers as an empty array
         System.out.println("Admin is " + getName() + " " + getSurname());
     }
 
     public Program createProgram(String programName, int callTime, int fee, int chargePerSecond) {
         Program program = new Program(programName, callTime, fee, chargePerSecond);
-        // Program[] newPrograms = new Program[programs.length + 1];
-
-        // for (int i = 0; i < programs.length; i++) {
-        //     newPrograms[i] = programs[i];
-        // }
-
-        // newPrograms[programs.length] = program;
-        // this.setPrograms(newPrograms);
         return program;
     }
 
@@ -54,40 +44,5 @@ public class Admin extends User {
         seller.setPassword(User.hashPassword(password, salt));
         seller.setAdmin(this);
         return seller;
-    }
-
-    public void setSellers(Seller[] sellers) {
-        // this.sellers = sellers;
-    }
-
-    public void setPrograms(Program[] programs) {
-        // this.programs = programs;
-    }
-
-    public void deleteSeller(String username){
-        // Seller[] newSellers = new Seller[sellers.length - 1];
-        // int j = 0;
-        // for (int i = 0; i < sellers.length; i++) {
-        //     if (sellers[i].getUsername().equals(username)) {
-        //         System.out.println("Seller " + sellers[i].getUsername() + " deleted");
-        //         continue;
-        //     }
-        //     newSellers[j] = sellers[i];
-        //     j++;
-        // }
-        // this.setSellers(newSellers);
-    }
-    public void deleteProgram(String programName){
-        // Program[] newPrograms = new Program[programs.length - 1];
-        // int j = 0;
-        // for (int i = 0; i < programs.length; i++) {
-        //     if (programs[i].getProgramName().equals(programName)) {
-        //         System.out.println("Program " + programs[i].getProgramName() + " deleted");
-        //         continue;
-        //     }
-        //     newPrograms[j] = programs[i];
-        //     j++;
-        // }
-        // this.setPrograms(newPrograms);
     }
 }

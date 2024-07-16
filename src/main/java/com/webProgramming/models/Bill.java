@@ -111,15 +111,5 @@ public class Bill {
     public void setProgramName(String program_name) {
         this.program_name=program_name;
     }
-    public void printBill() {
-        System.out.println(
-            "BILL INFO\n" +
-            "Month: " + this.month
-        );
-        this.phone_number.printPhoneNumber();
-        // for (int i = 0; i < calls.length; i++) {
-        //     calls[i].printCall();
-        // }
-    }
 
 }

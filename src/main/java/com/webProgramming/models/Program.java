@@ -106,14 +106,4 @@ public class Program implements Serializable {
     public String getBenefits() {
         return benefits;
     }
-
-    public void printProgram() {
-        System.out.println(
-            "PROGRAM INFO\n" +
-            "Name: " + name + "\n" +
-            "Call Time: " + callTime + "\n" +
-            "Invoice: " + fee + "\n" +
-            "\n"
-        );
-    }
 }

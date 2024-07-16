@@ -48,18 +48,6 @@ public abstract class User implements Serializable {
         System.out.println(getName() + " " + getSurname() + " was instantiated.");
     }
 
-    public void register() {
-        System.out.println("User registered");
-    }
-
-    public void login() {
-        System.out.println("User logged in");
-    }
-
-    public void logout() {
-        //
-    }
-
     public int getId() {
         return id;
     }

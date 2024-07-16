@@ -47,11 +47,7 @@ public class Client extends User {
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void setBills(Bill[] bills) {
-        // this.bills = bills;
-    }
-
+    
     public void setAfm(String afm) {
         this.AFM = afm;
     }
@@ -70,20 +66,4 @@ public class Client extends User {
         }
         return phoneNumber.getNumber();
     }
-
-    public void viewBills() {
-        // for (int i = 0; i < bills.length; i++) {
-        //     bills[i].printBill();
-        // }
-    }
-
-    public void viewLastBill() {
-
-    }
-
-    public void payBill() {
-        // bills[bills.length - 1].setPaid(true);
-    }
-
-
 }

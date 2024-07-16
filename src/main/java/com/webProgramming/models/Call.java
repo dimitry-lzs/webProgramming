@@ -72,11 +72,4 @@ public class Call {
     public Bill getBill() {
         return this.bill;
     }
-
-
-    public void printCall() {
-        System.out.println(
-                "CALL INFO\n" +
-                        "Duration: " + this.duration + "\n");
-    }
 }

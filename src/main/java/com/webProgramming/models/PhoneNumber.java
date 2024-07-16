@@ -61,18 +61,4 @@ public class PhoneNumber implements Serializable {
         this.number = number;
         this.program = program;
     }
-
-    public void printPhoneNumber() {
-        System.out.println(
-            "PHONE NUMBER INFO\n" +
-            "Number: " + this.number + "\n"
-        );
-        this.program.printProgram();
-    }
-
-    public Call call(PhoneNumber phonenumber, int duration) {
-        Call newcall = new Call(this, phonenumber, 1, 2);
-        System.out.println("Calling...");
-        return newcall;
-    }
 }
