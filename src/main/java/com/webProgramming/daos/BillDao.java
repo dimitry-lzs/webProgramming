@@ -69,7 +69,7 @@ public class BillDao {
         return bills;
     }
 
-    public boolean updateBill(Bill bill) {
+    public boolean payBill(Bill bill) {
         boolean success = false;
         Transaction transaction = null;
 

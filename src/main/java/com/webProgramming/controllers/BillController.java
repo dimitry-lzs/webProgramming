@@ -256,7 +256,7 @@ public class BillController extends HttpServlet {
             // !!!CHECK IF OLD BILL IS ALREADY PAID!!!
             if (bill.isPaid() == false) {
                 // Update
-                boolean success = billdao.updateBill(bill);
+                boolean success = billdao.payBill(bill);
                 if (success) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write("Bill paid successfully!");
