@@ -32,15 +32,15 @@ public class Call {
     private PhoneNumber receiver;
 
     @Column(name = "callStartTs")
-    private int callStartTs;
+    private long callStartTs;
 
     @Column(name = "callEndTs")
-    private int callEndTs;
+    private long callEndTs;
 
     @Column(name = "duration")
-    private int duration;
+    private long duration;
 
-    public Call(PhoneNumber caller, PhoneNumber receiver, int callStartTs, int callEndTs) {
+    public Call(PhoneNumber caller, PhoneNumber receiver, long callStartTs, long callEndTs) {
         this.callStartTs = callStartTs;
         this.caller = caller;
         this.receiver = receiver;
@@ -49,7 +49,7 @@ public class Call {
     }
     public Call(){}
 
-    public int getDuration() {
+    public long getDuration() {
         return this.duration;
     }
 
@@ -61,11 +61,11 @@ public class Call {
         return this.receiver;
     }
 
-    public int getCallTimestamp() {
+    public long getCallTimestamp() {
         return this.callStartTs;
     }
 
-    public int getEndTimestamp() {
+    public long getEndTimestamp() {
         return this.callEndTs;
     }
 

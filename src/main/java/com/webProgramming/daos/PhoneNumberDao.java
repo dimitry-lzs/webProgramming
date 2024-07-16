@@ -43,4 +43,23 @@ public class PhoneNumberDao  {
 
         return phoneNumber;
     }
+
+    public boolean savePhoneNumber(PhoneNumber phoneNumber) throws Exception {
+        boolean success = false;
+        Transaction transaction = null;
+
+        try (Session session = Util.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(phoneNumber);
+            transaction.commit();
+            success = true;
+        } catch (Exception exception) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            exception.printStackTrace();
+            throw exception;
+        }
+        return success;
+    }
 }

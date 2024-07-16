@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webProgramming.daos.CallDao;
 import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.Client;
@@ -119,15 +120,23 @@ public class ClientController extends HttpServlet {
                 throw new IllegalArgumentException("Passwords do not match");
             }
             boolean userCreated = false;
-            try{
+            try {
                 Client client = seller.createClient(afm, username, name, surname, password);
                 UserDao userDao = new UserDao();
                 userCreated = userDao.saveUser(client);
-            }catch(Exception e){
+
+                CallDao callDao = new CallDao();
+
+                // Create 4 calls for the new client for testing purposes
+                callDao.createCall(client);
+                callDao.createCall(client);
+                callDao.createCall(client);
+                callDao.createCall(client);
+
+            } catch (Exception e) {
                 redirectLink = request.getContextPath() + "/seller/AddClient.jsp";
                 throw new IllegalArgumentException("Username is already been used.\nTry another username.");
             }
-
 
             if (!userCreated) {
                 throw new IllegalArgumentException("Client could not be created");
