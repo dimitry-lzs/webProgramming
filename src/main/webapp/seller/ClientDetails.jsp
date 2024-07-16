@@ -105,11 +105,11 @@
                 <div class="content">
                     <h2>Client Details</h2>
                     <div class="client-data">
-                        <div class="row">${client.getAfm()}</div>
-                        <div class="row">${client.getName()}</div>
-                        <div class="row">${client.getSurname()}</div>
-                        <div class="row">${client.getUsername()}</div>
-                        <div class="row">${client.getPhoneNumberValue()}</div>
+                        <div class="row">AFM: ${client.getAfm()}</div>
+                        <div class="row">Name: ${client.getName()}</div>
+                        <div class="row">Surname: ${client.getSurname()}</div>
+                        <div class="row">Username: ${client.getUsername()}</div>
+                        <div class="row">Phone Number: ${client.getPhoneNumberValue()}</div>
                         <h3>Client's Program</h3>
                         <div class="row">
                             <div class="select-style">
