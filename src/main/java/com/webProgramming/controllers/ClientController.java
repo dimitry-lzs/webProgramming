@@ -146,45 +146,4 @@ public class ClientController extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-
-    private String monthIntToText(int num) {
-        String monthText = null;
-        if (num == 1) {
-            monthText = "January";
-        }
-        else if (num == 2)  {
-            monthText = "February";
-        }
-        else if (num == 3)  {
-            monthText = "March";
-        }
-        else if (num == 4)  {
-            monthText = "April";
-        }
-        else if (num == 5)  {
-            monthText = "May";
-        }
-        else if (num == 6)  {
-            monthText = "June";
-        }
-        else if (num == 7)  {
-            monthText = "July";
-        }
-        else if (num == 8)  {
-            monthText = "August";
-        }
-        else if (num == 9)  {
-            monthText = "September";
-        }
-        else if (num == 10)  {
-            monthText = "Octorber";
-        }
-        else if (num == 11)  {
-            monthText = "November";
-        }
-        else if (num == 12)  {
-            monthText = "December";
-        }
-        return monthText;
-    }
 }
