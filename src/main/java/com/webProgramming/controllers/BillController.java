@@ -27,11 +27,12 @@ import com.webProgramming.src.Login;
 
 @WebServlet("/bills")
 public class BillController extends HttpServlet {
-       @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
-        try{
+        try {
             if (loggedInUser == null) {
                 throw new SecurityException("You are not logged in.");
             }
@@ -43,7 +44,7 @@ public class BillController extends HttpServlet {
             switch (loggedInUser.getType()) {
                 case UserType.SELLER: {
                     String ClientID = request.getParameter("clientId");
-                    Client client = (Client)userDao.findById(ClientID, UserType.CLIENT);
+                    Client client = (Client) userDao.findById(ClientID, UserType.CLIENT);
 
                     if (client == null) {
                         throw new IllegalArgumentException("Client not found");
@@ -72,54 +73,50 @@ public class BillController extends HttpServlet {
                         int getChargePerSecond = program.getChargePerSecond();
                         int fee = program.getFee();
                         int callTime = program.getCallTime();
-                        int amount = (totalCallDuration - callTime) * getChargePerSecond < 0 ? fee : (totalCallDuration - callTime) * getChargePerSecond + fee;
+                        int amount = (totalCallDuration - callTime) * getChargePerSecond < 0 ? fee
+                                : (totalCallDuration - callTime) * getChargePerSecond + fee;
 
                         request.setAttribute("amount", amount);
                         request.setAttribute("totalCallDuration", totalCallDuration);
                         request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
 
-
                     } else if (action.equals("show")) {
 
-                        String billID = request.getParameter("billID") ;
-                        if(billID==null){ //if billID is null, it means we want to show all bills of the client
+                        String billID = request.getParameter("billID");
+                        if (billID == null) { // if billID is null, it means we want to show all bills of the client
                             bills = billdao.viewClientsBills(client);
                             request.setAttribute("client", client);
                             request.setAttribute("bills", bills);
                             request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
-                        }else{ //if billID is not null, it means we want to show a specific bill
-                            Bill bill = billdao.findByID( billID);
+                        } else { // if billID is not null, it means we want to show a specific bill
+                            Bill bill = billdao.findByID(billID);
                             request.setAttribute("client", client);
                             request.setAttribute("bill", bill);
                             request.getRequestDispatcher("seller/BillDetails.jsp").forward(request, response);
-
                         }
-
                     }
-
                     break;
                 }
                 case UserType.CLIENT: {
                     Client client = (Client) loggedInUser.getUser();
                     String billID = request.getParameter("billID");
 
-                    if(billID==null){ //if billID is null, it means we want to show all bills of the client
+                    if (billID == null) { // if billID is null, it means we want to show all bills of the client
                         bills = billdao.viewClientsBills(client);
                         request.setAttribute("client", client);
                         request.setAttribute("bills", bills);
                         request.getRequestDispatcher("client/ViewBills.jsp").forward(request, response);
-                    }else{ //if billID is not null, it means we want to show a specific bill
-                        Bill bill = billdao.findByID( billID);
+                    } else { // if billID is not null, it means we want to show a specific bill
+                        Bill bill = billdao.findByID(billID);
                         request.setAttribute("bill", bill);
                         request.getRequestDispatcher("client/BillDetails.jsp").forward(request, response);
-
                     }
                     break;
                 }
                 default:
                     throw new SecurityException("Permission denied.");
             }
-       } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
@@ -146,17 +143,16 @@ public class BillController extends HttpServlet {
 
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
-       }
+        }
     }
 
-
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String redirectLink = request.getContextPath() + "/seller/menu.jsp";
 
         try {
-            //Get seller
+            // Get seller
             Login loggedInSeller = (Login) request.getSession().getAttribute("user");
 
             if (loggedInSeller == null) {
@@ -169,33 +165,33 @@ public class BillController extends HttpServlet {
                 throw new SecurityException("Permission denied.");
             }
 
-
-            //Get Bill attributes
-            String billID=request.getParameter("billID");
+            // Get Bill attributes
             String month = request.getParameter("selectedmonthint");
             String client_id = request.getParameter("client_id");
             String phonenumber = request.getParameter("phonenumber");
-            String totalCost=request.getParameter("totalCost");
-            String program_name=request.getParameter("program_name");
-            int call_duration = request.getParameter("callDuration") == null ? 0 : Integer.parseInt(request.getParameter("callDuration"));
+            String totalCost = request.getParameter("totalCost");
+            String program_name = request.getParameter("program_name");
+            int call_duration = request.getParameter("callDuration") == null ? 0
+                    : Integer.parseInt(request.getParameter("callDuration"));
             Boolean paid = false;
 
-            //Check
+            // Check
             if (month == null || client_id == null || phonenumber == null || paid == null || totalCost == null) {
-                throw new IllegalArgumentException("Missing parameters:" + "month=" + month  + "id=" + client_id  + "phonenumber=" + phonenumber + "totalCost=" + totalCost);
+                throw new IllegalArgumentException("Missing parameters:" + "month=" + month + "id=" + client_id
+                        + "phonenumber=" + phonenumber + "totalCost=" + totalCost);
             }
 
-            //Cast to correct types, so we can successfully store bill object.
+            // Cast to correct types, so we can successfully store bill object.
             UserDao userDao = new UserDao();
             PhoneNumberDao phonenumberDao = new PhoneNumberDao();
             Client client = (Client) userDao.findById(client_id, UserType.CLIENT);
             PhoneNumber phonenumberObj = phonenumberDao.findByNumber(phonenumber);
 
-            //Create Bill object
-            Bill bill = new Bill(client, phonenumberObj, Integer.parseInt(month), paid,Double.parseDouble(totalCost));
+            // Create Bill object
+            Bill bill = new Bill(client, phonenumberObj, Integer.parseInt(month), paid, Double.parseDouble(totalCost));
             bill.setCallDuration(call_duration);
             bill.setProgramName(program_name);
-            //Save Bill
+            // Save Bill
             BillDao billDao = new BillDao();
             boolean created = billDao.saveBill(bill);
 
@@ -213,26 +209,31 @@ public class BillController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
             request.setAttribute("errorMessage", e.getMessage());
             request.setAttribute("link", redirectLink);
-            dispatcher.forward(request, response);;
+            dispatcher.forward(request, response);
         }
-     }
+    }
 
-     @Override
-     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String redirectLink = request.getContextPath() + "/client/ViewBills.jsp";
-        Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
-        try{
-             //Get client
-             Login loggedInClient = (Login) request.getSession().getAttribute("user");
+        try {
+            // Get client
+            Login loggedInUser = (Login) request.getSession().getAttribute("user");
 
-             if (loggedInClient == null || loggedInClient.getType() != UserType.CLIENT) {
-                 redirectLink = request.getContextPath() + "/login.jsp";
-                 throw new SecurityException("Permission denied.");
-             }
+            if (loggedInUser == null) {
+                redirectLink = redirectLink + "/index.jsp";
+                throw new SecurityException("You are not logged in.");
+            }
+
+            if (loggedInUser.getType() != UserType.CLIENT) {
+                redirectLink = redirectLink + User.getRedirectionLink(loggedInUser.getType().name());
+                throw new SecurityException("Permission denied.");
+            }
             BillDao billdao = new BillDao();
 
-            Client client = (Client)loggedInClient.getUser();
+            Client client = (Client) loggedInUser.getUser();
 
             if (client == null) {
                 throw new IllegalArgumentException("Client not found");
@@ -250,12 +251,11 @@ public class BillController extends HttpServlet {
 
             String billID = updatedData.getString("billID");
 
-
-            //Get the bill from DB.
-            Bill bill = billdao.findByID(billID);    //This parameter came from "View Bill Details by Client"
-            //!!!CHECK IF OLD BILL IS ALREADY PAID!!!
+            // Get the bill from DB.
+            Bill bill = billdao.findByID(billID); // This parameter came from "View Bill Details by Client"
+            // !!!CHECK IF OLD BILL IS ALREADY PAID!!!
             if (bill.isPaid() == false) {
-                //Update
+                // Update
                 boolean success = billdao.updateBill(bill);
                 if (success) {
                     response.setStatus(HttpServletResponse.SC_OK);
@@ -265,18 +265,15 @@ public class BillController extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     response.getWriter().write("Bill not paid");
                 }
-            }
-            else {
+            } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().write("Bill paid already");
             }
 
-        }
-        catch(Exception e) {
-        e.printStackTrace();
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        response.getWriter().write(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write(e.getMessage());
         }
     }
 }
-

@@ -16,6 +16,7 @@ import com.webProgramming.models.Client;
 import com.webProgramming.models.User;
 import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
+
 @WebServlet("/calls")
 public class CallControler extends HttpServlet {
 
@@ -52,5 +53,4 @@ public class CallControler extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
-
 }

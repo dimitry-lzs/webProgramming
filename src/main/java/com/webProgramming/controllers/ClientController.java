@@ -68,31 +68,7 @@ public class ClientController extends HttpServlet {
                 request.setAttribute("programs", programs);
                 request.setAttribute("client", client);
 
-                //Test
-                request.setAttribute("referer", request.getHeader("referer"));
-                if (request.getParameter("fromjsp").equals("list")){
-                    request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
-                }
-                else if (request.getParameter("fromjsp").equals("clientdetails")) {
-                    request.getRequestDispatcher("seller/ViewClientBills.jsp").forward(request, response);
-                }
-                else if (request.getParameter("fromjsp").equals("viewclientbills")) {
-                    request.getRequestDispatcher("seller/SelectClientBillMonth.jsp").forward(request, response);
-                }
-
-                //This might be useless.
-                else if (request.getParameter("fromjsp").equals("monthselect")) {
-                    request.setAttribute("SelectedMonthInt", request.getParameter("selectedmonthint"));
-                    request.setAttribute("SelectedMonthText", monthIntToText(Integer.parseInt(request.getParameter("selectedmonthint"))));
-                    request.getRequestDispatcher("seller/IssueBill.jsp").forward(request, response);
-                }
-                else {
-                    String er = "Error from value:" + request.getParameter("fromjsp");
-                    request.setAttribute("errorMessage", er);
-                    request.getRequestDispatcher("/error.jsp").forward(request, response);
-                }
-
-
+                request.getRequestDispatcher("seller/ClientDetails.jsp").forward(request, response);
             } else {
                 Set<Client> clients = seller.getClients();
                 request.setAttribute("clients", clients);
@@ -107,8 +83,6 @@ public class ClientController extends HttpServlet {
             request.setAttribute("link", redirectLink);
             dispatcher.forward(request, response);
         }
-
-
     }
 
     @Override
