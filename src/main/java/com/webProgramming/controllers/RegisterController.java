@@ -40,7 +40,6 @@ public class RegisterController extends HttpServlet {
             }
 
             Admin admin = new Admin(username, name, surname);
-            admin.setPassword(password);
             byte[] salt = new byte[16];
             salt=admin.generateSalt();
             admin.setSalt(salt);
