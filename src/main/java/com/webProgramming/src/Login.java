@@ -10,6 +10,14 @@ public class Login {
 
     private User user;
 
+    public Login(User user, UserType type) {
+        this.user = user;
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.type = type;
+    }
+
     public User getUser() {
         return user;
     }

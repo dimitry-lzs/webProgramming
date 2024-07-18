@@ -2,7 +2,7 @@
 <%
     Login login = (Login) session.getAttribute("user");
     if (login != null) {
-        String redirectLink = request.getContextPath() + User.getRedirectionLink(login.getType().name());
+        String redirectLink = request.getContextPath() + login.getType().getRedirectPath();
         response.sendRedirect(redirectLink);
     }
 %>

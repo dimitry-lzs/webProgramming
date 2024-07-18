@@ -129,7 +129,7 @@
                             </div>
                             <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
 
-                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?clientId=${client.getId()}&action=show'"> View Client's Bills </div>
+                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?clientId=${client.getId()}'"> View Client's Bills </div>
 
                         </div>
                     </div>
