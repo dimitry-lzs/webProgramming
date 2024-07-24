@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import com.webProgramming.daos.ProgramDao;
 import com.webProgramming.exceptions.ServiceException;
+import com.webProgramming.interfaces.ProgramDataAccess;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.User;
 import com.webProgramming.models.Util;
@@ -15,9 +16,9 @@ import com.webProgramming.models.enums.UserType;
 
 public class ProgramService {
     private final SessionFactory factory;
-    private final ProgramDao programDao;
+    private final ProgramDataAccess programDao;
 
-    public ProgramService(SessionFactory factory, ProgramDao programDao) {
+    public ProgramService(SessionFactory factory, ProgramDataAccess programDao) {
         this.factory = factory;
         this.programDao = programDao;
     }

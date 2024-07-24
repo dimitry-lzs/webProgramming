@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import com.webProgramming.daos.BillDao;
 import com.webProgramming.exceptions.ServiceException;
+import com.webProgramming.interfaces.BillDataAccess;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Util;
 import com.webProgramming.models.Bill;
@@ -15,9 +16,9 @@ import com.webProgramming.models.Bill;
 
 public class BillService {
     private final SessionFactory factory;
-    private final BillDao billDao;
+    private final BillDataAccess billDao;
 
-    public BillService(SessionFactory factory, BillDao billDao) {
+    public BillService(SessionFactory factory, BillDataAccess billDao) {
         this.factory = factory;
         this.billDao = billDao;
     }

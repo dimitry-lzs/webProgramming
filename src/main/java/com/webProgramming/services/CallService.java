@@ -11,6 +11,8 @@ import com.webProgramming.daos.CallDao;
 import com.webProgramming.daos.PhoneNumberDao;
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.exceptions.ServiceException;
+import com.webProgramming.interfaces.CallDataAccess;
+import com.webProgramming.interfaces.PhoneNumberDataAccess;
 import com.webProgramming.models.Call;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.PhoneNumber;
@@ -19,8 +21,8 @@ import com.webProgramming.models.Util;
 public class CallService {
     private final SessionFactory factory;
 
-    private final CallDao callDao;
-    private final PhoneNumberDao phoneNumberDao;
+    private final CallDataAccess callDao;
+    private final PhoneNumberDataAccess phoneNumberDao;
     private final UserDao userDao;
 
     public CallService(SessionFactory factory, CallDao callDao, PhoneNumberDao phoneNumberDao, UserDao userDao) {

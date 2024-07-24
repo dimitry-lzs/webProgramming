@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import com.webProgramming.daos.UserDao;
 import com.webProgramming.exceptions.ServiceException;
+import com.webProgramming.interfaces.UserDataAccess;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Seller;
@@ -17,10 +18,10 @@ import com.webProgramming.models.enums.UserType;
 import com.webProgramming.src.Login;
 
 public class UserService {
-    private final UserDao userDao;
+    private final UserDataAccess userDao;
     private final SessionFactory factory;
 
-    public UserService(SessionFactory factory, UserDao userDao) {
+    public UserService(SessionFactory factory, UserDataAccess userDao) {
         this.factory = factory;
         this.userDao = userDao;
     }

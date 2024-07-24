@@ -8,14 +8,15 @@ import org.hibernate.Transaction;
 
 import com.webProgramming.daos.PhoneNumberDao;
 import com.webProgramming.exceptions.ServiceException;
+import com.webProgramming.interfaces.PhoneNumberDataAccess;
 import com.webProgramming.models.PhoneNumber;
 import com.webProgramming.models.Util;
 
 public class PhoneNumberService {
     private final SessionFactory factory;
-    private final PhoneNumberDao phoneNumberDao;
+    private final PhoneNumberDataAccess phoneNumberDao;
 
-    public PhoneNumberService(SessionFactory factory, PhoneNumberDao phoneNumberDao) {
+    public PhoneNumberService(SessionFactory factory, PhoneNumberDataAccess phoneNumberDao) {
         this.factory = factory;
         this.phoneNumberDao = phoneNumberDao;
     }
