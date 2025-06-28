@@ -58,7 +58,7 @@ public class RegisterController extends HttpServlet {
             throw new IOException("Error setting character encoding");
         }
     }
-
+ 
     private Admin createAdminFromRequest(HttpServletRequest request) throws NoSuchAlgorithmException {
         String name = request.getParameter(NAME_PARAM);
         String surname = request.getParameter(SURNAME_PARAM);
