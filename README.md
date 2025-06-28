@@ -19,7 +19,7 @@ Web Programming Assignment
     docker run --name vietnam-app -v /absolute/path/on/host/:/usr/local/tomcat/data -d -p 8888:8888 vietnam-app
     ```
 
-5. Hot Reload Development Mode
+### Hot Reload Development Mode with Docker - Fast and easy
     For development with hot reloading:
     ```bash
     # Build development image
