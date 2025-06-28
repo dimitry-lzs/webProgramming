@@ -1,0 +1,26 @@
+# Ignore build artifacts
+target/
+*.class
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.iml
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore documentation
+README.md
+assignments/
+*.pdf
+*.docx
+*.md
+
+# Ignore diagram files
+*.drawio

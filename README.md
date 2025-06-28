@@ -20,3 +20,14 @@ Web Programming Assignment
 13. Now either using the Community Server Connectors extension or by manually copying the .war file from the target folder to the webapps folder in the tomcat server folder, deploy the project (or upload it using the Tomcat Manager)
 14. Open the browser and go to `http://localhost:${PORT}/vietnam/` and `http://localhost:${PORT}/vietnam/TestServlet` to see the project where PORT is the port number of the server (default is 8080)
 15. (Optional) You can also install [Tomcat Server Helper](https://marketplace.visualstudio.com/items?itemName=SamueleRadici.tomcatmavenhelper) extension in Visual Studio Code to enable Hot Reload feature
+
+### Running the project in Docker
+1. Make sure you have Docker installed and running on your machine
+2. Build the Docker image using the provided Dockerfile:
+   ```bash
+   docker build -t vietnam-app .
+   ```
+3. Run the Docker container:
+   ```bash
+   docker run -d --name vietnam-app -p 8888:8888 vietnam-app
+    ```
