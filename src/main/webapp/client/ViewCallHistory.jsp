@@ -1,10 +1,11 @@
-<%@ include file="/seller/common.jsp" %>
+<%@ include file="/client/common.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <html>
 
     <head>
-        <title>Programs</title>
+        <title>Call History</title>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
 
@@ -15,7 +16,7 @@
             <% } %>
             <header class="header">
                 <div class="home">
-                    <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
+                    <a href="<%=request.getContextPath()%>/client/menu.jsp">Home</a>
                 </div>
                 <div class="sessionTools">
                     <div class="user">
@@ -29,28 +30,28 @@
             </header>
             <div class="signin">
                 <div class="content">
-                    <h2>Programs</h2>
+                    <h2>Call History</h2>
                     <div class="table">
                         <div class="table-header">
-                            <div class="header-cell">Name</div>
-                            <div class="header-cell">Call Time</div>
-                            <div class="header-cell">Charge</div>
-                            <div class="header-cell">Fee</div>
-                            <div class="header-cell">Benefits</div>
+                            <div class="header-cell">Caller</div>
+                            <div class="header-cell">Receiver</div>
+                            <div class="header-cell">Started</div>
+                            <div class="header-cell">Ended</div>
+                            <div class="header-cell">Duration</div>
                         </div>
                         <div class="table-content">
-                            <c:forEach var="program" items="${programs}">
+                            <c:forEach var="call" items="${calls}">
                                 <div class="table-row">
-                                    <div class="table-data">${program.getName()}</div>
-                                    <div class="table-data">${program.getCallTime()}</div>
-                                    <div class="table-data">${program.getChargePerSecond()}</div>
-                                    <div class="table-data">${program.getFee()}</div>
-                                    <div class="table-data">${program.getBenefits()}</div>
+                                    <div class="table-data">${call.getCaller().getNumber()}</div>
+                                    <div class="table-data">${call.getReceiver().getNumber()}</div>
+                                    <div class="table-data">${call.getCallTimestamp()}</div>
+                                    <div class="table-data">${call.getEndTimestamp()}</div>
+                                    <div class="table-data">${call.getDuration()}</div>
                                 </div>
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/seller/menu.jsp">Back to Menu</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/client/menu.jsp">Back to Menu</a></div>
                 </div>
             </div>
         </section>

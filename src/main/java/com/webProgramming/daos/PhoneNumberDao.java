@@ -1,65 +1,41 @@
 package com.webProgramming.daos;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
+import com.webProgramming.exceptions.DataAccessException;
+import com.webProgramming.interfaces.PhoneNumberDataAccess;
 import com.webProgramming.models.PhoneNumber;
-import com.webProgramming.models.Util;
 
-public class PhoneNumberDao  {
-    public boolean updatePhoneNumber(PhoneNumber phoneNumber) throws Exception {
-        boolean success = false;
-        Transaction transaction = null;
+public class PhoneNumberDao implements PhoneNumberDataAccess {
 
-        try (Session session = Util.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.merge(phoneNumber);
-            transaction.commit();
-            success = true;
+    @Override
+    public void savePhoneNumber(PhoneNumber phoneNumber, Session session) {
+
+        try {
+            session.persist(phoneNumber);
         } catch (Exception exception) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            exception.printStackTrace();
-            throw exception;
+            throw new DataAccessException("Error saving phone number: " + phoneNumber.getNumber(), exception);
         }
-        return success;
     }
 
-    public PhoneNumber findByNumber(String number) {
-        Session session = null;
+    @Override
+    public void updatePhoneNumber(PhoneNumber phoneNumber, Session session) {
+        try {
+            session.merge(phoneNumber);
+        } catch (Exception exception) {
+            throw new DataAccessException("Error updating phone number: " + phoneNumber.getNumber(), exception);
+        }
+    }
+
+    @Override
+    public PhoneNumber findByNumber(String number, Session session) {
         PhoneNumber phoneNumber = null;
 
         try {
-            session = Util.getSessionFactory().openSession();
             phoneNumber = session.get(PhoneNumber.class, number);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-
-        return phoneNumber;
-    }
-
-    public boolean savePhoneNumber(PhoneNumber phoneNumber) throws Exception {
-        boolean success = false;
-        Transaction transaction = null;
-
-        try (Session session = Util.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.persist(phoneNumber);
-            transaction.commit();
-            success = true;
         } catch (Exception exception) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            exception.printStackTrace();
-            throw exception;
+            throw new DataAccessException("Error finding phone number by number: " + number, exception);
         }
-        return success;
+        return phoneNumber;
     }
 }

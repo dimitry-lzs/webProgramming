@@ -26,44 +26,10 @@
     </head>
 
     <body>
-        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span>
+        <section>
+            <% for(int i = 0; i < 252; i++) { %>
+                <span></span>
+            <% } %>
             <div class="signin">
                 <div class="content">
                     <h2>Register as Admin</h2>

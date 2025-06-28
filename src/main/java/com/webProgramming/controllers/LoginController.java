@@ -1,8 +1,10 @@
 package com.webProgramming.controllers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,62 +12,77 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.webProgramming.daos.UserDao;
 import com.webProgramming.models.enums.UserType;
+import com.webProgramming.services.UserService;
+import com.webProgramming.src.Generic;
 import com.webProgramming.src.Login;
+import com.webProgramming.exceptions.AuthenticationException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-    static final UserDao userDao = new UserDao();
     static final long serialVersionUID = 1L;
+    private final UserService userService;
+
+    private final String USERNAME_PARAM = "username";
+    private final String PASSWORD_PARAM = "password";
+    private final String TYPE_PARAM = "type";
+
+    public LoginController() {
+        this.userService = new UserService();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            response.setContentType("text/html; charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            request.setCharacterEncoding("UTF-8");
+            setCharacterEncoding(request, response);
+            Login login = authenticateUser(request);
 
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", login);
 
-            String type = request.getParameter("type");
+            String redirectPath = login.getType().getRedirectPath();
+
+            ServletUtils.forwardToPage(request, response, redirectPath);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("errorMessage", exception.getMessage());
+            ServletUtils.forwardToPage(request, response, Generic.ERROR_PAGE, attributes);
+        }
+    }
+
+    private Login authenticateUser(HttpServletRequest request) throws AuthenticationException {
+        try {
+            String username = request.getParameter(USERNAME_PARAM);
+            String password = request.getParameter(PASSWORD_PARAM);
+
+            String type = request.getParameter(TYPE_PARAM);
+
+            if (username == null || password == null) {
+                throw new AuthenticationException("Username or password not specified");
+            }
 
             if (type == null) {
-                throw new Exception("User type not specified");
+                throw new AuthenticationException("User type not specified");
             }
 
             UserType userType = UserType.valueOf(type);
 
-            HttpSession session = request.getSession();
-
-            Login login = userDao.login(username, password, userType);
-            String redirectPath = "";
+            Login login = userService.login(username, password, userType);
 
             if (login == null) {
-                redirectPath = "/loginError.jsp";
-            } else {
-                session.setAttribute("user", login);
-                switch (userType) {
-                    case ADMIN:
-                        redirectPath = "/admin/menu.jsp";
-                        break;
-                    case SELLER:
-                        redirectPath = "/seller/menu.jsp";
-                        break;
-                    case CLIENT:
-                        redirectPath = "/client/menu.jsp";
-                        break;
-                }
+                throw new AuthenticationException("Wrong username or password");
             }
 
-            RequestDispatcher next = request.getRequestDispatcher(redirectPath);
-            next.forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-            request.setAttribute("errorMessage", e.getMessage());
-            dispatcher.forward(request, response);
+            return login;
+        } catch (Exception exception) {
+            throw exception;
         }
+    }
+
+    private void setCharacterEncoding(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
     }
 }

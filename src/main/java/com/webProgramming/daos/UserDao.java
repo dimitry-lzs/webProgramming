@@ -1,179 +1,95 @@
 package com.webProgramming.daos;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Client;
 import com.webProgramming.models.Seller;
 import com.webProgramming.models.User;
-import com.webProgramming.models.Util;
 import com.webProgramming.models.enums.UserType;
-import com.webProgramming.src.Login;
+import com.webProgramming.exceptions.DataAccessException;
+import com.webProgramming.interfaces.UserDataAccess;
 
-public class UserDao {
+public class UserDao implements UserDataAccess {
 
-    public Login login(String username, String password, UserType userType) {
-        Session session = null;
-        User user = null;
-        Login sucessfulLogin = null;
-        String storedPassword=null;
-        byte[] salt=null;
-        boolean isPasswordCorrect=false;
-        try {
-            session = Util.getSessionFactory().openSession();
-            String hql = "";
-
-            switch (userType) {
-                case UserType.ADMIN:
-
-                    hql = "FROM Admin WHERE username = :username";
-                    Query<Admin> query = session.createQuery(hql, Admin.class);
-
-                    query.setParameter("username", username);
-                    user = query.getSingleResult();
-                    storedPassword=user.getPassword();
-                    salt=user.getSalt();
-                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
-                    break;
-
-                case UserType.SELLER:
-                    hql = "FROM Seller WHERE username = :username";
-                    Query<Seller> querySeller = session.createQuery(hql, Seller.class);
-
-                    querySeller.setParameter("username", username);
-                    user = querySeller.getSingleResult();
-                    storedPassword=user.getPassword();
-                    salt=user.getSalt();
-                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
-                    break;
-
-                case UserType.CLIENT:
-                    hql = "FROM Client WHERE username = :username";
-                    Query<Client> queryCustomer = session.createQuery(hql, Client.class);
-
-                    queryCustomer.setParameter("username", username);
-                    user = queryCustomer.getSingleResult();
-                    storedPassword=user.getPassword();
-                    salt=user.getSalt();
-                    isPasswordCorrect=verifyPassword(password,salt,storedPassword);
-                    break;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-
-        if (user != null && isPasswordCorrect) {
-            sucessfulLogin = new Login();
-            sucessfulLogin.setUsername(username);
-            sucessfulLogin.setPassword(password);
-            sucessfulLogin.setType(userType);
-            sucessfulLogin.setId(user.getId());
-            sucessfulLogin.setUser(user);
-        }
-
-        return sucessfulLogin;
-    }
-
-    public static boolean verifyPassword(String password, byte[] salt, String storedHashedPassword) throws NoSuchAlgorithmException {
-        String hashedPassword = User.hashPassword(password, salt);
-        return hashedPassword.equals(storedHashedPassword);
-    }
-
-    public User findById(String id, UserType userType) {
-        Session session = null;
+    @Override
+    public User findByUsername(String username, UserType userType, Session session) {
         User user = null;
 
         try {
-            session = Util.getSessionFactory().openSession();
-            String hql = "";
+            String hql = getQueryByUserType(userType, "username");
+            Class<? extends User> userClass = getUserClass(userType);
+            Query<? extends User> query = session.createQuery(hql, userClass);
 
-            switch (userType) {
-                case UserType.ADMIN:
-                    hql = "FROM Admin WHERE id = :id";
-                    Query<Admin> query = session.createQuery(hql, Admin.class);
-
-                    query.setParameter("id", id);
-
-                    user = query.getSingleResult();
-                    break;
-
-                case UserType.SELLER:
-                    hql = "FROM Seller WHERE id = :id";
-                    Query<Seller> querySeller = session.createQuery(hql, Seller.class);
-
-                    querySeller.setParameter("id", id);
-
-                    user = querySeller.getSingleResult();
-                    break;
-
-                case UserType.CLIENT:
-                    hql = "FROM Client WHERE id = :id";
-                    Query<Client> queryCustomer = session.createQuery(hql, Client.class);
-
-                    queryCustomer.setParameter("id", id);
-
-                    user = queryCustomer.getSingleResult();
-                    break;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            query.setParameter("username", username);
+            user = query.getSingleResultOrNull();
+        } catch (Exception exception) {
+            throw new DataAccessException("Error finding user by username: " + username, exception);
         }
-
         return user;
     }
 
-
-    public boolean saveUser(User user) throws Exception {
-        Transaction transaction = null;
-        Session session = null;
-        boolean success = false;
+    @Override
+    public User findById(String id, UserType userType, Session session) {
+        Class<? extends User> userClass = null;
+        User user = null;
 
         try {
-            session = Util.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            session.persist(user);
-            transaction.commit();
-            success = true;
-        } catch (Exception exception) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            exception.printStackTrace();
-            throw exception;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+            String hql = getQueryByUserType(userType, "id");
+            userClass = getUserClass(userType);
 
-        return success;
+            Query<? extends User> query = session.createQuery(hql, userClass);
+
+            query.setParameter("id", id);
+            user = query.getSingleResultOrNull();
+        } catch (Exception exception) {
+            throw new DataAccessException("Error finding user by ID: " + id, exception);
+        }
+        return user;
     }
 
-    public void reloadUser(User user) {
-        Session session = null;
-
+    @Override
+    public void saveUser(User user, Session session) {
         try {
-            session = Util.getSessionFactory().openSession();
+            session.persist(user);
+        } catch (Exception exception) {
+            throw new DataAccessException("Error saving user: " + user.getUsername(), exception);
+        }
+    }
+
+    @Override
+    public void reloadUser(User user, Session session) {
+        try {
             session.refresh(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+        } catch (Exception exception) {
+            throw new DataAccessException("Error reloading User: " + user.getUsername(), exception);
+        }
+    }
+
+    private final static String getQueryByUserType(UserType userType, String field) {
+        switch (userType) {
+            case ADMIN:
+                return "FROM Admin WHERE " + field + " = :" + field;
+            case SELLER:
+                return "FROM Seller WHERE " + field + " = :" + field;
+            case CLIENT:
+                return "FROM Client WHERE " + field + " = :" + field;
+            default:
+                throw new IllegalArgumentException("Invalid user type: " + userType);
+        }
+    }
+
+    private final static Class<? extends User> getUserClass(UserType userType) {
+        switch (userType) {
+            case ADMIN:
+                return Admin.class;
+            case SELLER:
+                return Seller.class;
+            case CLIENT:
+                return Client.class;
+            default:
+                throw new IllegalArgumentException("Invalid user type: " + userType);
         }
     }
 }

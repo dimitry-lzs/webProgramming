@@ -49,44 +49,10 @@
     </head>
 
     <body>
-        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span>
+        <section>
+            <% for(int i = 0; i < 252; i++) { %>
+                <span></span>
+            <% } %>
             <header class="header">
                 <div class="home">
                     <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
@@ -129,7 +95,7 @@
                             </div>
                             <div id="updateButton" class="button" onclick="updatePhoneNumber()">Update</div>
 
-                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?clientId=${client.getId()}&action=show'"> View Client's Bills </div>
+                            <div id="issueBillButton" class="button" style="cursor: pointer;" onclick="window.location.href='<%=request.getContextPath()%>/bills?clientId=${client.getId()}'"> View Client's Bills </div>
 
                         </div>
                     </div>

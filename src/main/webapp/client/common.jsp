@@ -14,7 +14,7 @@
     if (!type.equals("CLIENT")) {
         String redirectLink = request.getContextPath() + "/error.jsp";
         redirectLink += "?errorMessage=Permission denied";
-        redirectLink += "&link=" + request.getContextPath() + User.getRedirectionLink(type);
+        redirectLink += "&link=" + request.getContextPath() + login.getType().getRedirectPath();
         response.sendRedirect(redirectLink);
     }
 %>

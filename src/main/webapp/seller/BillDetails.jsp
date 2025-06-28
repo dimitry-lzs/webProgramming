@@ -1,5 +1,5 @@
 <%@ include file="/seller/common.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 
@@ -9,44 +9,10 @@
     </head>
 
     <body>
-        <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-            <span></span>
+        <section>
+            <% for(int i = 0; i < 252; i++) { %>
+                <span></span>
+            <% } %>
             <header class="header">
                 <div class="home">
                     <a href="<%=request.getContextPath()%>/seller/menu.jsp">Home</a>
@@ -73,7 +39,7 @@
                             <div class="row">Total Call Duration: ${bill.getCallDuration()}m</div> <!--Somewhere, the total duration will be calculated.-->
                             <div class="row">Total Cost: ${bill.getCharge()}$</div> <!--Somewhere, the total cost will be calculated.-->
                             <div class="row">
-                                <c:choose> 
+                                <c:choose>
                                     <c:when test="${bill.isPaid()}">Paid</c:when>
 
                                     <c:otherwise>Not Paid</c:otherwise>
@@ -81,7 +47,7 @@
                             </div>
                         </div>
                     <div></div>
-                    <div class="links"><a href="<%=request.getContextPath()%>/bills?action=show&clientId=${client.getId()}&action=show">Back to Bills</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/bills?clientId=${client.getId()}">Back to Bills</a></div>
                 </div>
             </div>
         </section>

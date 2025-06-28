@@ -3,125 +3,75 @@ package com.webProgramming.daos;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.webProgramming.exceptions.DataAccessException;
+import com.webProgramming.interfaces.ProgramDataAccess;
 import com.webProgramming.models.Admin;
 import com.webProgramming.models.Program;
 import com.webProgramming.models.Seller;
 import com.webProgramming.models.User;
-import com.webProgramming.models.Util;
 import com.webProgramming.models.enums.UserType;
 
-public class ProgramDao {
-    public boolean createProgram(Program program) throws Exception {
-        Session session = null;
-        Transaction transaction = null;
-        boolean success = false;
-
+public class ProgramDao implements ProgramDataAccess {
+    @Override
+    public void saveProgram(Program program, Session session) {
         try {
-            session = Util.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-
             session.persist(program);
-            transaction.commit();
-            success = true;
         } catch (Exception exception) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            exception.printStackTrace();
-            throw exception;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            throw new DataAccessException("Error creating program", exception);
         }
-        return success;
     }
 
-    public boolean updateProgram(Program program) throws Exception {
-        Session session = null;
-        Transaction transaction = null;
-        boolean success = false;
-
+    @Override
+    public void updateProgram(Program program, Session session) {
         try {
-            session = Util.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
             session.merge(program); // Merge the updated program with the persistent state
-            transaction.commit(); // Commit the transaction
-            success = true;
         } catch (Exception exception) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            exception.printStackTrace();
-            throw exception;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            throw new DataAccessException("Error updating program", exception);
         }
-        return success;
     }
 
-    public Program findById(String id) {
-        Session session = null;
+    @Override
+    public Program findById(String id, Session session) {
         Program program = null;
-
         try {
-            session = Util.getSessionFactory().openSession();
             program = session.get(Program.class, id);
         } catch (Exception exception) {
-            exception.printStackTrace();
-            throw exception;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
+            throw new DataAccessException("Error getting program", exception);
         }
 
         return program;
     }
 
-    public List<Program> DataProgramList(User user, UserType type) throws Exception {
+    @Override
+    public List<Program> programs(User user, UserType type, Session session) {
         List<Program> programs = null;
         int adminId;
 
-        SessionFactory factory = Util.getSessionFactory();
-        Session session = factory.openSession();
         try {
-
             switch (type) {
                 case UserType.ADMIN:
                     Admin admin = (Admin) user;
                     session.refresh(admin);
                     adminId = admin.getId();
-
-
                     break;
                 case UserType.SELLER:
                     Seller seller = (Seller) user;
                     session.refresh(seller);
                     adminId = seller.getAdmin().getId();
-
-
                     break;
                 default:
-                    throw new AssertionError();
+                    throw new IllegalArgumentException("Invalid user type");
             }
+
             String hql = "SELECT p FROM Program p WHERE p.admin.id = :adminId";
             Query<Program> query = session.createQuery(hql, Program.class);
             programs = query.setParameter("adminId", adminId).list();
 
         } catch (Exception exception) {
-            exception.printStackTrace();
-            throw exception;
-        } finally {
-            session.close();
+            throw new DataAccessException("Error getting programs", exception);
         }
-
         return programs;
     }
 }

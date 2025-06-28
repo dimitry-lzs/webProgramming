@@ -1,5 +1,4 @@
 package com.webProgramming.models;
-import com.webProgramming.models.enums.UserType;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -104,24 +103,5 @@ public abstract class User implements Serializable {
         md.update(salt); // add the salt
         byte[] hashedPasswordBytes = md.digest(password.getBytes());
         return Base64.getEncoder().encodeToString(hashedPasswordBytes);
-    }
-
-    public static int getCount() {
-        return 1;
-    }
-
-    public static String getRedirectionLink(String type) {
-        UserType userType = UserType.valueOf(type);
-        System.out.println("User type: " + userType);
-        switch (userType) {
-            case UserType.CLIENT:
-                return "/client/menu.jsp";
-            case UserType.SELLER:
-                return "/seller/menu.jsp";
-            case UserType.ADMIN:
-                return "/admin/menu.jsp";
-            default:
-                return "/index.jsp";
-        }
     }
 }

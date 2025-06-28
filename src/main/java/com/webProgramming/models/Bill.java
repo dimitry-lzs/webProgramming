@@ -51,7 +51,7 @@ public class Bill {
 
     public int getID(){
         return id;
-    } 
+    }
 
     public void setPaid(boolean paid) {
         this.paid = paid;
@@ -84,10 +84,14 @@ public class Bill {
         return calls;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     public void setCalls(Set<Call> calls) {
         this.calls = calls;
     }
-    
+
     public Bill() {
     }
 
@@ -98,7 +102,7 @@ public class Bill {
         this.paid = paid;
         this.charge = charge;
     }
-    
+
     public int getCallDuration() {
         return this.call_duration;
     }
