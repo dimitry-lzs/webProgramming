@@ -22,17 +22,17 @@
                 <div class="content">
                     <h2>Sign in as:</h2>
                     <div>
-                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/loginPage.jsp?type=CLIENT';">
+                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/loginPage.jsp?type=CLIENT';">
                         Client
                     </button>
-                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/loginPage.jsp?type=SELLER';">
+                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/loginPage.jsp?type=SELLER';">
                         Seller
                     </button>
-                    <button class="button" onclick="location.href='http://localhost:8080/vietnam/loginPage.jsp?type=ADMIN';">
+                    <button class="button" onclick="location.href='<%=request.getContextPath()%>/loginPage.jsp?type=ADMIN';">
                         Admin
                     </button>
                     </div>
-                    <div class="links"><a href="http://localhost:8080/vietnam/register.jsp">Register as Admin</a></div>
+                    <div class="links"><a href="<%=request.getContextPath()%>/register.jsp">Register as Admin</a></div>
                 </div>
             </div>
         </section>
