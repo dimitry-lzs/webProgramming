@@ -1,0 +1,69 @@
+# Development Dockerfile with hot reloading
+FROM maven:3.9-eclipse-temurin-21
+
+# Install Tomcat
+RUN wget -O /tmp/tomcat.tar.gz https://downloads.apache.org/tomcat/tomcat-9/v9.0.106/bin/apache-tomcat-9.0.106.tar.gz && \
+    cd /opt && tar xzf /tmp/tomcat.tar.gz && \
+    mv apache-tomcat-* tomcat && \
+    rm /tmp/tomcat.tar.gz
+
+# Set Tomcat environment
+ENV CATALINA_HOME=/opt/tomcat
+ENV PATH=$PATH:$CATALINA_HOME/bin
+
+# Configure Tomcat for development
+RUN sed -i 's/port="8080"/port="9898"/g' $CATALINA_HOME/conf/server.xml && \
+    rm -rf $CATALINA_HOME/webapps/*
+
+# Create workspace
+WORKDIR /app
+
+# Copy source for initial build
+COPY pom.xml .
+COPY src ./src
+
+# Create directory for SQLite database
+RUN mkdir -p /opt/tomcat/data
+WORKDIR /opt/tomcat/data
+
+# Expose port
+EXPOSE 9898
+
+# Development startup script with auto-rebuild
+COPY <<'EOF' /start-dev.sh
+#!/bin/bash
+cd /app
+
+# Function to build and deploy
+build_and_deploy() {
+    echo "Building application..."
+    mvn clean package -DskipTests -q
+    if [ $? -eq 0 ]; then
+        echo "Deploying to Tomcat..."
+        cp target/vietnam.war $CATALINA_HOME/webapps/ROOT.war
+        echo "Deployment complete!"
+    else
+        echo "Build failed!"
+    fi
+}
+
+# Initial build and deploy
+build_and_deploy
+
+# Start Tomcat in background
+catalina.sh start
+
+# Watch for changes
+echo "Watching for changes..."
+while true; do
+    if find src -newer target/vietnam.war 2>/dev/null | grep -q .; then
+        echo "Changes detected, rebuilding..."
+        build_and_deploy
+    fi
+    sleep 3
+done
+EOF
+
+RUN chmod +x /start-dev.sh
+
+CMD ["/start-dev.sh"]

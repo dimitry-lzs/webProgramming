@@ -36,3 +36,20 @@ Web Programming Assignment
     ```bash
     docker run --name vietnam-app -v /absolute/path/on/host/:/usr/local/tomcat/data -d -p 8888:8888 vietnam-app
     ```
+
+5. Hot Reload Development Mode
+    For development with hot reloading:
+    ```bash
+    # Build development image
+    docker build -f Dockerfile.dev -t vietnam-dev .
+
+    # Run with source code mounted for hot reloading
+    docker run --name vietnam-dev \
+      -v $(pwd)/src:/app/src \
+      -v $(pwd)/pom.xml:/app/pom.xml \
+      -v vietnam-data:/opt/tomcat/data \
+      -p 9898:9898 \
+      vietnam-dev
+    ```
+
+    Now any changes to files in `src/` will automatically trigger a rebuild and redeploy!
