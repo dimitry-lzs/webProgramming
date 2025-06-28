@@ -31,3 +31,8 @@ Web Programming Assignment
    ```bash
    docker run -d --name vietnam-app -p 8888:8888 vietnam-app
     ```
+4. Persistent SQLite Database (Optional)
+    Just provide a volume
+    ```bash
+    docker run --name vietnam-app -v /absolute/path/on/host/:/usr/local/tomcat/data -d -p 8888:8888 vietnam-app
+    ```
