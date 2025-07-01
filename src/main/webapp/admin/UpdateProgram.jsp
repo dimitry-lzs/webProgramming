@@ -66,7 +66,7 @@
             <% for(int i = 0; i < 252; i++) { %>
                 <span></span>
             <% } %>
-            <header class="header">
+             class="header">
                 <div class="home">
                     <a href="<%=request.getContextPath()%>/admin/menu.jsp">Home</a>
                 </div>
@@ -75,9 +75,11 @@
                         <div class="username"><% out.println(username); %></div>
                         <div class="role"><% out.println(type); %></div>
                     </div>
-                    <div class="logout">
-                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
-                    </div>
+                    <a href="<%=request.getContextPath()%>/logout">
+                        <div class="logout">
+                            Logout
+                        </div>
+                    </a>
                 </div>
             </header>
             <div class="signin">

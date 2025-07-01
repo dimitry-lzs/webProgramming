@@ -25,6 +25,7 @@ import com.webProgramming.services.BillService;
 import com.webProgramming.services.CallService;
 import com.webProgramming.services.PhoneNumberService;
 import com.webProgramming.services.UserService;
+import com.webProgramming.src.ClientPages;
 import com.webProgramming.src.Generic;
 import com.webProgramming.src.Login;
 import com.webProgramming.src.SellerPages;
@@ -160,7 +161,7 @@ public class BillController extends HttpServlet {
                 handleSellerGetRequest(request, response, verifySeller(request));
                 break;
             case CLIENT:
-                handleClientGetRequest(request, response, verifyClient(request));
+                handleClientGetRequest(request, response, (Client) loggedInUser.getUser());
                 break;
             default:
                 throw new AuthenticationException("Permission denied.");
@@ -176,12 +177,12 @@ public class BillController extends HttpServlet {
             bills = billService.getClientsBills(client);
             attributes.put("client", client);
             attributes.put("bills", bills);
-            ServletUtils.forwardToPage(request, response, SellerPages.VIEW_CLIENT_BILLS, attributes);
+            ServletUtils.forwardToPage(request, response, ClientPages.VIEW_BILLS, attributes);
         } else { // if billID is not null, it means we want to show a specific bill
             int billIdInt = Integer.parseInt(request.getParameter("billID"));
             Bill bill = billService.findByID(billIdInt);
             attributes.put("bill", bill);
-            ServletUtils.forwardToPage(request, response, SellerPages.BILL_DETAILS, attributes);
+            ServletUtils.forwardToPage(request, response, ClientPages.BILL_DETAILS, attributes);
         }
     }
 

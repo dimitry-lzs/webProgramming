@@ -302,7 +302,7 @@ input[type="submit"]:active,
     align-items: center;
 }
 
-.header .sessionTools .logout a {
+.header .sessionTools a {
     color: #b7b7b7;
     text-decoration: none;
 }

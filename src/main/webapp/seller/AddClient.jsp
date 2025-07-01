@@ -35,9 +35,11 @@
                         <div class="username"><% out.println(username); %></div>
                         <div class="role"><% out.println(type); %></div>
                     </div>
-                    <div class="logout">
-                        <a href="<%=request.getContextPath()%>/logout">Logout</a>
-                    </div>
+                    <a href="<%=request.getContextPath()%>/logout">
+                        <div class="logout">
+                            Logout
+                        </div>
+                    </a>
                 </div>
             </header>
             <div class="signin">

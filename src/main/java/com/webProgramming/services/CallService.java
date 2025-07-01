@@ -93,20 +93,20 @@ public class CallService {
         createClientWithCalls(client, 1); // Default callsCount is 1
     }
 
-    public void createClientWithCalls(Client cleint, int callsCount) {
+    public void createClientWithCalls(Client client, int callsCount) {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
 
-            userDao.saveUser(cleint, session);
+            userDao.saveUser(client, session);
 
             for (int i = 0; i < callsCount; i++) {
                 PhoneNumber receiverNumber = PhoneNumberService.generatePhoneNumber();
 
                 long startTime = ThreadLocalRandom.current().nextLong(1_599_999_000L, 1_600_000_000L); // Random start time between two Unix timestamps
                 long endTime = ThreadLocalRandom.current().nextLong(startTime + 30, startTime + 7200); // Adjusted to ensure duration is between 30 seconds and 2 hours
-                Call call = new Call(cleint.getPhoneNumber(), receiverNumber, startTime, endTime);
+                Call call = new Call(client.getPhoneNumber(), receiverNumber, startTime, endTime);
 
                 phoneNumberDao.savePhoneNumber(receiverNumber, session);
                 callDao.saveCall(call, session);
