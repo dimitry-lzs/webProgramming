@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>Seller Menu</title>
-        <link rel="stylesheet" href="/vietnam/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/style.css">
     </head>
     <body>
         <section>
